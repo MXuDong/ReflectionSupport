@@ -1,10 +1,12 @@
 package base;
 
+import base.filterInterface.FieldNameFilter;
 import base.filterInterface.MethodNameFilter;
 import exceptions.ReflectionException;
+import sun.util.resources.cldr.ar.CalendarData_ar_YE;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class ReflectionSupport {
      * @param methodName 方法名
      * @return 提取后的参数名
      * @throws ReflectionException 数据格式异常
+     * @since 1.0
      */
     public static String removeSetOrGetPrefix(String methodName) throws ReflectionException {
         int baseSize = 3;
@@ -74,6 +77,7 @@ public class ReflectionSupport {
      * @param isSet        是否为set，如果不是 则为get
      * @return 生成后的方法名
      * @throws ReflectionException 数据格式异常
+     * @since 1.0
      */
     public static String addSetOrGetPrefix(String propertyName, boolean isSet) throws ReflectionException {
         if (propertyName == null || propertyName.length() == 0) {
@@ -99,18 +103,22 @@ public class ReflectionSupport {
      * @param o                被获取信息的类
      * @param methodNameFilter 方法名过滤器
      * @return 方法名集合
+     * @since 1.0
      */
     public static List<String> getMethodList(Object o, MethodNameFilter methodNameFilter, boolean canRepeat) {
+        if (o == null) {
+            return new ArrayList<>();
+        }
         if (methodNameFilter == null) {
             methodNameFilter = new MethodNameFilter() {
             };
         }
         Class c = o.getClass();
         Method[] methods = c.getMethods();
-        List<String> arrayList = new ArrayList<String>();
+        List<String> arrayList = new ArrayList<>();
         for (Method m : methods) {
-            if(!canRepeat){
-                if(arrayList.contains(m.getName())){
+            if (!canRepeat) {
+                if (arrayList.contains(m.getName())) {
                     continue;
                 }
             }
@@ -119,5 +127,49 @@ public class ReflectionSupport {
             }
         }
         return arrayList;
+    }
+
+
+    /**
+     * 获取类的所有属性
+     *
+     * @param o               被获取信息的类
+     * @param superClassDeep  检索深度
+     *                        （从0开始，小于0返回空，1向上找一个类（本类 + 直接父类），
+     *                        2向上找两个父类（本类 + 直接父类 + 直接父类的直接父类），
+     *                        一次类推）
+     * @param fieldNameFilter 字段过滤器
+     * @param canRepeat       是否允许重复出现
+     * @return 字段列表
+     * @since 1.0
+     */
+    public static List<String> getClassFieldList(Object o, int superClassDeep, FieldNameFilter fieldNameFilter, boolean canRepeat) {
+        if (o == null) {
+            return new ArrayList<>();
+        }
+        if (fieldNameFilter == null) {
+            fieldNameFilter = new FieldNameFilter() {
+            };
+        }
+        //如果搜索深度小于0则不做处理
+        if (superClassDeep < 0) {
+            return new ArrayList<>();
+        }
+        Class c = o.getClass();
+        List<String> result = new ArrayList<>();
+
+        while (c != null && superClassDeep-- >= 0) {
+            Field[] fields = c.getDeclaredFields();
+            for (Field field : fields) {
+                if (!canRepeat && result.contains(field.getName())) {
+                    continue;
+                }
+                if (fieldNameFilter.isDoFilter(field)) {
+                    result.add(field.getName());
+                }
+            }
+            c = c.getSuperclass();
+        }
+        return result;
     }
 }
