@@ -13,6 +13,6 @@ package exceptions;
 
 public class ReflectionException extends Exception {
     public ReflectionException(String msg, String field, String methodName) {
-        super(msg + "=" + "method:" + methodName + ":" + "[" + field + "]");
+        super(msg + "|" + "method:" + methodName + ":" + "[" + field + "]");
     }
 }
