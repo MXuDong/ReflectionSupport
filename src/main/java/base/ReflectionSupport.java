@@ -1,9 +1,16 @@
 package base;
 
+import base.filterInterface.MethodNameFilter;
 import exceptions.ReflectionException;
+
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Dong
+ * @since 1.0
  * <p>
  * Class Name : ReflectionSupport
  * Create Time : 20:42
@@ -84,5 +91,33 @@ public class ReflectionSupport {
         }
 
         return stringBuilder.toString();
+    }
+
+    /**
+     * 获取一个类的全部方法列表
+     *
+     * @param o                被获取信息的类
+     * @param methodNameFilter 方法名过滤器
+     * @return 方法名集合
+     */
+    public static List<String> getMethodList(Object o, MethodNameFilter methodNameFilter, boolean canRepeat) {
+        if (methodNameFilter == null) {
+            methodNameFilter = new MethodNameFilter() {
+            };
+        }
+        Class c = o.getClass();
+        Method[] methods = c.getMethods();
+        List<String> arrayList = new ArrayList<String>();
+        for (Method m : methods) {
+            if(!canRepeat){
+                if(arrayList.contains(m.getName())){
+                    continue;
+                }
+            }
+            if (methodNameFilter.isDoFilter(m)) {
+                arrayList.add(m.getName());
+            }
+        }
+        return arrayList;
     }
 }
