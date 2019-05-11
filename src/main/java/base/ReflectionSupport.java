@@ -137,7 +137,7 @@ public class ReflectionSupport {
      * @param superClassDeep  检索深度
      *                        （从0开始，小于0返回空，1向上找一个类（本类 + 直接父类），
      *                        2向上找两个父类（本类 + 直接父类 + 直接父类的直接父类），
-     *                        一次类推）
+     *                        一次类推; -2:所有父类）
      * @param fieldNameFilter 字段过滤器
      * @param canRepeat       是否允许重复出现
      * @return 字段列表
@@ -152,13 +152,16 @@ public class ReflectionSupport {
             };
         }
         //如果搜索深度小于0则不做处理
-        if (superClassDeep < 0) {
+        if (superClassDeep < -1) {
             return new ArrayList<>();
         }
         Class c = o.getClass();
         List<String> result = new ArrayList<>();
 
-        while (c != null && superClassDeep-- >= 0) {
+        while (c != null && ((superClassDeep >= 0) || superClassDeep == -2)) {
+            if (superClassDeep != -2) {
+                superClassDeep--;
+            }
             Field[] fields = c.getDeclaredFields();
             for (Field field : fields) {
                 if (!canRepeat && result.contains(field.getName())) {
