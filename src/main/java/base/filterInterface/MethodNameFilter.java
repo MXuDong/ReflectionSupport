@@ -1,14 +1,22 @@
 package base.filterInterface;
 
+import java.lang.reflect.Method;
+
 /**
  * @author Dong
- * @since 1.0
  * @version 1.0
- *
+ * <p>
  * createTime :
+ * @since 1.0
  */
 public interface MethodNameFilter {
-    default boolean isDoFilter(String methodName){
+    /**
+     * 过滤接口
+     *
+     * @param method 当前需要判断的method
+     * @return 是否允许被添加
+     */
+    default boolean isDoFilter(Method method) {
         return true;
     }
 }
