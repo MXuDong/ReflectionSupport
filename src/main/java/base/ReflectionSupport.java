@@ -3,10 +3,10 @@ package base;
 import base.filterInterface.FieldNameFilter;
 import base.filterInterface.MethodNameFilter;
 import exceptions.ReflectionException;
-import sun.util.resources.cldr.ar.CalendarData_ar_YE;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,10 +117,8 @@ public class ReflectionSupport {
         Method[] methods = c.getMethods();
         List<String> arrayList = new ArrayList<>();
         for (Method m : methods) {
-            if (!canRepeat) {
-                if (arrayList.contains(m.getName())) {
-                    continue;
-                }
+            if (!canRepeat && arrayList.contains(m.getName())) {
+                continue;
             }
             if (methodNameFilter.isDoFilter(m)) {
                 arrayList.add(m.getName());
@@ -143,7 +141,7 @@ public class ReflectionSupport {
      * @return 字段列表
      * @since 1.0
      */
-    public static List<String> getClassFieldList(Object o, int superClassDeep, FieldNameFilter fieldNameFilter, boolean canRepeat) {
+    public static List<String> getFieldList(Object o, int superClassDeep, FieldNameFilter fieldNameFilter, boolean canRepeat) {
         if (o == null) {
             return new ArrayList<>();
         }
