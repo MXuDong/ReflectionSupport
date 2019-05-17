@@ -1,13 +1,16 @@
 package base;
 
 import base.filterInterface.FieldNameFilter;
+import base.filterInterface.MapObjectTurnFilter;
 import base.filterInterface.MethodNameFilter;
 import exceptions.ReflectionException;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Dong
@@ -23,6 +26,9 @@ public class ReflectionSupport {
 
     private static final String METHOD_REMOVE_SET_OR_GET_PREFIX = "ReflectionSupport.removeSetOrGetPrefix()";
     private static final String METHOD_ADD_SET_OR_GET_PREFIX = "ReflectionSupport.addSetOrGetPrefix()";
+    private static final String MAP_TURN_TO_OBJECT = "ReflectionSupport.mapTurnToObject()";
+    private static final String OBJECT_TURN_TO_MAP = "ReflectionSupport.objectTurnToMap";
+    private static final String SET_PROPERTY = "setProperty";
 
     /**
      * 提取方法名中的参数名
@@ -171,5 +177,57 @@ public class ReflectionSupport {
             c = c.getSuperclass();
         }
         return result;
+    }
+
+    /**
+     * 执行设值操作
+     *
+     * @param setMethodName 被执行的参数方法
+     * @param o             被设置的对象
+     * @param value         设置的值
+     * @return 操作后的对象
+     * @throws ReflectionException       方法操作异常
+     * @throws NoSuchMethodException     没有找到方法
+     * @throws InvocationTargetException 反射处理异常
+     * @throws IllegalAccessException    非法权限
+     */
+    public static Object setProperty(String setMethodName, Object o, Object value) throws ReflectionException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        if (o == null) {
+            throw new ReflectionException("Object can't be null.", "the Object is null.", SET_PROPERTY);
+        }
+
+        if (getMethodList(o, null, false).contains(setMethodName)) {
+            o.getClass().getMethod(setMethodName).invoke(value);
+        }
+
+        return o;
+    }
+
+    /**
+     * @param o                   传入的Object, 不能为空
+     * @param params              需要填写的参数
+     * @param mapObjectTurnFilter 过滤器，决定是否会被注入
+     * @return 被注入的Object类型
+     * @throws ReflectionException 参数异常
+     */
+    public static Object mapTurnToObject(Object o, Map<String, Object> params, MapObjectTurnFilter mapObjectTurnFilter) throws ReflectionException {
+        if (o == null) {
+            throw new ReflectionException("Object can't be null.", "the Object is null.", MAP_TURN_TO_OBJECT);
+        }
+
+
+    }
+
+
+    /**
+     * @param o                   传入的Object， 不能为空
+     * @param mapObjectTurnFilter 过滤器， 决定是否会被转换为Map对象
+     * @return 全部的属性键值对
+     * @throws ReflectionException 参数异常
+     */
+    public static Map<String, Object> objectTurnToMap(Object o, MapObjectTurnFilter mapObjectTurnFilter) throws ReflectionException {
+        if (o == null) {
+            throw new ReflectionException("Object can't be null.", "the object is null", OBJECT_TURN_TO_MAP);
+        }
     }
 }
