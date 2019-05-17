@@ -25,13 +25,13 @@ public class TestGetClassPropertyList {
 
     @Test
     public void testGetCommon(){
-        List<String> res = ReflectionSupport.getClassFieldList(new Student(), 0, null, true);
+        List<String> res = ReflectionSupport.getFieldList(new Student(), 0, null, true);
         System.out.println(res);
     }
 
     @Test
     public void testSupperClass(){
-        List<String> res = ReflectionSupport.getClassFieldList(new Student(), 1, null, false);
+        List<String> res = ReflectionSupport.getFieldList(new Student(), 1, null, false);
         System.out.println(res);
     }
 }
