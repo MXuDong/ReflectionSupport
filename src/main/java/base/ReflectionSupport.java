@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +29,7 @@ public class ReflectionSupport {
     private static final String METHOD_ADD_SET_OR_GET_PREFIX = "ReflectionSupport.addSetOrGetPrefix()";
     private static final String MAP_TURN_TO_OBJECT = "ReflectionSupport.mapTurnToObject()";
     private static final String OBJECT_TURN_TO_MAP = "ReflectionSupport.objectTurnToMap";
-    private static final String SET_PROPERTY = "setProperty";
+    private static final String SET_PROPERTY = "doMethod";
 
     /**
      * 提取方法名中的参数名
@@ -155,7 +156,7 @@ public class ReflectionSupport {
             };
         }
         //如果搜索深度小于0则不做处理
-        if (superClassDeep < -1) {
+        if (superClassDeep < -1 && superClassDeep != -2) {
             return new ArrayList<>();
         }
         Class c = o.getClass();
@@ -182,25 +183,39 @@ public class ReflectionSupport {
     /**
      * 执行设值操作
      *
-     * @param setMethodName 被执行的参数方法
-     * @param o             被设置的对象
-     * @param value         设置的值
-     * @return 操作后的对象
-     * @throws ReflectionException       方法操作异常
-     * @throws NoSuchMethodException     没有找到方法
-     * @throws InvocationTargetException 反射处理异常
-     * @throws IllegalAccessException    非法权限
+     * @param methodName 被执行的参数方法
+     * @param o          被设置的对象
+     * @param value      设置的值
+     * @return 方法后数据
+     * @throws ReflectionException 方法操作异常
      */
-    public static Object setProperty(String setMethodName, Object o, Object value) throws ReflectionException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static Object doMethod(String methodName, Object o, Object ... value) throws ReflectionException {
         if (o == null) {
             throw new ReflectionException("Object can't be null.", "the Object is null.", SET_PROPERTY);
         }
 
-        if (getMethodList(o, null, false).contains(setMethodName)) {
-            o.getClass().getMethod(setMethodName).invoke(value);
+        Object param = null;
+
+        try {
+
+            Method [] methods = o.getClass().getMethods();
+            for(Method m : methods){
+                if(m.getName().equals(methodName)){
+                    if (value == null) {
+                        param = m.invoke(o);
+                    } else {
+                        param = m.invoke(o, value);
+                    }
+                    break;
+                }
+            }
+        } catch (InvocationTargetException e) {
+            throw new ReflectionException("Set property field.", "Value illegal", MAP_TURN_TO_OBJECT);
+        } catch (IllegalAccessException e) {
+            throw new ReflectionException("Illegal access exception", "please make method is public", MAP_TURN_TO_OBJECT);
         }
 
-        return o;
+        return param;
     }
 
     /**
@@ -210,28 +225,67 @@ public class ReflectionSupport {
      * @return 被注入的Object类型
      * @throws ReflectionException 参数异常
      */
-    public static Object mapTurnToObject(Object o, Map<String, Object> params, MapObjectTurnFilter mapObjectTurnFilter) throws ReflectionException {
+    public static <T> T mapTurnToObject(T o, Map<String, Object> params, MapObjectTurnFilter mapObjectTurnFilter) throws ReflectionException {
         if (o == null) {
             throw new ReflectionException("Object can't be null.", "the Object is null.", MAP_TURN_TO_OBJECT);
         }
 
-        for(String key : params.keySet()){
-            if(mapObjectTurnFilter.isDoFilter(key)){
+        //=================================初始化过滤器
+        if (mapObjectTurnFilter == null) {
+            mapObjectTurnFilter = new MapObjectTurnFilter() {
+            };
+        }
 
+        for (String key : params.keySet()) {
+            if (mapObjectTurnFilter.isDoFilter(key)) {
+                Object values = params.get(key);
+                doMethod(addSetOrGetPrefix(key, true), o, values);
             }
         }
+
+        return o;
     }
 
 
     /**
      * @param o                   传入的Object， 不能为空
      * @param mapObjectTurnFilter 过滤器， 决定是否会被转换为Map对象
+     * @param canBeNull           是否过滤空值， true:不过滤， Flase 过滤（false：不记录null值）
      * @return 全部的属性键值对
      * @throws ReflectionException 参数异常
      */
-    public static Map<String, Object> objectTurnToMap(Object o, MapObjectTurnFilter mapObjectTurnFilter) throws ReflectionException {
+    public static Map<String, Object> objectTurnToMap(Object o, MapObjectTurnFilter mapObjectTurnFilter, boolean canBeNull) throws ReflectionException {
         if (o == null) {
             throw new ReflectionException("Object can't be null.", "the object is null", OBJECT_TURN_TO_MAP);
         }
+
+        //===========================初始化过滤器
+        if (mapObjectTurnFilter == null) {
+            mapObjectTurnFilter = new MapObjectTurnFilter() {
+            };
+        }
+
+        //===========================初始化结果集
+        Map<String, Object> result = new HashMap<>(getFieldList(o, -1, null, false).size());
+
+        Class clazz = o.getClass();
+        Method[] methods = clazz.getMethods();
+        for (Method m : methods) {
+            String methodName = m.getName();
+            if (methodName.startsWith("get")) {
+                if (mapObjectTurnFilter.isDoFilter(methodName)) {
+                    Object param = doMethod(methodName, o, null);
+                    if (param == null) {
+                        if (canBeNull) {
+                            result.put(removeSetOrGetPrefix(methodName), param);
+                        }
+                    } else {
+                        result.put(removeSetOrGetPrefix(methodName), param);
+                    }
+                }
+            }
+        }
+
+        return result;
     }
 }
