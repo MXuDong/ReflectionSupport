@@ -1,8 +1,8 @@
 package base;
 
-import base.filterInterface.FieldNameFilter;
-import base.filterInterface.MapObjectTurnFilter;
-import base.filterInterface.MethodNameFilter;
+import base.filters.FieldNameFilter;
+import base.filters.MapObjectTurnFilter;
+import base.filters.MethodNameFilter;
 import exceptions.ReflectionException;
 
 import java.lang.reflect.Field;
@@ -215,7 +215,11 @@ public class ReflectionSupport {
             throw new ReflectionException("Object can't be null.", "the Object is null.", MAP_TURN_TO_OBJECT);
         }
 
+        for(String key : params.keySet()){
+            if(mapObjectTurnFilter.isDoFilter(key)){
 
+            }
+        }
     }
 
 

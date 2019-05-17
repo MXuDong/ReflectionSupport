@@ -2,7 +2,7 @@ package base.reflectionSupport;
 
 import base.ReflectionSupport;
 import base.entity.People;
-import base.filterInterface.MethodNameFilter;
+import base.filters.MethodNameFilter;
 import org.junit.Test;
 
 import java.lang.reflect.Method;

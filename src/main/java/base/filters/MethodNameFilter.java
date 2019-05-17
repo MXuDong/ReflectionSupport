@@ -1,12 +1,10 @@
-package base.filterInterface;
+package base.filters;
 
 import java.lang.reflect.Method;
 
 /**
  * @author Dong
  * @version 1.0
- * <p>
- * createTime :
  * @since 1.0
  */
 public interface MethodNameFilter {
