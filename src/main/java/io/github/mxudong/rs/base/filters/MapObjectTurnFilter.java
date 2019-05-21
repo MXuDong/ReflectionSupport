@@ -1,4 +1,4 @@
-package base.filters;
+package io.github.mxudong.rs.base.filters;
 
 /**
  * @author Dong

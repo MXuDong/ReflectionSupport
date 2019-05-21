@@ -1,9 +1,9 @@
-package base;
+package io.github.mxudong.rs.base;
 
-import base.filters.FieldNameFilter;
-import base.filters.MapObjectTurnFilter;
-import base.filters.MethodNameFilter;
-import exceptions.ReflectionException;
+import io.github.mxudong.rs.base.filters.FieldNameFilter;
+import io.github.mxudong.rs.base.filters.MapObjectTurnFilter;
+import io.github.mxudong.rs.base.filters.MethodNameFilter;
+import io.github.mxudong.rs.exceptions.ReflectionException;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -17,18 +17,18 @@ import java.util.Map;
  * @author Dong
  * @since 1.0
  * <p>
- * Class Name : ReflectionSupport
+ * Class Name : rs
  * Create Time : 20:42
  * Create Date : 2019/5/9
- * Project : ReflectionSupport
+ * Project : rs
  */
 
 public class ReflectionSupport {
 
-    private static final String METHOD_REMOVE_SET_OR_GET_PREFIX = "ReflectionSupport.removeSetOrGetPrefix()";
-    private static final String METHOD_ADD_SET_OR_GET_PREFIX = "ReflectionSupport.addSetOrGetPrefix()";
-    private static final String MAP_TURN_TO_OBJECT = "ReflectionSupport.mapTurnToObject()";
-    private static final String OBJECT_TURN_TO_MAP = "ReflectionSupport.objectTurnToMap";
+    private static final String METHOD_REMOVE_SET_OR_GET_PREFIX = "rs.removeSetOrGetPrefix()";
+    private static final String METHOD_ADD_SET_OR_GET_PREFIX = "rs.addSetOrGetPrefix()";
+    private static final String MAP_TURN_TO_OBJECT = "rs.mapTurnToObject()";
+    private static final String OBJECT_TURN_TO_MAP = "rs.objectTurnToMap";
     private static final String SET_PROPERTY = "doMethod";
 
     /**

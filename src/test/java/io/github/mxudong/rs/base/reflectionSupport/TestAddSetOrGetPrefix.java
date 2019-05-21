@@ -1,7 +1,7 @@
-package base.reflectionSupport;
+package io.github.mxudong.rs.base.reflectionSupport;
 
-import base.ReflectionSupport;
-import exceptions.ReflectionException;
+import io.github.mxudong.rs.base.ReflectionSupport;
+import io.github.mxudong.rs.exceptions.ReflectionException;
 import org.junit.Test;
 
 /**
@@ -10,7 +10,7 @@ import org.junit.Test;
  * Class Name : TestAddSetOrGetPrefix
  * Create Time : 18:06
  * Create Date : 2019/5/11
- * Project : ReflectionSupport
+ * Project : rs
  */
 
 public class TestAddSetOrGetPrefix {

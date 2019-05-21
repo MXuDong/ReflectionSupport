@@ -1,8 +1,8 @@
-package base.reflectionSupport;
+package io.github.mxudong.rs.base.reflectionSupport;
 
-import base.ReflectionSupport;
-import base.entity.People;
-import base.entity.Student;
+import io.github.mxudong.rs.base.ReflectionSupport;
+import io.github.mxudong.rs.base.entity.People;
+import io.github.mxudong.rs.base.entity.Student;
 import org.junit.Test;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  * Class Name : TestGetClassPropertyList
  * Create Time : 20:54
  * Create Date : 2019/5/11
- * Project : ReflectionSupport
+ * Project : rs
  */
 
 public class TestGetClassPropertyList {

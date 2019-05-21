@@ -1,8 +1,8 @@
-package base.reflectionSupport;
+package io.github.mxudong.rs.base.reflectionSupport;
 
-import base.ReflectionSupport;
-import base.entity.Student;
-import exceptions.ReflectionException;
+import io.github.mxudong.rs.base.ReflectionSupport;
+import io.github.mxudong.rs.base.entity.Student;
+import io.github.mxudong.rs.exceptions.ReflectionException;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import java.util.Map;
  * Class Name : testMaps
  * Create Time : 20:02
  * Create Date : 2019/5/17
- * Project : ReflectionSupport
+ * Project : rs
  */
 
 public class testMaps {

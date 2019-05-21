@@ -1,4 +1,4 @@
-package base.entity;
+package io.github.mxudong.rs.base.entity;
 
 /**
  * @author Dong
@@ -6,7 +6,7 @@ package base.entity;
  * Class Name : Student
  * Create Time : 21:31
  * Create Date : 2019/5/11
- * Project : ReflectionSupport
+ * Project : rs
  */
 
 public class Student extends People {

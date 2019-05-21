@@ -1,8 +1,8 @@
-package base.reflectionSupport;
+package io.github.mxudong.rs.base.reflectionSupport;
 
-import base.ReflectionSupport;
-import base.entity.People;
-import base.filters.MethodNameFilter;
+import io.github.mxudong.rs.base.ReflectionSupport;
+import io.github.mxudong.rs.base.entity.People;
+import io.github.mxudong.rs.base.filters.MethodNameFilter;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
@@ -15,7 +15,7 @@ import java.util.List;
  * Class Name : TestGetMethodList
  * Create Time : 20:38
  * Create Date : 2019/5/11
- * Project : ReflectionSupport
+ * Project : rs
  */
 
 public class TestGetMethodList {

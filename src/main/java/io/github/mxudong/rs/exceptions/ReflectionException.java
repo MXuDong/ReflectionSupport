@@ -1,4 +1,4 @@
-package exceptions;
+package io.github.mxudong.rs.exceptions;
 
 /**
  * @author Dong
@@ -7,7 +7,7 @@ package exceptions;
  * Class Name : ReflectionException
  * Create Time : 21:21
  * Create Date : 2019/5/9
- * Project : ReflectionSupport
+ * Project : rs
  * <p>
  * ReflectionException
  */
