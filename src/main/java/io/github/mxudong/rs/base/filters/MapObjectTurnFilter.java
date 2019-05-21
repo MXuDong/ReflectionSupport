@@ -7,14 +7,13 @@ package io.github.mxudong.rs.base.filters;
  */
 public interface MapObjectTurnFilter {
     /**
-     * 通过传入参数名判断该名字段是否需要被过滤，
-     * 如果返回值为True 则将放行本次操作，（
-     * 该操作会被执行）
-     * 如果返回值为False 则将驳回本次操作，（
-     * 不处理该操作）
+     * If the return value is True, the operation will
+     * be released. (The operation will be executed.)
+     * If the return value is False, the operation will
+     * be rejected. (The operation will not be processed.)
      *
-     * @param propertyName 是否进行过滤的参数名
-     * @return true:可以操作;false:不通过过滤（不被操作）
+     * @param propertyName Parameter names for filtering or not
+     * @return true:can operation;false:Not filtered (not operated)
      */
     default boolean isDoFilter(String propertyName) {
         return true;

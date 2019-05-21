@@ -9,14 +9,12 @@ import java.lang.reflect.Field;
  */
 public interface FieldNameFilter {
     /**
-     * 是否忽略某个字段
-     * 当返回True的时候，不对fieldName
-     * 进行拦截
-     * 当返回False的时候，将会拦截
-     * fieldName
+     * Whether to ignore a field when returning to
+     * True, not to intercept fieldName when returning
+     * to False, will intercept fieldName
      *
-     * @param field 某个字段名字
-     * @return true:不忽略;false:忽略
+     * @param field A field name
+     * @return true:not ignore;false:ignore
      */
     default boolean isDoFilter(Field field) {
         return true;

@@ -28,17 +28,17 @@ public class ReflectionSupport {
     private static final String METHOD_REMOVE_SET_OR_GET_PREFIX = "rs.removeSetOrGetPrefix()";
     private static final String METHOD_ADD_SET_OR_GET_PREFIX = "rs.addSetOrGetPrefix()";
     private static final String MAP_TURN_TO_OBJECT = "rs.mapTurnToObject()";
-    private static final String OBJECT_TURN_TO_MAP = "rs.objectTurnToMap";
-    private static final String SET_PROPERTY = "doMethod";
+    private static final String OBJECT_TURN_TO_MAP = "rs.objectTurnToMap()";
+    private static final String SET_PROPERTY = "doMethod()";
 
     /**
-     * 提取方法名中的参数名
+     * Extracting parameter names from method names
      * <p>
-     * setName方法将返回name
+     * 'setName' will return 'name'
      *
-     * @param methodName 方法名
-     * @return 提取后的参数名
-     * @throws ReflectionException 数据格式异常
+     * @param methodName be extracted method name
+     * @return param name
+     * @throws ReflectionException Data Format Exception
      * @since 1.0
      */
     public static String removeSetOrGetPrefix(String methodName) throws ReflectionException {
@@ -74,15 +74,15 @@ public class ReflectionSupport {
     }
 
     /**
-     * 参数名生成setter或getter方法
+     * Setter or getter method for parameter name generation
      * <p>
-     * name, true将放回setName
-     * name, false将返回getName
+     * name, true will return setName
+     * name, false will reutrn getName
      *
-     * @param propertyName 参数名
-     * @param isSet        是否为set，如果不是 则为get
-     * @return 生成后的方法名
-     * @throws ReflectionException 数据格式异常
+     * @param propertyName param's name
+     * @param isSet        is it create 'set' method,if not will be 'get'
+     * @return the setter of getter method's name from param's name
+     * @throws ReflectionException Data format Exception
      * @since 1.0
      */
     public static String addSetOrGetPrefix(String propertyName, boolean isSet) throws ReflectionException {
@@ -104,11 +104,12 @@ public class ReflectionSupport {
     }
 
     /**
-     * 获取一个类的全部方法列表
+     * get one class all methods' name
      *
-     * @param o                被获取信息的类
-     * @param methodNameFilter 方法名过滤器
-     * @return 方法名集合
+     * @param o                be extracted class
+     * @param methodNameFilter method name filter
+     * @return a list of methods' name
+     * @see MethodNameFilter
      * @since 1.0
      */
     public static List<String> getMethodList(Object o, MethodNameFilter methodNameFilter, boolean canRepeat) {
@@ -135,16 +136,17 @@ public class ReflectionSupport {
 
 
     /**
-     * 获取类的所有属性
+     * get properties' name from one class
      *
-     * @param o               被获取信息的类
-     * @param superClassDeep  检索深度
-     *                        （从0开始，小于0返回空，1向上找一个类（本类 + 直接父类），
-     *                        2向上找两个父类（本类 + 直接父类 + 直接父类的直接父类），
-     *                        一次类推; -2:所有父类）
-     * @param fieldNameFilter 字段过滤器
-     * @param canRepeat       是否允许重复出现
-     * @return 字段列表
+     * @param o               be extracted class
+     * @param superClassDeep  The deep of the extracting
+     *                        (start 0, less than 0 returns empty, 1 looks up for a class (this class + direct parent class).
+     *                        2. Look up for two parent classes (this class + direct parent + direct parent).
+     *                        One-time analogy; - 2: All parent classes)
+     * @param fieldNameFilter Field name filter
+     * @param canRepeat       is can be repeat
+     * @return file's name list
+     * @see FieldNameFilter
      * @since 1.0
      */
     public static List<String> getFieldList(Object o, int superClassDeep, FieldNameFilter fieldNameFilter, boolean canRepeat) {
@@ -155,7 +157,6 @@ public class ReflectionSupport {
             fieldNameFilter = new FieldNameFilter() {
             };
         }
-        //如果搜索深度小于0则不做处理
         if (superClassDeep < -1 && superClassDeep != -2) {
             return new ArrayList<>();
         }
@@ -181,15 +182,15 @@ public class ReflectionSupport {
     }
 
     /**
-     * 执行设值操作
+     * do a method of a class
      *
-     * @param methodName 被执行的参数方法
-     * @param o          被设置的对象
-     * @param value      设置的值
-     * @return 方法后数据
-     * @throws ReflectionException 方法操作异常
+     * @param methodName be invoked method
+     * @param o          be invoked with class
+     * @param value      the method's param
+     * @return the method return
+     * @throws ReflectionException method operation exception
      */
-    public static Object doMethod(String methodName, Object o, Object ... value) throws ReflectionException {
+    public static Object doMethod(String methodName, Object o, Object... value) throws ReflectionException {
         if (o == null) {
             throw new ReflectionException("Object can't be null.", "the Object is null.", SET_PROPERTY);
         }
@@ -198,9 +199,9 @@ public class ReflectionSupport {
 
         try {
 
-            Method [] methods = o.getClass().getMethods();
-            for(Method m : methods){
-                if(m.getName().equals(methodName)){
+            Method[] methods = o.getClass().getMethods();
+            for (Method m : methods) {
+                if (m.getName().equals(methodName)) {
                     if (value == null) {
                         param = m.invoke(o);
                     } else {
@@ -219,18 +220,20 @@ public class ReflectionSupport {
     }
 
     /**
-     * @param o                   传入的Object, 不能为空
-     * @param params              需要填写的参数
-     * @param mapObjectTurnFilter 过滤器，决定是否会被注入
-     * @return 被注入的Object类型
-     * @throws ReflectionException 参数异常
+     * set a class value from a map
+     *
+     * @param o                   be set class
+     * @param params              the value's map
+     * @param mapObjectTurnFilter the map object turn filter
+     * @return o, be set class
+     * @throws ReflectionException param error
      */
     public static <T> T mapTurnToObject(T o, Map<String, Object> params, MapObjectTurnFilter mapObjectTurnFilter) throws ReflectionException {
         if (o == null) {
             throw new ReflectionException("Object can't be null.", "the Object is null.", MAP_TURN_TO_OBJECT);
         }
 
-        //=================================初始化过滤器
+        //=================================
         if (mapObjectTurnFilter == null) {
             mapObjectTurnFilter = new MapObjectTurnFilter() {
             };
@@ -248,24 +251,26 @@ public class ReflectionSupport {
 
 
     /**
-     * @param o                   传入的Object， 不能为空
-     * @param mapObjectTurnFilter 过滤器， 决定是否会被转换为Map对象
-     * @param canBeNull           是否过滤空值， true:不过滤， Flase 过滤（false：不记录null值）
-     * @return 全部的属性键值对
-     * @throws ReflectionException 参数异常
+     * get one class's all value of property
+     *
+     * @param o                   the class for get values
+     * @param mapObjectTurnFilter the map object turn filter
+     * @param canBeNull           null filter, true:not ignore, false ignore(false：not marked)
+     * @return all the value from the object
+     * @throws ReflectionException param error
      */
     public static Map<String, Object> objectTurnToMap(Object o, MapObjectTurnFilter mapObjectTurnFilter, boolean canBeNull) throws ReflectionException {
         if (o == null) {
             throw new ReflectionException("Object can't be null.", "the object is null", OBJECT_TURN_TO_MAP);
         }
 
-        //===========================初始化过滤器
+        //===========================
         if (mapObjectTurnFilter == null) {
             mapObjectTurnFilter = new MapObjectTurnFilter() {
             };
         }
 
-        //===========================初始化结果集
+        //===========================
         Map<String, Object> result = new HashMap<>(getFieldList(o, -1, null, false).size());
 
         Class clazz = o.getClass();

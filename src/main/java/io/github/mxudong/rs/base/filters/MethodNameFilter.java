@@ -9,10 +9,10 @@ import java.lang.reflect.Method;
  */
 public interface MethodNameFilter {
     /**
-     * 过滤接口
+     * filter interface
      *
-     * @param method 当前需要判断的method
-     * @return 是否允许被添加
+     * @param method the method's name which will be checked
+     * @return true:can operation;false:Not filtered (not operated)
      */
     default boolean isDoFilter(Method method) {
         return true;
