@@ -108,6 +108,7 @@ public class ReflectionSupport {
      *
      * @param o                be extracted class
      * @param methodNameFilter method name filter
+     * @param canRepeat        is can repeat
      * @return a list of methods' name
      * @see MethodNameFilter
      * @since 1.0
@@ -225,6 +226,7 @@ public class ReflectionSupport {
      * @param o                   be set class
      * @param params              the value's map
      * @param mapObjectTurnFilter the map object turn filter
+     * @param <T>                 The aim object type
      * @return o, be set class
      * @throws ReflectionException param error
      */
