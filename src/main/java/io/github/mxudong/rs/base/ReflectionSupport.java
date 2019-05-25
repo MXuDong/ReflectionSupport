@@ -295,4 +295,12 @@ public class ReflectionSupport {
 
         return result;
     }
+    
+    public static String getClassName(Object o, int flag){
+        return getClassName(o.getClass(), flag);
+    }
+
+    public static String getClassName(Class clazz, int flag){
+
+    }
 }
