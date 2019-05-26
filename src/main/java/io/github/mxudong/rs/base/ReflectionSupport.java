@@ -295,12 +295,79 @@ public class ReflectionSupport {
 
         return result;
     }
-    
-    public static String getClassName(Object o, int flag){
-        return getClassName(o.getClass(), flag);
+
+    /**
+     * get the name of one class.
+     * <p>
+     * if the class is : package1.package2.className
+     * this method will return className
+     *
+     * @param o the aim object
+     * @return o's name
+     */
+    public static String getClassName(Object o) {
+        return getClassName(o.getClass());
     }
 
-    public static String getClassName(Class clazz, int flag){
+    /**
+     * get the name of one class.
+     * <p>
+     * if the class is : package1.package2.className
+     * this method will return className
+     *
+     * @param clazz the object's class
+     * @return the clazz's name
+     */
+    public static String getClassName(Class clazz) {
+        return getClassNames(clazz.getName(), 0, -1);
+    }
 
+    /**
+     * to get the name from the fully qualified name, and you can set
+     * start and offset the get what you want
+     * <p>
+     * if the offset < 0, the start will from te last name;
+     * <p>
+     * the class name is : package1.package2.className
+     * if the start is 0, and the offset is -2,
+     * it will return : package2.className
+     * <p>
+     * if the start is 0, and the offset is -1,
+     * it will return : className
+     * <p>
+     * if the start is 0, and the offset is 1,
+     * it will return :package1
+     *
+     * @param fullyQualifiedName the class's all name
+     * @param start              the class split where you want
+     * @param offset             the point move length
+     * @return a string you want.
+     */
+    public static String getClassNames(String fullyQualifiedName, int start, int offset) {
+        String[] names = fullyQualifiedName.split("\\.");
+        StringBuilder sb = new StringBuilder();
+        if (start >= names.length || start < 0) {
+            return "";
+        }
+
+        if (offset > 0) {
+            if (start + offset > names.length) {
+                return "";
+            }
+            for (int i = 0; i < offset; i++) {
+                sb.append(".");
+                sb.append(names[i + start]);
+            }
+        } else if (offset < 0) {
+            start = names.length - start;
+            if (start + offset < 0) {
+                return "";
+            }
+            for (int i = 0; i > offset; i--) {
+                sb.insert(0, names[names.length + i - 1]);
+                sb.insert(0, ".");
+            }
+        }
+        return sb.toString().substring(1);
     }
 }
