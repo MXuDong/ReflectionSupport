@@ -1,6 +1,7 @@
 package io.github.mxudong.rs.base.reflectionSupport;
 
 import io.github.mxudong.rs.base.ReflectionSupport;
+import io.github.mxudong.rs.base.entity.Student;
 import org.junit.Test;
 
 /**
@@ -28,5 +29,11 @@ public class TestGetClassName {
 
         String res = ReflectionSupport.getClassNames(test, 1, -1);
         System.out.println(res);
+    }
+
+    @Test
+    public void testGetClassName(){
+        Student student = new Student();
+        System.out.println(ReflectionSupport.getClassName(student));
     }
 }
