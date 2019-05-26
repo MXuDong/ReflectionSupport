@@ -18,23 +18,23 @@ Version:1.0 基础版本
 ## Version:1.0
 提供基本的反射支持，包含如下方法    
 
-|方法名|说明|
-|:-|-:|
-| removeSetOrGetPrefix | 删除Get/Set方法的前缀 |
-| addSetOrGetPrefix | 为字段生成Setter/Getter方法名 |
-| GetMethodList | 获取类的方法列表 |
-| getFieldList | 获取类的字段列表 |
-| doMethod | 执行某个方法 |
-| mapTurnToObject | 将包含类属性的map注入到类中 |
-| objectTurnToMap | 将类的所有数据生成一个Map类型对象 |
+|方法名|说明|起始版本|
+|:-|-:|:-:|
+| removeSetOrGetPrefix | 删除Get/Set方法的前缀 | 1.0 |
+| addSetOrGetPrefix | 为字段生成Setter/Getter方法名 | 1.0 |
+| GetMethodList | 获取类的方法列表 | 1.0 |
+| getFieldList | 获取类的字段列表 | 1.0 |
+| doMethod | 执行某个方法 | 1.0 |
+| mapTurnToObject | 将包含类属性的map注入到类中 | 1.0 |
+| objectTurnToMap | 将类的所有数据生成一个Map类型对象 | 1.0 |
+| getClassName | 获取类的名称等 |  1.1 |
+
 ## 后续版本将持续更新
 
 ### 下一版本等待更新的方法
-|方法名|作用|
-|:-|-:|
-| getClassName | 获取一个类的名称|
+
 ### 一下版本加入的扩展
-1. 字符串特殊处理(类名分割支持)
+
 
 # 使用说明
 所有方法均为静态方法，所以直接引用即可：
