@@ -326,7 +326,7 @@ public class ReflectionSupport {
      * to get the name from the fully qualified name, and you can set
      * start and offset the get what you want
      * <p>
-     * if the offset < 0, the start will from te last name;
+     * if the offset less then 0, the start will from te last name;
      * <p>
      * the class name is : package1.package2.className
      * if the start is 0, and the offset is -2,

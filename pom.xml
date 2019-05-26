@@ -6,7 +6,7 @@
 
     <groupId>io.github.mxudong</groupId>
     <artifactId>ReflectionSupport</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <name>Reflection Support</name>
     <url>https://gitee.com/MXuDong/ReflectionSupport</url>
     <description>This jar if for Reflection of other project</description>
