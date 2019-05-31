@@ -1,6 +1,7 @@
 package io.github.mxudong.rs.base.reflectionSupport;
 
 import io.github.mxudong.rs.base.ReflectionSupport;
+import io.github.mxudong.rs.base.entity.People;
 import io.github.mxudong.rs.base.entity.Student;
 import io.github.mxudong.rs.exceptions.ReflectionException;
 import org.junit.Test;
@@ -20,9 +21,9 @@ import java.util.Map;
 public class testMaps {
     @Test
     public void testGetCanBeNullMaps() throws ReflectionException {
-        Student student = new Student();
-        student.setNumber(123);
-        System.out.println(ReflectionSupport.objectTurnToMap(student, null, true));
+        People people = new People();
+        people.setAge(15);
+        System.out.println(ReflectionSupport.objectTurnToMap(people, null, false));
     }
 
     @Test
