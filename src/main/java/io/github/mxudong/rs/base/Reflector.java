@@ -2,6 +2,10 @@ package io.github.mxudong.rs.base;
 
 import org.jetbrains.annotations.Contract;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.util.List;
+
 /**
  * Class Name : Reflector
  * Create Time : 7:16
@@ -28,6 +32,24 @@ public class Reflector<T> {
      * the class of <tt>target object</tt>
      */
     private Class tClass;
+
+    /**
+     * <tt>target object</tt>'s default construction method
+     * the default construction method is has none param
+     * construction method
+     */
+    private Constructor<T> defaultConstructionMethod;
+
+    /**
+     * Name list of readable property
+     */
+    private List<String> readablePropertyNames;
+
+    /**
+     * Name list of writable property
+     */
+    private List<String> writablePropertyNames;
+
 
     /**
      * the construction method
