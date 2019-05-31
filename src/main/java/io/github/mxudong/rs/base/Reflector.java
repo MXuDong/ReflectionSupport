@@ -1,9 +1,6 @@
 package io.github.mxudong.rs.base;
 
-import org.jetbrains.annotations.Contract;
-
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -95,7 +92,6 @@ public class Reflector<T> {
      * @param obj other object
      * @return is <tt>target object</tt> equals obj ?
      */
-    @Contract(value = "null -> false", pure = true)
     @Override
     public boolean equals(Object obj) {
         return object.equals(obj);
