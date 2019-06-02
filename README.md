@@ -1,4 +1,7 @@
-# Web 反射依赖
+# 反射工具箱
+
+# 重构中，已发布版本无影响
+2.0版本将会导致完全重构，即1.*版本和2.*版本完全不兼容
 
 #[ReflectionSupport文档](https://apidoc.gitee.com/MXuDong/ReflectionSupport)
 
