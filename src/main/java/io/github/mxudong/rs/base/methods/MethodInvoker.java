@@ -1,5 +1,6 @@
 package io.github.mxudong.rs.base.methods;
 
+import io.github.mxudong.rs.base.strings.StringExtension;
 import io.github.mxudong.rs.exceptions.NullParamException;
 
 import java.lang.reflect.InvocationTargetException;
@@ -20,20 +21,21 @@ public class MethodInvoker implements Invoker {
     /**
      * method body
      */
-    private Method method;
+    protected Method method;
 
     /**
      * method return type
      */
-    private Class<?> returnType;
+    protected Class<?> returnType;
 
     /**
      * construction method
+     *
      * @param method the insert method
      */
-    public MethodInvoker(Method method){
+    public MethodInvoker(Method method) {
         //==================method can't be null
-        if (method == null){
+        if (method == null) {
             try {
                 throw new NullParamException("MethodInvoker", "method");
             } catch (NullParamException e) {
@@ -57,4 +59,36 @@ public class MethodInvoker implements Invoker {
     public Class<?> getReturnType() {
         return returnType;
     }
+
+    /**
+     * split the method by upper little
+     *
+     * @param methodName be split method's name
+     * @return the split-result
+     */
+    public static String[] splitMethodName(String methodName) {
+        //======================resolve null point
+        if(methodName == null ){
+            methodName = "";
+        }
+
+        int upperLittleCount = StringExtension.StringCount(methodName, MethodInvoker.UPPER_LITTLE_REGION) + 1;
+        int index = 0;
+        StringBuffer[] result = new StringBuffer[upperLittleCount];
+        if (result.length > 0) {
+            result[index] = new StringBuffer();
+        }
+        for (char c : methodName.toCharArray()) {
+            if (c >= 'A' && c <= 'Z') {
+                index++;
+                if (index < result.length) {
+                    result[index] = new StringBuffer();
+                }
+            }
+            result[index].append(c);
+        }
+        return StringExtension.toStringArray(result);
+    }
+
+    private final static String UPPER_LITTLE_REGION = "[A-Z]";
 }
