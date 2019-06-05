@@ -16,7 +16,7 @@ package io.github.mxudong.rs.exceptions;
  * exception info format only method : one of method [method] need param is null
  */
 
-public class NullParamException extends Exception {
+public class NullParamException extends NullPointerException {
 
     public NullParamException() {
         this("{unknown}");
