@@ -15,9 +15,9 @@ import java.lang.reflect.Method;
 public class GetterMethodInvoker extends MethodInvoker {
 
 
-
     /**
      * Construction method
+     *
      * @param method the getter method
      */
     public GetterMethodInvoker(Method method) {

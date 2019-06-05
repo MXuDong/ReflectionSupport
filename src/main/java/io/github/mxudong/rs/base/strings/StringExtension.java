@@ -22,6 +22,11 @@ import java.util.regex.Pattern;
 public class StringExtension {
 
     /**
+     * to match one character in upper little.
+     */
+    public final static String UPPER_LITTLE_REGION = "[A-Z]";
+
+    /**
      * count a string has how many region
      *
      * @param region be counted strings, it's a regular
@@ -33,7 +38,7 @@ public class StringExtension {
         Matcher matcher = pattern.matcher(string);
 
         int count = 0;
-        while(matcher.find()){
+        while (matcher.find()) {
             count++;
         }
 
@@ -46,12 +51,12 @@ public class StringExtension {
      * @param stringBuffers be turned param
      * @return string[]
      */
-    public static String[] toStringArray(StringBuffer [] stringBuffers){
-        if(stringBuffers == null){
+    public static String[] toStringArray(StringBuffer[] stringBuffers) {
+        if (stringBuffers == null) {
             throw new NullParamException("toStringArray", "stringBuffers");
         }
         String[] strings = new String[stringBuffers.length];
-        for(int i = 0; i < stringBuffers.length; i++){
+        for (int i = 0; i < stringBuffers.length; i++) {
             strings[i] = stringBuffers[i].toString();
         }
         return strings;

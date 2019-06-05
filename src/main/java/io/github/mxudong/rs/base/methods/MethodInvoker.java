@@ -68,11 +68,11 @@ public class MethodInvoker implements Invoker {
      */
     public static String[] splitMethodName(String methodName) {
         //======================resolve null point
-        if(methodName == null ){
+        if (methodName == null) {
             methodName = "";
         }
 
-        int upperLittleCount = StringExtension.StringCount(methodName, MethodInvoker.UPPER_LITTLE_REGION) + 1;
+        int upperLittleCount = StringExtension.StringCount(methodName, StringExtension.UPPER_LITTLE_REGION) + 1;
         int index = 0;
         StringBuffer[] result = new StringBuffer[upperLittleCount];
         if (result.length > 0) {
@@ -89,6 +89,4 @@ public class MethodInvoker implements Invoker {
         }
         return StringExtension.toStringArray(result);
     }
-
-    private final static String UPPER_LITTLE_REGION = "[A-Z]";
 }
