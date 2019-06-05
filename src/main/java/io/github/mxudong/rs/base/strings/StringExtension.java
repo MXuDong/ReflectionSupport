@@ -1,6 +1,7 @@
 package io.github.mxudong.rs.base.strings;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
+import io.github.mxudong.rs.exceptions.NullParamException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,5 +38,22 @@ public class StringExtension {
         }
 
         return count;
+    }
+
+    /**
+     * turn <tt>StringBuffer[]</tt> to <tt>String[]</tt>
+     *
+     * @param stringBuffers be turned param
+     * @return string[]
+     */
+    public static String[] toStringArray(StringBuffer [] stringBuffers){
+        if(stringBuffers == null){
+            throw new NullParamException("toStringArray", "stringBuffers");
+        }
+        String[] strings = new String[stringBuffers.length];
+        for(int i = 0; i < stringBuffers.length; i++){
+            strings[i] = stringBuffers[i].toString();
+        }
+        return strings;
     }
 }
