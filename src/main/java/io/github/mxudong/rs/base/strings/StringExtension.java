@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
  *
  * @author Dong
  * @since 2.0
+ * @see io.github.mxudong.rs.base.methods.Invoker
  */
 
 public class StringExtension {

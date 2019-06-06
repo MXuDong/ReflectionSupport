@@ -7,9 +7,15 @@ import java.lang.reflect.Method;
  * Create Time : 15:01
  * Create Date : 2019/6/2
  * Project : ReflectionSupport
+ * <p>
+ * {@code GetterMethodInvoker} extends {@link {@code MethodInvoker}}
+ * and the <tt>GetterMethodInvoker</tt> override invoke method, so
+ * if you want do invoke getter method, needn't any param
  *
  * @author Dong
  * @since 2.0
+ * @see MethodInvoker
+ * @see Invoker
  */
 
 public class GetterMethodInvoker extends MethodInvoker {
@@ -22,5 +28,15 @@ public class GetterMethodInvoker extends MethodInvoker {
      */
     public GetterMethodInvoker(Method method) {
         super(method);
+    }
+
+    /**
+     * invoke getter method
+     *
+     * @param target be invoke method's object
+     * @return result of getter method
+     */
+    public Object invoke(Object target) {
+        return super.invoke(target, null);
     }
 }
