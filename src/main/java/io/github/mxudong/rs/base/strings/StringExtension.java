@@ -1,6 +1,5 @@
 package io.github.mxudong.rs.base.strings;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import io.github.mxudong.rs.exceptions.NullParamException;
 
 import java.util.regex.Matcher;
