@@ -1,7 +1,8 @@
 package io.github.mxudong.rs.base;
 
+import io.github.mxudong.rs.base.methods.AbsConstructor;
+
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * innerClass Name : ObjectReflector
@@ -10,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
  * Project : ReflectionSupport
  * <p>
  * The purpose of this class is to handle the basic
- * calls and static method calls of the parent class,
+ * calls calls of the parent class,
  * ignoring the differences caused by instances.
  * <p>
  * Including methods of statistics,
@@ -27,10 +28,10 @@ public class ObjectReflector {
     /**
      * inner class
      */
-    Class innerClass = null;
+    private Class innerClass;
 
-    private Constructor defaultConstructor;
-    private Constructor [] allConstructor;
+    private int defaultConstructorIndex;
+    private AbsConstructor[] constructors;
 
     /**
      * construction method
@@ -41,26 +42,51 @@ public class ObjectReflector {
         this.innerClass = c;
 
         Constructor[] constructors = c.getConstructors();
-        if (constructors.length == 1) {
-            defaultConstructor = constructors[0];
-        }
+        this.constructors = new AbsConstructor[constructors.length];
 
-        allConstructor = constructors;
+        for (int i = 0; i < constructors.length; i++) {
+            this.constructors[i] = new AbsConstructor(constructors[i]);
+            if (this.constructors[i].getParamCount() == 0) {
+                this.defaultConstructorIndex = i;
+            }
+        }
     }
 
     /**
      * do instance
      *
-     * @param args constructor params
      * @return object
      */
-    public Object getInstance(Object... args) {
-        Object o = null;
-        try {
-            o = defaultConstructor.newInstance(args);
-        } catch (InstantiationException | InvocationTargetException | IllegalAccessException e) {
-            e.printStackTrace();
+    public Object getInstance() {
+        if (defaultConstructorIndex != 0) {
+            return null;
         }
-        return o;
+
+        return constructors[defaultConstructorIndex].invoke(null);
+    }
+
+    /**
+     * do instance
+     *
+     * @param args init params
+     * @return Object of class
+     */
+    public Object getInstance(Object... args) {
+        for(AbsConstructor absConstructor : constructors){
+            if(absConstructor.isThisParams(args)){
+                absConstructor.invoke(args);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * getter of innerClass
+     *
+     * @return inner class
+     */
+    public Class getInnerClass() {
+        return innerClass;
     }
 }
