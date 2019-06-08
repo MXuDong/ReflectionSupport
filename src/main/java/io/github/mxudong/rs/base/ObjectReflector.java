@@ -74,7 +74,7 @@ public class ObjectReflector {
     public Object getInstance(Object... args) {
         for(AbsConstructor absConstructor : constructors){
             if(absConstructor.isThisParams(args)){
-                absConstructor.invoke(args);
+                return absConstructor.invoke(args);
             }
         }
 
