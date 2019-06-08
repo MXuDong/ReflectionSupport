@@ -20,7 +20,7 @@ public class ReflectorTest {
         System.out.println(studentReflector.getNewInstance());
         System.out.println(studentReflector.getObject());
         System.out.println(studentReflector.getObjectClass());
-        System.out.println(Integer.class.isInstance(15));
+        System.out.println(int.class.isInstance(15));
 
         Reflector<People> peopleReflector = new Reflector<>(new People("test1", "tes2"));
         ObjectReflector people = ReflectorFactory.getInstance().getObjectReflector(peopleReflector.getObjectClass());
