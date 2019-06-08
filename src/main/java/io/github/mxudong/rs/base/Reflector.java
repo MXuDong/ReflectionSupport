@@ -1,5 +1,7 @@
 package io.github.mxudong.rs.base;
 
+import io.github.mxudong.rs.base.methods.AbsConstructor;
+
 import java.lang.reflect.Constructor;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class Reflector<T> {
      * the default construction method is has none param
      * construction method
      */
-    private Constructor<T> defaultConstructionMethod;
+    private ObjectReflector objectReflector;
 
     /**
      * Name list of readable property
@@ -56,6 +58,29 @@ public class Reflector<T> {
     public Reflector(T object) {
         this.object = object;
         this.tClass = object.getClass();
+        this.objectReflector = ReflectorFactory.getInstance().getObjectReflector(this.tClass);
+    }
+
+    /**
+     * get new instance
+     *
+     * @return T
+     */
+    public T getNewInstance() {
+        return (T) objectReflector.getInstance();
+    }
+
+    /**
+     * get new instance with Reflector
+     *
+     * @return contain new instance reflector
+     */
+    public Reflector<T> getNewReflector() {
+        T newInstance = getNewInstance();
+        if (newInstance == null) {
+            return null;
+        }
+        return new Reflector<>(newInstance);
     }
 
     /**
