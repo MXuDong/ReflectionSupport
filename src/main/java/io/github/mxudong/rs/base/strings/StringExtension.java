@@ -61,4 +61,41 @@ public class StringExtension {
         }
         return strings;
     }
+
+    /**
+     * to get getter property name
+     * @param getterMethodName method name
+     * @return property name
+     */
+    public static String getGetterMethodProperty(String getterMethodName){
+        int index = 0;
+        if(getterMethodName.startsWith("get")){
+            index = 3;
+        }else{
+            index = 2;
+        }
+
+        if(getterMethodName.length() <= index){
+            return getterMethodName;
+        }
+        char [] chars = getterMethodName.toCharArray();
+        StringBuffer stringBuffer = new StringBuffer();
+        chars[index] = (char)(chars[index] - 'A' + 'a');
+        for(int i = index; i < getterMethodName.length(); i++){
+            stringBuffer.append(chars[i]);
+        }
+
+        return stringBuffer.toString();
+    }
+
+    /**
+     * to get setter property name
+     * @param setterMethodName method name
+     * @return property name
+     */
+    public static String getSetterMethodProperty(String setterMethodName){
+        char [] chars = setterMethodName.toCharArray();
+        chars[0] = 'g';
+        return getGetterMethodProperty(new String(chars));
+    }
 }
