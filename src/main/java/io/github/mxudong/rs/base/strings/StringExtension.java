@@ -62,6 +62,11 @@ public class StringExtension {
         return strings;
     }
 
+    /**
+     * to get getter property name
+     * @param getterMethodName method name
+     * @return property name
+     */
     public static String getGetterMethodProperty(String getterMethodName){
         int index = 0;
         if(getterMethodName.startsWith("get")){
@@ -83,7 +88,14 @@ public class StringExtension {
         return stringBuffer.toString();
     }
 
+    /**
+     * to get setter property name
+     * @param setterMethodName method name
+     * @return property name
+     */
     public static String getSetterMethodProperty(String setterMethodName){
-
+        char [] chars = setterMethodName.toCharArray();
+        chars[0] = 'g';
+        return getGetterMethodProperty(new String(chars));
     }
 }
