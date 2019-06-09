@@ -62,9 +62,9 @@ public class ObjectReflector {
         String[] packages = c.getName().split("\\.");
         StringBuilder stringBuffer = new StringBuilder();
         for (int i = 0; i < packages.length - 1; i++) {
-            stringBuffer.append(packages[i]);
+            stringBuffer.append(packages[i] + ".");
         }
-        this.packageName = stringBuffer.toString();
+        this.packageName = stringBuffer.toString().substring(0, stringBuffer.length() - 1);
         this.className = packages[packages.length - 1];
 
 
