@@ -96,7 +96,7 @@ public class MethodInvoker implements Invoker {
      * @param method be judged method
      * @return is static
      */
-    public static boolean isMethodStatic(Method method){
+    public static boolean isStaticMethod(Method method){
         return Modifier.isStatic(method.getModifiers());
     }
 

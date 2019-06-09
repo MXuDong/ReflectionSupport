@@ -1,8 +1,15 @@
 package io.github.mxudong.rs.base;
 
-import io.github.mxudong.rs.base.methods.AbsConstructor;
+import io.github.mxudong.rs.base.methods.*;
+import io.github.mxudong.rs.base.strings.StringExtension;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * innerClass Name : ObjectReflector
@@ -29,25 +36,79 @@ public class ObjectReflector {
      * inner class
      */
     private Class innerClass;
+    private String packageName;
+    private String className;
 
-    private int defaultConstructorIndex;
+    private int defaultConstructorIndex = -1;
     private AbsConstructor[] constructors;
+
+    private Map<String, GetterMethodInvoker> readableProperty;
+    private Map<String, SetterMethodInvoker> writableProperty;
+
+    private Map<String, List<Invoker>> staticMethods;
+    private Map<String, List<Invoker>> commonMethods;
+
+    private List<String> properties;
 
     /**
      * construction method
      *
      * @param c innerClass
      */
-    public ObjectReflector(Class c) {
+    protected ObjectReflector(Class c) {
         this.innerClass = c;
 
+        //write base information of class:c
+        String[] packages = c.getName().split("\\.");
+        StringBuilder stringBuffer = new StringBuilder();
+        for (int i = 0; i < packages.length - 1; i++) {
+            stringBuffer.append(packages[i]);
+        }
+        this.packageName = stringBuffer.toString();
+        this.className = packages[packages.length - 1];
+
+
+        //================================Choose construction
         Constructor[] constructors = c.getConstructors();
         this.constructors = new AbsConstructor[constructors.length];
-
         for (int i = 0; i < constructors.length; i++) {
             this.constructors[i] = new AbsConstructor(constructors[i]);
             if (this.constructors[i].getParamCount() == 0) {
                 this.defaultConstructorIndex = i;
+            }
+        }
+
+        //================================Create property list
+        properties = new ArrayList<>();
+        Field[] fields = c.getDeclaredFields();
+        for (Field field : fields) {
+            properties.add(field.getName());
+        }
+
+        //================================Create methods list
+        readableProperty = new HashMap<>();
+        writableProperty = new HashMap<>();
+        staticMethods = new HashMap<>();
+        commonMethods = new HashMap<>();
+
+        for (Method m : c.getMethods()) {
+            String name = m.getName();
+            if (MethodInvoker.isGetterMethod(name)) {
+                name = StringExtension.getGetterMethodProperty(name);
+                readableProperty.put(name, new GetterMethodInvoker(m));
+            } else if (MethodInvoker.isSetterMethod(name)) {
+                name = StringExtension.getSetterMethodProperty(name);
+                writableProperty.put(name, new SetterMethodInvoker(m));
+            } else if (MethodInvoker.isStaticMethod(m)) {
+                if (!staticMethods.containsKey(name)) {
+                    staticMethods.put(name, new ArrayList<>());
+                }
+                staticMethods.get(name).add(new MethodInvoker(m));
+            } else {
+                if (!commonMethods.containsKey(name)) {
+                    commonMethods.put(name, new ArrayList<>());
+                }
+                commonMethods.get(name).add(new MethodInvoker(m));
             }
         }
     }
@@ -58,7 +119,7 @@ public class ObjectReflector {
      * @return object
      */
     public Object getInstance() {
-        if (defaultConstructorIndex != 0) {
+        if (defaultConstructorIndex < 0) {
             return null;
         }
 
@@ -72,13 +133,31 @@ public class ObjectReflector {
      * @return Object of class
      */
     public Object getInstance(Object... args) {
-        for(AbsConstructor absConstructor : constructors){
-            if(absConstructor.isThisParams(args)){
+        for (AbsConstructor absConstructor : constructors) {
+            if (absConstructor.isThisParams(args)) {
                 return absConstructor.invoke(args);
             }
         }
 
         return null;
+    }
+
+    /**
+     * get package name
+     *
+     * @return package name
+     */
+    public String getPackageName() {
+        return packageName;
+    }
+
+    /**
+     * get class name
+     *
+     * @return class name
+     */
+    public String getClassName() {
+        return className;
     }
 
     /**
