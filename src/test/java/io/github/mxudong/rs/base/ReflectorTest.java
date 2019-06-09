@@ -25,5 +25,8 @@ public class ReflectorTest {
         Reflector<People> peopleReflector = new Reflector<>(new People("test1", "tes2"));
         ObjectReflector people = ReflectorFactory.getInstance().getObjectReflector(peopleReflector.getObjectClass());
         System.out.println(people.getInstance("test3", "test4"));
+
+        System.out.println(people.getClassName());
+        System.out.println(people.getPackageName());
     }
 }

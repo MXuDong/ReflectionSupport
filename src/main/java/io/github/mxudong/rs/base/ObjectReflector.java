@@ -133,13 +133,8 @@ public class ObjectReflector {
      * @return Object of class
      */
     public Object getInstance(Object... args) {
-<<<<<<< HEAD
-        for(AbsConstructor absConstructor : constructors){
-            if(absConstructor.isThisParams(args)){
-=======
         for (AbsConstructor absConstructor : constructors) {
             if (absConstructor.isThisParams(args)) {
->>>>>>> test
                 return absConstructor.invoke(args);
             }
         }
