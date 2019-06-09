@@ -8,6 +8,17 @@
 ## 版本说明：
 Version:1.0 基础版本
 
+## Maven：
+```xml
+<!-- https://mvnrepository.com/artifact/io.github.mxudong/ReflectionSupport -->
+<dependency>
+    <groupId>io.github.mxudong</groupId>
+    <artifactId>ReflectionSupport</artifactId>
+    <version>1.1</version>
+</dependency>
+
+```
+
 
 支持最小的JDK版本:JDK 1.8
 
