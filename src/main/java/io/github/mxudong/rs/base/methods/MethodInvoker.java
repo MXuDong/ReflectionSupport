@@ -5,6 +5,7 @@ import io.github.mxudong.rs.exceptions.NullParamException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 /**
  * Class Name : MethodInvoker
@@ -88,5 +89,34 @@ public class MethodInvoker implements Invoker {
             result[index].append(c);
         }
         return StringExtension.toStringArray(result);
+    }
+
+    /**
+     * judge any method is static
+     * @param method be judged method
+     * @return is static
+     */
+    public static boolean isStaticMethod(Method method){
+        return Modifier.isStatic(method.getModifiers());
+    }
+
+
+    /**
+     * is this method a getter method
+     * @param methodName be judged method's name
+     * @return is getter method
+     */
+    public static boolean isGetterMethod(String methodName){
+        return methodName.startsWith("get") || methodName.startsWith("is");
+    }
+
+
+    /**
+     * is a method setter method
+     * @param methodName be judged method
+     * @return is a setter method
+     */
+    public static boolean isSetterMethod(String methodName){
+        return methodName.startsWith("set");
     }
 }

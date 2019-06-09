@@ -71,6 +71,16 @@ public class Reflector<T> {
     }
 
     /**
+     * get new instance from args
+     *
+     * @param args init params
+     * @return T
+     */
+    public T getNewInstance(Object... args) {
+        return (T) objectReflector.getInstance(args);
+    }
+
+    /**
      * get new instance with Reflector
      *
      * @return contain new instance reflector
