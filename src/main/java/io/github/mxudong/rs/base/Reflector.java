@@ -133,11 +133,6 @@ public class Reflector<T> {
         return this.writablePropertyNames.contains(propertyName);
     }
 
-    @Deprecated
-    public String getAllProperty(){
-        return this.writablePropertyNames.toString() + this.readablePropertyNames.toString();
-    }
-
     /**
      * override the method : {@code hashCode()}
      *
