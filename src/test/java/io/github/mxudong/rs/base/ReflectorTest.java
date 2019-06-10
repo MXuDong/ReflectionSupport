@@ -12,8 +12,8 @@ import static org.junit.Assert.*;
 public class ReflectorTest {
 
     @Test
-    public void testBase(){
-        Reflector<Student> studentReflector = new Reflector<>(new Student(15,"name","number"));
+    public void testBase() {
+        Reflector<Student> studentReflector = new Reflector<>(new Student(15, "name", "number"));
 
         ObjectReflector absConstructor = ReflectorFactory.getInstance().getObjectReflector(Student.class);
         System.out.println(absConstructor.equals(ReflectorFactory.getInstance().getObjectReflector(studentReflector.getObjectClass())));
@@ -35,10 +35,11 @@ public class ReflectorTest {
 
 
     @Test
-    public void testExtends(){
+    public void testExtends() {
         Man man = new Man();
         Reflector<Man> manReflector = new Reflector<Man>(man);
-        ObjectReflector manObject = ReflectorFactory.getInstance().getObjectReflector(man.getClass());
+        ObjectReflector manObject = ReflectorFactory.getInstance().getObjectReflector(man.getClass(), true);
         System.out.println(manObject.getReadableProperty());
+        System.out.println(manObject.getSuperObjectReflector());
     }
 }
