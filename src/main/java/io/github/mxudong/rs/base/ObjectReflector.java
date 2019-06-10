@@ -92,11 +92,19 @@ public class ObjectReflector {
             String name = m.getName();
             if (MethodInvoker.isGetterMethod(name)) {
                 name = StringExtension.getGetterMethodProperty(name);
-                readableProperty.put(name, new GetterMethodInvoker(m));
+                if (properties.contains(name)) {
+                    readableProperty.put(name, new GetterMethodInvoker(m));
+                    continue;
+                }
             } else if (MethodInvoker.isSetterMethod(name)) {
                 name = StringExtension.getSetterMethodProperty(name);
-                writableProperty.put(name, new SetterMethodInvoker(m));
-            } else if (MethodInvoker.isStaticMethod(m)) {
+                if (properties.contains(name)) {
+                    writableProperty.put(name, new SetterMethodInvoker(m));
+                    continue;
+                }
+            }
+
+            if (MethodInvoker.isStaticMethod(m)) {
                 if (!staticMethods.containsKey(name)) {
                     staticMethods.put(name, new ArrayList<>());
                 }
@@ -112,17 +120,19 @@ public class ObjectReflector {
 
     /**
      * get all can be read property
+     *
      * @return readable property set
      */
-    public Set<String> getReadableProperty(){
+    public Set<String> getReadableProperty() {
         return readableProperty.keySet();
     }
 
     /**
      * get all can be wrote property
+     *
      * @return writable property set
      */
-    public Set<String> getWritableProperty(){
+    public Set<String> getWritableProperty() {
         return writableProperty.keySet();
     }
 
