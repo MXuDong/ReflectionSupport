@@ -48,12 +48,35 @@ public class ObjectReflector {
     private List<String> properties;
 
     /**
+     * the inner class's super class
+     * <p>
+     * if the inner class is of the <tt>object</tt>, this field must be null.
+     */
+    private ObjectReflector fatherObjectReflector;
+
+    /**
      * construction method
      *
-     * @param c innerClass
+     * @param c inner class
      */
     protected ObjectReflector(Class c) {
+        this(c, false);
+    }
+
+    /**
+     * construction method
+     *
+     * @param c              innerClass
+     * @param loadSuperClass true:load this class's supperClass until Object, else do nothing
+     */
+    protected ObjectReflector(Class c, boolean loadSuperClass) {
         this.innerClass = c;
+
+        if (c.equals(Object.class) || !loadSuperClass) {
+            fatherObjectReflector = null;
+        } else {
+            fatherObjectReflector = ReflectorFactory.getInstance().getObjectReflector(c.getSuperclass(), true);
+        }
 
         //write base information of class:c
         String[] packages = c.getName().split("\\.");
@@ -88,7 +111,7 @@ public class ObjectReflector {
         staticMethods = new HashMap<>();
         commonMethods = new HashMap<>();
 
-        for (Method m : c.getMethods()) {
+        for (Method m : c.getDeclaredMethods()) {
             String name = m.getName();
             if (MethodInvoker.isGetterMethod(name)) {
                 name = StringExtension.getGetterMethodProperty(name);
@@ -118,6 +141,10 @@ public class ObjectReflector {
         }
     }
 
+    public ObjectReflector getSuperObjectReflector(){
+        return fatherObjectReflector;
+    }
+
     /**
      * get all can be read property
      *
@@ -134,6 +161,15 @@ public class ObjectReflector {
      */
     public Set<String> getWritableProperty() {
         return writableProperty.keySet();
+    }
+
+    /**
+     * get all properties of inner class
+     *
+     * @return the properties list
+     */
+    public List<String> getAllProperties() {
+        return this.properties;
     }
 
     /**
