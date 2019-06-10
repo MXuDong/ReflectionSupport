@@ -68,6 +68,9 @@ public class ReflectorFactory {
             return null;
         }
         if (objectReflectorMap.containsKey(c)) {
+            if (isLoadSuperClass) {
+                objectReflectorMap.get(c).loadSuperObjectReflector(true);
+            }
             return objectReflectorMap.get(c);
         }
 
