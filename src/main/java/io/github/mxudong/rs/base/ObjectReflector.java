@@ -151,6 +151,17 @@ public class ObjectReflector {
     }
 
     /**
+     * to load super class's <tt>ObjectReflector</tt>'s object
+     *
+     * @param isOnce is true, only load first super class else until Object class
+     * @return inner class's super object reflector
+     */
+    public ObjectReflector loadSuperObjectReflector(boolean isOnce) {
+        fatherObjectReflector = ReflectorFactory.getInstance().getObjectReflector(innerClass.getSuperclass(), isOnce);
+        return fatherObjectReflector;
+    }
+
+    /**
      * is the super class loaded
      *
      * @return true/false
