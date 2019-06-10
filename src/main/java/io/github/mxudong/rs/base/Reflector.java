@@ -4,6 +4,7 @@ import io.github.mxudong.rs.base.methods.AbsConstructor;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.Set;
 
 /**
  * innerClass Name : Reflector
@@ -42,12 +43,12 @@ public class Reflector<T> {
     /**
      * Name list of readable property
      */
-    private List<String> readablePropertyNames;
+    private Set<String> readablePropertyNames;
 
     /**
      * Name list of writable property
      */
-    private List<String> writablePropertyNames;
+    private Set<String> writablePropertyNames;
 
 
     /**
@@ -59,6 +60,8 @@ public class Reflector<T> {
         this.object = object;
         this.tClass = object.getClass();
         this.objectReflector = ReflectorFactory.getInstance().getObjectReflector(this.tClass);
+        readablePropertyNames = this.objectReflector.getReadableProperty();
+        writablePropertyNames = this.objectReflector.getWritableProperty();
     }
 
     /**
@@ -109,6 +112,30 @@ public class Reflector<T> {
      */
     public Class getObjectClass() {
         return tClass;
+    }
+
+    /**
+     * judge a property can be read
+     *
+     * @param propertyName property name
+     * @return is can be read
+     */
+    public boolean isPropertyReadable(String propertyName){
+       return this.readablePropertyNames.contains(propertyName);
+    }
+
+    /**
+     * judge a property can be wrote
+     * @param propertyName property name
+     * @return is can be wrote
+     */
+    public boolean isPropertyWritable(String propertyName){
+        return this.writablePropertyNames.contains(propertyName);
+    }
+
+    @Deprecated
+    public String getAllProperty(){
+        return this.writablePropertyNames.toString() + this.readablePropertyNames.toString();
     }
 
     /**
