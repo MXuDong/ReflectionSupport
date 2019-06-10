@@ -141,8 +141,22 @@ public class ObjectReflector {
         }
     }
 
-    public ObjectReflector getSuperObjectReflector(){
+    /**
+     * get super class's <tt>ObjectReflector</tt> object
+     *
+     * @return super class <tt>ObjectReflector</tt> object
+     */
+    public ObjectReflector getSuperObjectReflector() {
         return fatherObjectReflector;
+    }
+
+    /**
+     * is the super class loaded
+     *
+     * @return true/false
+     */
+    public boolean isLoadSuperClass() {
+        return fatherObjectReflector == null && (innerClass.equals(Object.class));
     }
 
     /**
