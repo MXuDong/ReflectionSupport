@@ -48,6 +48,13 @@ public class ObjectReflector {
     private List<String> properties;
 
     /**
+     * the inner class's super class
+     * <p>
+     * if the inner class is of the <tt>object</tt>, this field must be null.
+     */
+    private ObjectReflector fatherObjectReflector;
+
+    /**
      * construction method
      *
      * @param c innerClass
