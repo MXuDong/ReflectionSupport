@@ -28,5 +28,7 @@ public class ReflectorTest {
 
         System.out.println(people.getClassName());
         System.out.println(people.getPackageName());
+
+        System.out.println(people.getReadableProperty());
     }
 }
