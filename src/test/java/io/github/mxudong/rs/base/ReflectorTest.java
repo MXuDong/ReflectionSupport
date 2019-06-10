@@ -37,9 +37,8 @@ public class ReflectorTest {
     @Test
     public void testExtends() {
         Man man = new Man();
-        Reflector<Man> manReflector = new Reflector<Man>(man);
         ObjectReflector manObject = ReflectorFactory.getInstance().getObjectReflector(man.getClass(), true);
         System.out.println(manObject.getReadableProperty());
-        System.out.println(manObject.getSuperObjectReflector());
+        System.out.println(manObject.getSuperObjectReflector().getAllProperties());
     }
 }
