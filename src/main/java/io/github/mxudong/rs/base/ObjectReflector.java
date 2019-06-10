@@ -95,7 +95,7 @@ public class ObjectReflector {
         staticMethods = new HashMap<>();
         commonMethods = new HashMap<>();
 
-        for (Method m : c.getMethods()) {
+        for (Method m : c.getDeclaredMethods()) {
             String name = m.getName();
             if (MethodInvoker.isGetterMethod(name)) {
                 name = StringExtension.getGetterMethodProperty(name);
@@ -141,6 +141,14 @@ public class ObjectReflector {
      */
     public Set<String> getWritableProperty() {
         return writableProperty.keySet();
+    }
+
+    /**
+     * get all properties of inner class
+     * @return the properties list
+     */
+    public List<String> getAllProperties(){
+        return this.properties;
     }
 
     /**
