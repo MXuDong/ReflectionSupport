@@ -6,10 +6,7 @@ import io.github.mxudong.rs.base.strings.StringExtension;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * innerClass Name : ObjectReflector
@@ -111,6 +108,22 @@ public class ObjectReflector {
                 commonMethods.get(name).add(new MethodInvoker(m));
             }
         }
+    }
+
+    /**
+     * get all can be read property
+     * @return readable property set
+     */
+    public Set<String> getReadableProperty(){
+        return readableProperty.keySet();
+    }
+
+    /**
+     * get all can be wrote property
+     * @return writable property set
+     */
+    public Set<String> getWritableProperty(){
+        return writableProperty.keySet();
     }
 
     /**
