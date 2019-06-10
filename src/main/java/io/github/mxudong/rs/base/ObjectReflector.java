@@ -57,9 +57,19 @@ public class ObjectReflector {
     /**
      * construction method
      *
-     * @param c innerClass
+     * @param c inner class
      */
     protected ObjectReflector(Class c) {
+        this(c, false);
+    }
+
+    /**
+     * construction method
+     *
+     * @param c              innerClass
+     * @param loadSuperClass true:load this class's supperClass until Object, else do nothing
+     */
+    protected ObjectReflector(Class c, boolean loadSuperClass) {
         this.innerClass = c;
 
         //write base information of class:c
@@ -145,9 +155,10 @@ public class ObjectReflector {
 
     /**
      * get all properties of inner class
+     *
      * @return the properties list
      */
-    public List<String> getAllProperties(){
+    public List<String> getAllProperties() {
         return this.properties;
     }
 
