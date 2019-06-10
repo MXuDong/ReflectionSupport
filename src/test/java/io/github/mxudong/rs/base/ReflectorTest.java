@@ -1,5 +1,6 @@
 package io.github.mxudong.rs.base;
 
+import io.github.mxudong.beans.Man;
 import io.github.mxudong.beans.People;
 import io.github.mxudong.beans.Student;
 import io.github.mxudong.rs.base.methods.AbsConstructor;
@@ -30,5 +31,14 @@ public class ReflectorTest {
         System.out.println(people.getPackageName());
 
         System.out.println(people.getReadableProperty());
+    }
+
+
+    @Test
+    public void testExtends(){
+        Man man = new Man();
+        Reflector<Man> manReflector = new Reflector<Man>(man);
+        ObjectReflector manObject = ReflectorFactory.getInstance().getObjectReflector(man.getClass());
+        System.out.println(manObject.getReadableProperty());
     }
 }
