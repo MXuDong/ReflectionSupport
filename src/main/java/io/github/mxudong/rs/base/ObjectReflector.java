@@ -72,6 +72,12 @@ public class ObjectReflector {
     protected ObjectReflector(Class c, boolean loadSuperClass) {
         this.innerClass = c;
 
+        if (c.equals(Object.class) || !loadSuperClass) {
+            fatherObjectReflector = null;
+        } else {
+            fatherObjectReflector = ReflectorFactory.getInstance().getObjectReflector(c.getSuperclass(), true);
+        }
+
         //write base information of class:c
         String[] packages = c.getName().split("\\.");
         StringBuilder stringBuffer = new StringBuilder();
@@ -133,6 +139,10 @@ public class ObjectReflector {
                 commonMethods.get(name).add(new MethodInvoker(m));
             }
         }
+    }
+
+    public ObjectReflector getSuperObjectReflector(){
+        return fatherObjectReflector;
     }
 
     /**
