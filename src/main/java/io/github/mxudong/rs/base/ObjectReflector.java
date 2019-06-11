@@ -169,20 +169,31 @@ public class ObjectReflector {
      * @return invoke result
      */
     public Object invokeCommonMethod(String methodName, Object... args) {
-
+        return invokeCommonMethod(methodName, 0, args);
     }
 
     /**
      * invoke common method form method list, if not exits, will search from super class
      * until <tt>superClassSearchDeep</tt> equals <tt>0</tt>
      *
-     * @param methodName method name
-     * @param superClassSearchDeep search super class deep, is -1, then will until Object.class
-     * @param args params
+     * @param methodName           method name
+     * @param superClassSearchDeep search super class deep, is little then 0, then will until Object.class
+     * @param args                 params
      * @return invoke result
      */
     public Object invokeCommonMethod(String methodName, int superClassSearchDeep, Object... args) {
+        Object result = null;
+        if (commonMethods.containsKey(methodName)) {
 
+        } else {
+            if (superClassSearchDeep != 0) {
+                if (fatherObjectReflector == null) {
+                    //加载父类objectReflector
+                }
+            }
+        }
+
+        return result;
     }
 
     /**
@@ -217,12 +228,15 @@ public class ObjectReflector {
     }
 
     /**
-     * is the super class loaded
+     * is the super class loaded, if the inner class is objectClass then return true;
      *
      * @return true/false
      */
     public boolean isLoadSuperClass() {
-        return fatherObjectReflector == null && (innerClass.equals(Object.class));
+        if(innerClass.equals(Object.class)){
+            return true;
+        }
+        return fatherObjectReflector != null;
     }
 
     /**
