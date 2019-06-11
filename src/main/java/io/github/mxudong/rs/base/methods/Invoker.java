@@ -19,7 +19,7 @@ public interface Invoker {
      * @param args   the method needs params
      * @return invoke result
      */
-    Object invoke(Object target, Object[] args);
+    Object invoke(Object target, Object ... args);
 
     /**
      * get the method return type.

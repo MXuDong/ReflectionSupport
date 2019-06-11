@@ -55,7 +55,7 @@ public class MethodInvoker implements Invoker {
     }
 
     @Override
-    public Object invoke(Object target, Object[] args) {
+    public Object invoke(Object target, Object ... args) {
         try {
             return method.invoke(target, args);
         } catch (IllegalAccessException | InvocationTargetException e) {
