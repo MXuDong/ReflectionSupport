@@ -1,6 +1,7 @@
 package io.github.mxudong.rs.base.methods;
 
 import io.github.mxudong.rs.base.strings.StringExtension;
+import io.github.mxudong.rs.base.utils.ClassUtil;
 import io.github.mxudong.rs.exceptions.NullParamException;
 
 import java.lang.reflect.InvocationTargetException;
@@ -34,6 +35,10 @@ public class MethodInvoker implements Invoker {
      *
      * @param method the insert method
      */
+
+    private int paramCount;
+    private Class[] paramClass;
+
     public MethodInvoker(Method method) {
         //==================method can't be null
         if (method == null) {
@@ -45,6 +50,8 @@ public class MethodInvoker implements Invoker {
         }
         this.method = method;
         this.returnType = method.getReturnType();
+        this.paramCount = method.getParameterCount();
+        this.paramClass = method.getParameterTypes();
     }
 
     @Override
@@ -60,6 +67,28 @@ public class MethodInvoker implements Invoker {
     public Class<?> getReturnType() {
         return returnType;
     }
+
+    @Override
+    public boolean isThisArgs(Object... args) {
+        if (args == null) {
+            return this.paramCount == 0;
+        }
+        if (args.length != this.paramCount) {
+            return false;
+        }
+
+        for (int i = 0; i < args.length; i++) {
+            if (!paramClass[i].isInstance(args[i])) {
+                if (ClassUtil.isBaseType(paramClass[i])) {
+                    continue;
+                }
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 
     /**
      * split the method by upper little
@@ -93,30 +122,33 @@ public class MethodInvoker implements Invoker {
 
     /**
      * judge any method is static
+     *
      * @param method be judged method
      * @return is static
      */
-    public static boolean isStaticMethod(Method method){
+    public static boolean isStaticMethod(Method method) {
         return Modifier.isStatic(method.getModifiers());
     }
 
 
     /**
      * is this method a getter method
+     *
      * @param methodName be judged method's name
      * @return is getter method
      */
-    public static boolean isGetterMethod(String methodName){
+    public static boolean isGetterMethod(String methodName) {
         return methodName.startsWith("get") || methodName.startsWith("is");
     }
 
 
     /**
      * is a method setter method
+     *
      * @param methodName be judged method
      * @return is a setter method
      */
-    public static boolean isSetterMethod(String methodName){
+    public static boolean isSetterMethod(String methodName) {
         return methodName.startsWith("set");
     }
 }
