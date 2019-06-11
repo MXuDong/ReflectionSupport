@@ -168,8 +168,8 @@ public class ObjectReflector {
      * @param args       invoke params
      * @return invoke result
      */
-    public Object invokeCommonMethod(String methodName, Object... args) {
-        return invokeCommonMethod(methodName, 0, args);
+    public Object invokeCommonMethod(String methodName, Object target, Object... args) {
+        return invokeCommonMethod(methodName, target, 0, args);
     }
 
     /**
@@ -181,15 +181,25 @@ public class ObjectReflector {
      * @param args                 params
      * @return invoke result
      */
-    public Object invokeCommonMethod(String methodName, int superClassSearchDeep, Object... args) {
+    public Object invokeCommonMethod(String methodName, Object target, int superClassSearchDeep, Object... args) {
         Object result = null;
         if (commonMethods.containsKey(methodName)) {
-
+            List<Invoker> invokers = commonMethods.get(methodName);
+            for (Invoker invoker : invokers) {
+                if (invoker.isThisArgs(args)) {
+                    result = invoker.invoke(target, args);
+                    break;
+                }
+            }
         } else {
             if (superClassSearchDeep != 0) {
-                if (fatherObjectReflector == null) {
-                    //加载父类objectReflector
+                if (innerClass.equals(Object.class)) {
+                    return null;
                 }
+                if (fatherObjectReflector == null) {
+                    loadSuperObjectReflector(true);
+                }
+                result = fatherObjectReflector.invokeCommonMethod(methodName, superClassSearchDeep - 1, args);
             }
         }
 
@@ -233,7 +243,7 @@ public class ObjectReflector {
      * @return true/false
      */
     public boolean isLoadSuperClass() {
-        if(innerClass.equals(Object.class)){
+        if (innerClass.equals(Object.class)) {
             return true;
         }
         return fatherObjectReflector != null;
