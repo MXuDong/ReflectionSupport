@@ -249,6 +249,7 @@ public class ObjectReflector {
      *
      * @param propertyName be set property name
      * @param param        be set value
+     * @param target       target object
      */
     public void invokeSetterMethod(String propertyName, Object target, Object param) {
         invokeSetterMethod(propertyName, target, param, 0);
@@ -284,14 +285,46 @@ public class ObjectReflector {
      *
      * @param methodName be invoke name
      * @param params     invoke params
+     * @param target     target object
      * @return invoke result
      */
     synchronized public Object invokeStaticMethod(String methodName, Object target, Object... params) {
-
+        return invokeStaticMethod(methodName, target, 0, params);
     }
 
-    synchronized public Object invokeStaticMethod(String methodName, Object target, Object... params) {
+    /**
+     * to invoke static method, if this inner class hasn't, will search from super class
+     * this method is synchronized, but please use as little as possible
+     *
+     * @param methodName           be invoke name
+     * @param target               target object
+     * @param superClassSearchDeep search super class deep, is little then 0, then will until Object.class
+     * @param params               input params
+     * @return invoke result
+     */
+    synchronized public Object invokeStaticMethod(String methodName, Object target, int superClassSearchDeep, Object... params) {
+        Object result = null;
+        if (staticMethods.containsKey(methodName)) {
+            List<Invoker> invokers = staticMethods.get(methodName);
+            for (Invoker invoker : invokers) {
+                if (invoker.isThisArgs(params)) {
+                    result = invoker.invoke(target, params);
+                    break;
+                }
+            }
+        } else {
+            if (superClassSearchDeep != 0) {
+                if (innerClass.equals(Object.class)) {
+                    return null;
+                }
+                if (fatherObjectReflector == null) {
+                    loadSuperObjectReflector(true);
+                }
+                result = fatherObjectReflector.invokeStaticMethod(methodName, target, superClassSearchDeep - 1, params);
+            }
+        }
 
+        return result;
     }
 
     /**

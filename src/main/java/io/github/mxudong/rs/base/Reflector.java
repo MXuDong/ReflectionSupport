@@ -4,6 +4,7 @@ import io.github.mxudong.rs.base.methods.AbsConstructor;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -89,6 +90,32 @@ public class Reflector<T> {
      */
     public String getObjectPackages() {
         return objectReflector.getPackageName();
+    }
+
+    /**
+     * turn object to map
+     * <p>
+     * if the property can readable and writable, this property will
+     * be write into map.
+     * <p>
+     * if the property is null, the property also be insert into map.
+     * <p>
+     * This operation only happens in this class, and parent information will not be added to map.
+     * If you want to record parent information, use <tt>getObjectInfoAll()</tt>
+     *
+     * @return map about object info
+     */
+    public Map<String, Object> getObjectInfo() {
+        return null;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Map<String, Object> getObjectInfoAll(){
+
+        return null;
     }
 
     /**
