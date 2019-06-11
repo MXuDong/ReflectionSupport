@@ -110,7 +110,7 @@ public class Reflector<T> {
     }
 
     /**
-     *
+     * 等待完成
      * @return
      */
     public Map<String, Object> getObjectInfoAll(){
