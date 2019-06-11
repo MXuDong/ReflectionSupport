@@ -162,6 +162,48 @@ public class ObjectReflector {
     }
 
     /**
+     * invoke common method from common method list
+     *
+     * @param methodName method name
+     * @param args       invoke params
+     * @return invoke result
+     */
+    public Object invokeCommonMethod(String methodName, Object... args) {
+
+    }
+
+    /**
+     * invoke getter method from getter method list
+     *
+     * @param propertyName be got property name
+     * @return property value
+     */
+    public Object invokeGetterMethod(String propertyName) {
+
+    }
+
+    /**
+     * invoke setter method from setter method list
+     *
+     * @param propertyName be set property name
+     * @param param        be set value
+     */
+    public void invokeSetterMethod(String propertyName, Object param) {
+
+    }
+
+    /**
+     * invoke static method form static method list
+     *
+     * @param methodName be invoke name
+     * @param params     invoke params
+     * @return invoke result
+     */
+    synchronized public Object invokeStaticMethod(String methodName, Object... params) {
+
+    }
+
+    /**
      * is the super class loaded
      *
      * @return true/false
