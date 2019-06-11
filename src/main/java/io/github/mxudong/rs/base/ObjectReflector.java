@@ -251,7 +251,23 @@ public class ObjectReflector {
      * @param param        be set value
      */
     public void invokeSetterMethod(String propertyName, Object target, Object param) {
+        invokeSetterMethod(propertyName, target, param, 0);
+    }
 
+    public void invokeSetterMethod(String propertyName, Object target, Object param, int superClassSearchDeep) {
+        if(writableProperty.containsKey(propertyName)){
+            writableProperty.get(propertyName).invoke(target, param);
+        }else {
+            if(superClassSearchDeep != 0){
+                if(innerClass.equals(Object.class)){
+                    return;
+                }
+                if(fatherObjectReflector == null){
+                    loadSuperObjectReflector(true);
+                }
+                fatherObjectReflector.invokeSetterMethod(propertyName, target, param, superClassSearchDeep - 1);
+            }
+        }
     }
 
     /**
