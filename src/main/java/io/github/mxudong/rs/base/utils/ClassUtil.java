@@ -21,6 +21,14 @@ public class ClassUtil {
      * @return is base type
      */
     public static boolean isBaseType(Class type) {
-
+        if(type.equals(short.class)) return true;
+        if(type.equals(byte.class)) return true;
+        if(type.equals(char.class)) return true;
+        if(type.equals(int.class)) return true;
+        if(type.equals(float.class)) return true;
+        if(type.equals(boolean.class)) return true;
+        if(type.equals(long.class)) return true;
+        if(type.equals(double.class)) return true;
+        return false;
     }
 }
