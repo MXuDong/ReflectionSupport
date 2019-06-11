@@ -212,7 +212,7 @@ public class ObjectReflector {
      * @param propertyName be got property name
      * @return property value
      */
-    public Object invokeGetterMethod(String propertyName) {
+    public Object invokeGetterMethod(String propertyName, Object target) {
 
     }
 
@@ -222,7 +222,7 @@ public class ObjectReflector {
      * @param propertyName be set property name
      * @param param        be set value
      */
-    public void invokeSetterMethod(String propertyName, Object param) {
+    public void invokeSetterMethod(String propertyName, Object target, Object param) {
 
     }
 
@@ -233,7 +233,7 @@ public class ObjectReflector {
      * @param params     invoke params
      * @return invoke result
      */
-    synchronized public Object invokeStaticMethod(String methodName, Object... params) {
+    synchronized public Object invokeStaticMethod(String methodName, Object target, Object... params) {
 
     }
 
