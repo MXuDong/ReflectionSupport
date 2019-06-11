@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
  * @since 2.0
  */
 
-public class AbsConstructor {
+public class AbsConstructor extends MethodInvoker{
     private Constructor constructor;
     private int paramCount;
     private Class[] paramClass;
@@ -35,7 +35,7 @@ public class AbsConstructor {
      * @return the param count
      */
     public int getParamCount() {
-        return paramCount;
+        return ;
     }
 
     /**
