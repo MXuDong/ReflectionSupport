@@ -173,6 +173,19 @@ public class ObjectReflector {
     }
 
     /**
+     * invoke common method form method list, if not exits, will search from super class
+     * until <tt>superClassSearchDeep</tt> equals <tt>0</tt>
+     *
+     * @param methodName method name
+     * @param superClassSearchDeep search super class deep, is -1, then will until Object.class
+     * @param args params
+     * @return invoke result
+     */
+    public Object invokeCommonMethod(String methodName, int superClassSearchDeep, Object... args) {
+
+    }
+
+    /**
      * invoke getter method from getter method list
      *
      * @param propertyName be got property name
