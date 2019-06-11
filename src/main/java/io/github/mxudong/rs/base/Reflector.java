@@ -65,6 +65,33 @@ public class Reflector<T> {
     }
 
     /**
+     * get object reflector
+     *
+     * @return object reflector
+     */
+    public ObjectReflector getObjectReflector() {
+        return objectReflector;
+    }
+
+    /**
+     * get class name
+     *
+     * @return class name
+     */
+    public String getObjectName() {
+        return objectReflector.getClassName();
+    }
+
+    /**
+     * get class' package path
+     *
+     * @return package path
+     */
+    public String getObjectPackages() {
+        return objectReflector.getPackageName();
+    }
+
+    /**
      * get new instance
      *
      * @return T
@@ -120,16 +147,17 @@ public class Reflector<T> {
      * @param propertyName property name
      * @return is can be read
      */
-    public boolean isPropertyReadable(String propertyName){
-       return this.readablePropertyNames.contains(propertyName);
+    public boolean isPropertyReadable(String propertyName) {
+        return this.readablePropertyNames.contains(propertyName);
     }
 
     /**
      * judge a property can be wrote
+     *
      * @param propertyName property name
      * @return is can be wrote
      */
-    public boolean isPropertyWritable(String propertyName){
+    public boolean isPropertyWritable(String propertyName) {
         return this.writablePropertyNames.contains(propertyName);
     }
 
