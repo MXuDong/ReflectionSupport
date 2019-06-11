@@ -199,7 +199,7 @@ public class ObjectReflector {
                 if (fatherObjectReflector == null) {
                     loadSuperObjectReflector(true);
                 }
-                result = fatherObjectReflector.invokeCommonMethod(methodName, superClassSearchDeep - 1, args);
+                result = fatherObjectReflector.invokeCommonMethod(methodName, target, superClassSearchDeep - 1, args);
             }
         }
 
@@ -213,7 +213,35 @@ public class ObjectReflector {
      * @return property value
      */
     public Object invokeGetterMethod(String propertyName, Object target) {
+        return invokeGetterMethod(propertyName, target, 0);
+    }
 
+    /**
+     * invoke getter method form method list, if not exits, will search from super class
+     * until <tt>superClassSearchDeep</tt> equals <tt>0</tt>
+     *
+     * @param propertyName         property name
+     * @param target               be invoke object
+     * @param superClassSearchDeep search super class deep, is little then 0, then will until Object.class
+     * @return getter return
+     */
+    public Object invokeGetterMethod(String propertyName, Object target, int superClassSearchDeep) {
+        Object result = null;
+        if (readableProperty.containsKey(propertyName)) {
+            result = readableProperty.get(propertyName).invoke(target);
+        } else {
+            if (superClassSearchDeep != 0) {
+                if (innerClass.equals(Object.class)) {
+                    return null;
+                }
+                if (fatherObjectReflector == null) {
+                    loadSuperObjectReflector(true);
+                }
+                result = fatherObjectReflector.invokeGetterMethod(propertyName, target, superClassSearchDeep - 1);
+            }
+        }
+
+        return result;
     }
 
     /**
