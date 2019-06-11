@@ -254,15 +254,24 @@ public class ObjectReflector {
         invokeSetterMethod(propertyName, target, param, 0);
     }
 
+    /**
+     * invoke setter method form method list, if not exits, will search from super class
+     * until <tt>superClassSearchDeep</tt> equals <tt>0</tt>
+     *
+     * @param propertyName         property name
+     * @param target               be invoke object
+     * @param param                input params
+     * @param superClassSearchDeep search super class deep, is little then 0, then will until Object.class
+     */
     public void invokeSetterMethod(String propertyName, Object target, Object param, int superClassSearchDeep) {
-        if(writableProperty.containsKey(propertyName)){
+        if (writableProperty.containsKey(propertyName)) {
             writableProperty.get(propertyName).invoke(target, param);
-        }else {
-            if(superClassSearchDeep != 0){
-                if(innerClass.equals(Object.class)){
+        } else {
+            if (superClassSearchDeep != 0) {
+                if (innerClass.equals(Object.class)) {
                     return;
                 }
-                if(fatherObjectReflector == null){
+                if (fatherObjectReflector == null) {
                     loadSuperObjectReflector(true);
                 }
                 fatherObjectReflector.invokeSetterMethod(propertyName, target, param, superClassSearchDeep - 1);
@@ -277,6 +286,10 @@ public class ObjectReflector {
      * @param params     invoke params
      * @return invoke result
      */
+    synchronized public Object invokeStaticMethod(String methodName, Object target, Object... params) {
+
+    }
+
     synchronized public Object invokeStaticMethod(String methodName, Object target, Object... params) {
 
     }
