@@ -231,6 +231,17 @@ public class Reflector<T> {
     }
 
     /**
+     * invoke common method from this object
+     *
+     * @param methodName method's name
+     * @param args       params for invoke method
+     * @return invoke result
+     */
+    public Object invokeCommonMethod(String methodName, Object... args) {
+        return objectReflector.invokeCommonMethod(methodName, object, args);
+    }
+
+    /**
      * override the method : {@code hashCode()}
      *
      * @return the target object's hashCode.
