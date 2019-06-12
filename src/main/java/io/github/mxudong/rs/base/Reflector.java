@@ -88,6 +88,21 @@ public class Reflector<T> {
     }
 
     /**
+     * get property value, if this object not exits, return null
+     *
+     * @param propertyName property's name
+     * @return property value
+     */
+    public Object getProperty(String propertyName) {
+        if (readablePropertyNames.contains(propertyName)) {
+            return objectReflector.invokeGetterMethod(propertyName, object);
+        } else {
+            return null;
+        }
+    }
+
+
+    /**
      * get object reflector
      *
      * @return object reflector
