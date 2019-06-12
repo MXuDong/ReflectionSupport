@@ -242,6 +242,17 @@ public class Reflector<T> {
     }
 
     /**
+     * invoke static method from this object
+     *
+     * @param methodName method's name
+     * @param args       params for invoke method
+     * @return invoke result
+     */
+    public Object invokeStaticMethod(String methodName, Object... args) {
+        return objectReflector.invokeStaticMethod(methodName, args);
+    }
+
+    /**
      * override the method : {@code hashCode()}
      *
      * @return the target object's hashCode.
