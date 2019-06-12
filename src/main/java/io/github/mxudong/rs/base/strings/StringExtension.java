@@ -46,7 +46,7 @@ public class StringExtension {
     }
 
     /**
-     * turn <tt>StringBuffer[]</tt> to <tt>String[]</tt>
+     * turn )StringBuffer[]  to )String[]
      *
      * @param stringBuffers be turned param
      * @return string[]

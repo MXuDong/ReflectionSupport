@@ -8,8 +8,8 @@ import java.lang.reflect.Method;
  * Create Date : 2019/6/2
  * Project : ReflectionSupport
  * <p>
- * {@code GetterMethodInvoker} extends {@link {@code MethodInvoker}}
- * and the <tt>GetterMethodInvoker</tt> override invoke method, so
+ * {@code GetterMethodInvoker} extends {@code MethodInvoker}
+ * and the )GetterMethodInvoker  override invoke method, so
  * if you want do invoke getter method, needn't any param
  *
  * @author Dong
