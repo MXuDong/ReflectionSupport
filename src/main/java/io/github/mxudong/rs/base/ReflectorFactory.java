@@ -59,19 +59,33 @@ public class ReflectorFactory {
     /**
      * get the class {@code ObjectReflector} which handle the <tt>c</tt>.
      *
-     * @param c aim class, if it is null, the return is null.
+     * @param c                aim class, if it is null, the return is null.
+     * @param isLoadSuperClass true:load this class's supperClass until Object, else do nothing
      * @return the <tt>ObjectReflector</tt> which handle the <tt>c</tt>.
      */
-    public ObjectReflector getObjectReflector(Class c) {
+    public ObjectReflector getObjectReflector(Class c, boolean isLoadSuperClass) {
         if (c == null) {
             return null;
         }
         if (objectReflectorMap.containsKey(c)) {
+            if (isLoadSuperClass) {
+                objectReflectorMap.get(c).loadSuperObjectReflector(true);
+            }
             return objectReflectorMap.get(c);
         }
 
-        ObjectReflector objectReflector = new ObjectReflector(c);
+        ObjectReflector objectReflector = new ObjectReflector(c, isLoadSuperClass);
         objectReflectorMap.put(c, objectReflector);
         return objectReflector;
+    }
+
+    /**
+     * get the class {@code ObjectReflector} which handle the <tt>c</tt>.
+     *
+     * @param c aim class, if it is null, the return is null.
+     * @return the <tt>ObjectReflector</tt> which handle the <tt>c</tt>.
+     */
+    public ObjectReflector getObjectReflector(Class c) {
+        return getObjectReflector(c, false);
     }
 }

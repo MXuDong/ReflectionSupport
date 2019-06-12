@@ -1,5 +1,6 @@
 package io.github.mxudong.rs.base;
 
+import io.github.mxudong.beans.Man;
 import io.github.mxudong.beans.People;
 import io.github.mxudong.beans.Student;
 import io.github.mxudong.rs.base.methods.AbsConstructor;
@@ -11,8 +12,8 @@ import static org.junit.Assert.*;
 public class ReflectorTest {
 
     @Test
-    public void testBase(){
-        Reflector<Student> studentReflector = new Reflector<>(new Student(15,"name","number"));
+    public void testBase() {
+        Reflector<Student> studentReflector = new Reflector<>(new Student(15, "name", "number"));
 
         ObjectReflector absConstructor = ReflectorFactory.getInstance().getObjectReflector(Student.class);
         System.out.println(absConstructor.equals(ReflectorFactory.getInstance().getObjectReflector(studentReflector.getObjectClass())));
@@ -28,5 +29,21 @@ public class ReflectorTest {
 
         System.out.println(people.getClassName());
         System.out.println(people.getPackageName());
+
+        System.out.println(people.getReadableProperty());
+        System.out.println(studentReflector.getObjectInfo());
+        Reflector<Student> student = new Reflector<Student>(Student.class, studentReflector.getObjectInfo());
+        System.out.println(student);
+
+    }
+
+
+    @Test
+    public void testExtends() {
+        Man man = new Man();
+        Reflector<Man> manReflector = new Reflector<>(man);
+        ObjectReflector manObject = ReflectorFactory.getInstance().getObjectReflector(man.getClass(), true);
+        System.out.println(manObject.getReadableProperty());
+        System.out.println(manObject.getSuperObjectReflector().getAllProperties());
     }
 }

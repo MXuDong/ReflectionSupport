@@ -19,7 +19,7 @@ public interface Invoker {
      * @param args   the method needs params
      * @return invoke result
      */
-    Object invoke(Object target, Object[] args);
+    Object invoke(Object target, Object ... args);
 
     /**
      * get the method return type.
@@ -27,4 +27,11 @@ public interface Invoker {
      * @return if return null:the method return type is void,else return return type
      */
     Class<?> getReturnType();
+
+    /**
+     * to equals args with inner params type;
+     * @param args
+     * @return
+     */
+    boolean isThisArgs(Object ... args);
 }

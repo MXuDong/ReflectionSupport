@@ -1,5 +1,7 @@
 package io.github.mxudong.rs.base.methods;
 
+import io.github.mxudong.rs.base.utils.ClassUtil;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -13,7 +15,7 @@ import java.lang.reflect.InvocationTargetException;
  * @since 2.0
  */
 
-public class AbsConstructor {
+public class AbsConstructor{
     private Constructor constructor;
     private int paramCount;
     private Class[] paramClass;
@@ -71,6 +73,9 @@ public class AbsConstructor {
 
         for (int i = 0; i < args.length; i++) {
             if (!paramClass[i].isInstance(args[i])) {
+                if (ClassUtil.isBaseType(paramClass[i])) {
+                    continue;
+                }
                 return false;
             }
         }

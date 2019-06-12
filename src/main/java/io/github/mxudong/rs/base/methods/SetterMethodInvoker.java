@@ -24,8 +24,14 @@ public class SetterMethodInvoker extends MethodInvoker {
         super(method);
     }
 
-    @Override
-    public Object invoke(Object target, Object[] args) {
+    /**
+     * invoke setter method
+     *
+     * @param target aim object
+     * @param args   be set value
+     * @return should be null
+     */
+    public Object invoke(Object target, Object args) {
         return super.invoke(target, args);
     }
 }

@@ -1,9 +1,8 @@
 package io.github.mxudong.rs.base;
 
-import io.github.mxudong.rs.base.methods.AbsConstructor;
-
-import java.lang.reflect.Constructor;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * innerClass Name : Reflector
@@ -42,12 +41,12 @@ public class Reflector<T> {
     /**
      * Name list of readable property
      */
-    private List<String> readablePropertyNames;
+    private Set<String> readablePropertyNames;
 
     /**
      * Name list of writable property
      */
-    private List<String> writablePropertyNames;
+    private Set<String> writablePropertyNames;
 
 
     /**
@@ -59,6 +58,91 @@ public class Reflector<T> {
         this.object = object;
         this.tClass = object.getClass();
         this.objectReflector = ReflectorFactory.getInstance().getObjectReflector(this.tClass);
+        readablePropertyNames = this.objectReflector.getReadableProperty();
+        writablePropertyNames = this.objectReflector.getWritableProperty();
+    }
+
+    /**
+     * the construction method
+     * the new object will setter from infos
+     *
+     * @param tClass aim object's class
+     * @param infos  object infos
+     */
+    public Reflector(Class<T> tClass, Map<String, Object> infos) {
+        this(tClass);
+        setObjectInfo(infos);
+    }
+
+    /**
+     * the construction method, auto new object
+     *
+     * @param tClass aim object's class
+     */
+    public Reflector(Class<T> tClass) {
+        this.tClass = tClass;
+        this.objectReflector = ReflectorFactory.getInstance().getObjectReflector(this.tClass);
+        this.object = (T) objectReflector.getInstance();
+        readablePropertyNames = this.objectReflector.getReadableProperty();
+        writablePropertyNames = this.objectReflector.getWritableProperty();
+    }
+
+    /**
+     * get object reflector
+     *
+     * @return object reflector
+     */
+    public ObjectReflector getObjectReflector() {
+        return objectReflector;
+    }
+
+    /**
+     * get class name
+     *
+     * @return class name
+     */
+    public String getObjectName() {
+        return objectReflector.getClassName();
+    }
+
+    /**
+     * get class' package path
+     *
+     * @return package path
+     */
+    public String getObjectPackages() {
+        return objectReflector.getPackageName();
+    }
+
+    /**
+     * turn object to map
+     * <p>
+     * if the property can readable, this property will
+     * be write into map.
+     * <p>
+     * if the property is null, the property also be insert into map.
+     * <p>
+     * This operation only happens in this class, and parent information will not be added to map.
+     * If you want to record parent information, use <tt>getObjectInfoAll()</tt>
+     *
+     * @return map about object info
+     */
+    public Map<String, Object> getObjectInfo() {
+
+        Map<String, Object> infos = new HashMap<>();
+
+        Set<String> keys = readablePropertyNames;
+        for (String key : keys) {
+            infos.put(key, objectReflector.invokeGetterMethod(key, object));
+        }
+
+        return infos;
+    }
+
+    public void setObjectInfo(Map<String, Object> infos) {
+        for (String key : infos.keySet()) {
+            objectReflector.invokeSetterMethod(key, object, infos.get(key));
+        }
     }
 
     /**
@@ -109,6 +193,26 @@ public class Reflector<T> {
      */
     public Class getObjectClass() {
         return tClass;
+    }
+
+    /**
+     * judge a property can be read
+     *
+     * @param propertyName property name
+     * @return is can be read
+     */
+    public boolean isPropertyReadable(String propertyName) {
+        return this.readablePropertyNames.contains(propertyName);
+    }
+
+    /**
+     * judge a property can be wrote
+     *
+     * @param propertyName property name
+     * @return is can be wrote
+     */
+    public boolean isPropertyWritable(String propertyName) {
+        return this.writablePropertyNames.contains(propertyName);
     }
 
     /**
