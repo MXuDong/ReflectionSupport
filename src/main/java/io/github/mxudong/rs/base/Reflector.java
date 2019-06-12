@@ -88,6 +88,21 @@ public class Reflector<T> {
     }
 
     /**
+     * get property value, if this object not exits, return null
+     *
+     * @param propertyName property's name
+     * @return property value
+     */
+    public Object getProperty(String propertyName) {
+        if (readablePropertyNames.contains(propertyName)) {
+            return objectReflector.invokeGetterMethod(propertyName, object);
+        } else {
+            return null;
+        }
+    }
+
+
+    /**
      * get object reflector
      *
      * @return object reflector
@@ -213,6 +228,28 @@ public class Reflector<T> {
      */
     public boolean isPropertyWritable(String propertyName) {
         return this.writablePropertyNames.contains(propertyName);
+    }
+
+    /**
+     * invoke common method from this object
+     *
+     * @param methodName method's name
+     * @param args       params for invoke method
+     * @return invoke result
+     */
+    public Object invokeCommonMethod(String methodName, Object... args) {
+        return objectReflector.invokeCommonMethod(methodName, object, args);
+    }
+
+    /**
+     * invoke static method from this object
+     *
+     * @param methodName method's name
+     * @param args       params for invoke method
+     * @return invoke result
+     */
+    public Object invokeStaticMethod(String methodName, Object... args) {
+        return objectReflector.invokeStaticMethod(methodName, args);
     }
 
     /**
