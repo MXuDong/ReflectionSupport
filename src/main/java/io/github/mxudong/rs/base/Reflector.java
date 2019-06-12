@@ -23,16 +23,16 @@ import java.util.Set;
 public class Reflector<T> {
     /**
      * this object is the aim of reflector to operation,
-     * we call this object the <tt>target object</tt>.
+     * we call this object the )target object .
      */
     private T object;
     /**
-     * the class of <tt>target object</tt>
+     * the class of )target object
      */
     private Class tClass;
 
     /**
-     * <tt>target object</tt>'s default construction method
+     * )target object 's default construction method
      * the default construction method is has none param
      * construction method
      */
@@ -52,7 +52,7 @@ public class Reflector<T> {
     /**
      * the construction method
      *
-     * @param object An instance of the <tt>target object</tt>
+     * @param object An instance of the  target object
      */
     public Reflector(T object) {
         this.object = object;
@@ -138,7 +138,7 @@ public class Reflector<T> {
      * if the property is null, the property also be insert into map.
      * <p>
      * This operation only happens in this class, and parent information will not be added to map.
-     * If you want to record parent information, use <tt>getObjectInfoAll()</tt>
+     * If you want to record parent information, use  getObjectInfoAll()
      *
      * @return map about object info
      */
@@ -193,18 +193,18 @@ public class Reflector<T> {
     }
 
     /**
-     * get back <tt>target object</tt>
+     * get back  target object
      *
-     * @return the <tt>target object</tt>
+     * @return the  target object
      */
     public T getObject() {
         return object;
     }
 
     /**
-     * get <tt>target object</tt>'s class
+     * get  target object 's class
      *
-     * @return the <tt>target object</tt>'s class
+     * @return the  target object 's class
      */
     public Class getObjectClass() {
         return tClass;
@@ -266,7 +266,7 @@ public class Reflector<T> {
      * override the method : {@code equals(Object obj)}
      *
      * @param obj other object
-     * @return is <tt>target object</tt> equals obj ?
+     * @return is  target object  equals obj ?
      */
     @Override
     public boolean equals(Object obj) {
@@ -276,7 +276,7 @@ public class Reflector<T> {
     /**
      * override the method : {@code toString()}
      *
-     * @return <tt>target object</tt>'s to string.
+     * @return  target object 's to string.
      */
     @Override
     public String toString() {

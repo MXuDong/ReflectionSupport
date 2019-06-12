@@ -31,7 +31,7 @@ public class ReflectorFactory {
     private static ReflectorFactory reflectorFactory = new ReflectorFactory();
 
     /**
-     * for the single pattern, so it should be <tt>ConcurrentHashMap</tt>
+     * for the single pattern, so it should be  ConcurrentHashMap
      * <p>
      * the map is for class and ObjectReflector.
      *
@@ -47,21 +47,21 @@ public class ReflectorFactory {
     }
 
     /**
-     * for <tt>reflectorFactory</tt> is singleton pattern, you can't use {@code new} to
+     * for  reflectorFactory  is singleton pattern, you can't use {@code new} to
      * get a example of this class, but you can get instance by this method.
      *
-     * @return the <tt>reflectorFactory</tt>'s unique global instance.
+     * @return the  reflectorFactory 's unique global instance.
      */
     public static ReflectorFactory getInstance() {
         return reflectorFactory;
     }
 
     /**
-     * get the class {@code ObjectReflector} which handle the <tt>c</tt>.
+     * get the class {@code ObjectReflector} which handle the  c .
      *
      * @param c                aim class, if it is null, the return is null.
      * @param isLoadSuperClass true:load this class's supperClass until Object, else do nothing
-     * @return the <tt>ObjectReflector</tt> which handle the <tt>c</tt>.
+     * @return the  ObjectReflector  which handle the  c .
      */
     public ObjectReflector getObjectReflector(Class c, boolean isLoadSuperClass) {
         if (c == null) {
@@ -80,10 +80,10 @@ public class ReflectorFactory {
     }
 
     /**
-     * get the class {@code ObjectReflector} which handle the <tt>c</tt>.
+     * get the class {@code ObjectReflector} which handle the  c .
      *
      * @param c aim class, if it is null, the return is null.
-     * @return the <tt>ObjectReflector</tt> which handle the <tt>c</tt>.
+     * @return the  ObjectReflector  which handle the  c .
      */
     public ObjectReflector getObjectReflector(Class c) {
         return getObjectReflector(c, false);

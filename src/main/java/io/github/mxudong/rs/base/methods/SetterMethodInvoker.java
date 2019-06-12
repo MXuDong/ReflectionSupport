@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
  * Create Date : 2019/6/9
  * Project : ReflectionSupport
  * <p>
- * {@code SetterMethodInvoker} extends {@link {@code MethodInvoker}}
+ * {@code SetterMethodInvoker} extends {@code MethodInvoker}
  *
  * @author Dong
  * @since 2.0
