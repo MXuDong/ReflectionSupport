@@ -1,10 +1,6 @@
 package io.github.mxudong.rs.base;
 
-import io.github.mxudong.rs.base.methods.AbsConstructor;
-
-import java.lang.reflect.Constructor;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -67,6 +63,31 @@ public class Reflector<T> {
     }
 
     /**
+     * the construction method
+     * the new object will setter from infos
+     *
+     * @param tClass aim object's class
+     * @param infos  object infos
+     */
+    public Reflector(Class<T> tClass, Map<String, Object> infos) {
+        this(tClass);
+        setObjectInfo(infos);
+    }
+
+    /**
+     * the construction method, auto new object
+     *
+     * @param tClass aim object's class
+     */
+    public Reflector(Class<T> tClass) {
+        this.tClass = tClass;
+        this.objectReflector = ReflectorFactory.getInstance().getObjectReflector(this.tClass);
+        this.object = (T) objectReflector.getInstance();
+        readablePropertyNames = this.objectReflector.getReadableProperty();
+        writablePropertyNames = this.objectReflector.getWritableProperty();
+    }
+
+    /**
      * get object reflector
      *
      * @return object reflector
@@ -111,11 +132,17 @@ public class Reflector<T> {
         Map<String, Object> infos = new HashMap<>();
 
         Set<String> keys = readablePropertyNames;
-        for(String key : keys){
+        for (String key : keys) {
             infos.put(key, objectReflector.invokeGetterMethod(key, object));
         }
 
         return infos;
+    }
+
+    public void setObjectInfo(Map<String, Object> infos) {
+        for (String key : infos.keySet()) {
+            objectReflector.invokeSetterMethod(key, object, infos.get(key));
+        }
     }
 
     /**
