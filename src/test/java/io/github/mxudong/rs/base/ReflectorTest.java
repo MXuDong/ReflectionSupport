@@ -32,6 +32,9 @@ public class ReflectorTest {
 
         System.out.println(people.getReadableProperty());
         System.out.println(studentReflector.getObjectInfo());
+        Reflector<Student> student = new Reflector<Student>(Student.class, studentReflector.getObjectInfo());
+        System.out.println(student);
+
     }
 
 
