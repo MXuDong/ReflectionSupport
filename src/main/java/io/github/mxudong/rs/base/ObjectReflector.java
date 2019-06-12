@@ -50,7 +50,7 @@ final public class ObjectReflector {
     /**
      * the inner class's super class
      * <p>
-     * if the inner class is of the <tt>object</tt>, this field must be null.
+     * if the inner class is of the  object , this field must be null.
      */
     private ObjectReflector fatherObjectReflector;
 
@@ -142,16 +142,16 @@ final public class ObjectReflector {
     }
 
     /**
-     * get super class's <tt>ObjectReflector</tt> object
+     * get super class's  ObjectReflector  object
      *
-     * @return super class <tt>ObjectReflector</tt> object
+     * @return super class  ObjectReflector  object
      */
     public ObjectReflector getSuperObjectReflector() {
         return fatherObjectReflector;
     }
 
     /**
-     * to load super class's <tt>ObjectReflector</tt>'s object
+     * to load super class's  ObjectReflector 's object
      *
      * @param isOnce is true, only load first super class else until Object class
      * @return inner class's super object reflector
@@ -166,6 +166,7 @@ final public class ObjectReflector {
      *
      * @param methodName method name
      * @param args       invoke params
+     * @param target     be invoke object
      * @return invoke result
      */
     public Object invokeCommonMethod(String methodName, Object target, Object... args) {
@@ -174,11 +175,12 @@ final public class ObjectReflector {
 
     /**
      * invoke common method form method list, if not exits, will search from super class
-     * until <tt>superClassSearchDeep</tt> equals <tt>0</tt>
+     * until  superClassSearchDeep  equals  0
      *
      * @param methodName           method name
      * @param superClassSearchDeep search super class deep, is little then 0, then will until Object.class
      * @param args                 params
+     * @param target               be invoke object
      * @return invoke result
      */
     public Object invokeCommonMethod(String methodName, Object target, int superClassSearchDeep, Object... args) {
@@ -218,7 +220,7 @@ final public class ObjectReflector {
 
     /**
      * invoke getter method form method list, if not exits, will search from super class
-     * until <tt>superClassSearchDeep</tt> equals <tt>0</tt>
+     * until  superClassSearchDeep  equals  0
      *
      * @param propertyName         property name
      * @param target               be invoke object
@@ -257,7 +259,7 @@ final public class ObjectReflector {
 
     /**
      * invoke setter method form method list, if not exits, will search from super class
-     * until <tt>superClassSearchDeep</tt> equals <tt>0</tt>
+     * until  superClassSearchDeep  equals  0
      *
      * @param propertyName         property name
      * @param target               be invoke object
