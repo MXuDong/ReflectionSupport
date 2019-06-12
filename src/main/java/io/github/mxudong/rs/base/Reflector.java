@@ -3,7 +3,9 @@ package io.github.mxudong.rs.base;
 import io.github.mxudong.rs.base.methods.AbsConstructor;
 
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -65,6 +67,58 @@ public class Reflector<T> {
     }
 
     /**
+     * get object reflector
+     *
+     * @return object reflector
+     */
+    public ObjectReflector getObjectReflector() {
+        return objectReflector;
+    }
+
+    /**
+     * get class name
+     *
+     * @return class name
+     */
+    public String getObjectName() {
+        return objectReflector.getClassName();
+    }
+
+    /**
+     * get class' package path
+     *
+     * @return package path
+     */
+    public String getObjectPackages() {
+        return objectReflector.getPackageName();
+    }
+
+    /**
+     * turn object to map
+     * <p>
+     * if the property can readable, this property will
+     * be write into map.
+     * <p>
+     * if the property is null, the property also be insert into map.
+     * <p>
+     * This operation only happens in this class, and parent information will not be added to map.
+     * If you want to record parent information, use <tt>getObjectInfoAll()</tt>
+     *
+     * @return map about object info
+     */
+    public Map<String, Object> getObjectInfo() {
+
+        Map<String, Object> infos = new HashMap<>();
+
+        Set<String> keys = readablePropertyNames;
+        for(String key : keys){
+            infos.put(key, objectReflector.invokeGetterMethod(key, object));
+        }
+
+        return infos;
+    }
+
+    /**
      * get new instance
      *
      * @return T
@@ -120,16 +174,17 @@ public class Reflector<T> {
      * @param propertyName property name
      * @return is can be read
      */
-    public boolean isPropertyReadable(String propertyName){
-       return this.readablePropertyNames.contains(propertyName);
+    public boolean isPropertyReadable(String propertyName) {
+        return this.readablePropertyNames.contains(propertyName);
     }
 
     /**
      * judge a property can be wrote
+     *
      * @param propertyName property name
      * @return is can be wrote
      */
-    public boolean isPropertyWritable(String propertyName){
+    public boolean isPropertyWritable(String propertyName) {
         return this.writablePropertyNames.contains(propertyName);
     }
 
