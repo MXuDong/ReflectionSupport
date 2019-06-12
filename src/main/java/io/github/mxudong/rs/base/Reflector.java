@@ -3,6 +3,7 @@ package io.github.mxudong.rs.base;
 import io.github.mxudong.rs.base.methods.AbsConstructor;
 
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -95,7 +96,7 @@ public class Reflector<T> {
     /**
      * turn object to map
      * <p>
-     * if the property can readable and writable, this property will
+     * if the property can readable, this property will
      * be write into map.
      * <p>
      * if the property is null, the property also be insert into map.
@@ -106,16 +107,15 @@ public class Reflector<T> {
      * @return map about object info
      */
     public Map<String, Object> getObjectInfo() {
-        return null;
-    }
 
-    /**
-     * 等待完成
-     * @return
-     */
-    public Map<String, Object> getObjectInfoAll(){
+        Map<String, Object> infos = new HashMap<>();
 
-        return null;
+        Set<String> keys = readablePropertyNames;
+        for(String key : keys){
+            infos.put(key, objectReflector.invokeGetterMethod(key, object));
+        }
+
+        return infos;
     }
 
     /**
