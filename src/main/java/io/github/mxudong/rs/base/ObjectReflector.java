@@ -27,7 +27,7 @@ import java.util.*;
  * @since 2.0
  */
 
-public class ObjectReflector {
+final public class ObjectReflector {
 
     /**
      * inner class
