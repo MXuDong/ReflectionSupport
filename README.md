@@ -16,6 +16,18 @@
 
 支持最小的JDK版本:JDK 1.8
 
+# Maven 依赖
+
+```xml
+<!-- https://mvnrepository.com/artifact/io.github.mxudong/ReflectionSupport -->
+<dependency>
+    <groupId>io.github.mxudong</groupId>
+    <artifactId>ReflectionSupport</artifactId>
+    <version>2.0</version>
+</dependency>
+
+```
+
 ## 介绍
 包含大量常用的反射或普通方法的封装，可以方便开发的过程和流程
 
