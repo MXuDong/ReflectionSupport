@@ -29,7 +29,7 @@
 ```
 
 # 安装说明：
-请参考：ReflectionSupport安装说明
+请参考：ReflectionSupport安装说明（Install.md）
 
 ## 介绍
 包含大量常用的反射或普通方法的封装，可以方便开发的过程和流程
