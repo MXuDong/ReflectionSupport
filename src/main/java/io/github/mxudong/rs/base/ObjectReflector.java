@@ -3,6 +3,7 @@ package io.github.mxudong.rs.base;
 import io.github.mxudong.rs.base.methods.*;
 import io.github.mxudong.rs.base.strings.StringExtension;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -139,6 +140,17 @@ final public class ObjectReflector {
                 commonMethods.get(name).add(new MethodInvoker(m));
             }
         }
+    }
+
+    /**
+     * Generate an array of InnerClass instances
+     *
+     * @param length the length of array
+     * @return new array
+     */
+    public Object[] createArrays(int length) {
+        Object [] result = (Object[]) Array.newInstance(innerClass, length);
+        return result;
     }
 
     /**
