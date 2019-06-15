@@ -148,8 +148,29 @@ final public class ObjectReflector {
      * @param length the length of array
      * @return new array
      */
-    public Object[] createArrays(int length) {
-        Object [] result = (Object[]) Array.newInstance(innerClass, length);
+    public Object[] createArray(int length) {
+        if(length < 0){
+            return null;
+        }
+        Object[] result = (Object[]) Array.newInstance(innerClass, length);
+        return result;
+    }
+
+    /**
+     * Generate and populate a new array
+     *
+     * @param length the length of array
+     * @return new array
+     */
+    public Object[] createArrayAndFill(int length) {
+        if(length < 0){
+            return null;
+        }
+        Object [] result = createArray(length);
+        for(int i = 0; i < result.length; i++){
+            result[i] = this.getInstance();
+        }
+
         return result;
     }
 
