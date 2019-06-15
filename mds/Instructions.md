@@ -3,7 +3,7 @@
 [toc]
 
 # 安装说明
-[请参考：mds/Install.md](mds/Install.md)
+[请参考：mds/Install.md](Install.md)
 
 # 版本限制
     项目限制在JDK1.8及以上版本
