@@ -1,11 +1,8 @@
 # ReflectionSupport 反射工具箱
 
-# 版本 : 2.0
+# 版本 : 2.1
 # 状态
 开发中
-
-# 使用
-[1.* 版本](https://github.com/MXuDong/ReflectionSupport/blob/master/README-Version1.X.md)
 
 # 2.0 已经发布
 ## [2.0说明文档](mds/Instructions.md)
