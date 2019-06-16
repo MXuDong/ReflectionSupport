@@ -1,6 +1,7 @@
 package io.github.mxudong.rs.base.randoms;
 
 import java.util.Random;
+import java.math.*;
 
 /**
  * Class Name : BaseRandom
@@ -26,7 +27,7 @@ public class BaseRandom {
      * Get a Random Value of Long Type
      *
      * @param minValue minimum value
-     * @param maxValue Maximum value
+     * @param maxValue Maximum value (not include)
      * @return a random value of long type
      */
     public static long getNextLong(long minValue, long maxValue) {
@@ -36,7 +37,7 @@ public class BaseRandom {
         long range = maxValue - minValue;
 
         Random random = new Random();
-        long nextLong = random.nextLong();
+        long nextLong = Math.abs(random.nextLong());
         return (minValue) + (nextLong % range);
     }
 

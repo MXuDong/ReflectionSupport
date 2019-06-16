@@ -8,8 +8,10 @@ public class BaseRandomTest {
 
     @Test
     public void testGetNextLong(){
-        long test1 = BaseRandom.getNextLong(0, 2);
-        System.out.println(test1);
+        for(int i = 0; i < 10; i++){
+            long test1 = BaseRandom.getNextLong(0, 1);
+            System.out.println(test1);
+        }
     }
 
 }
