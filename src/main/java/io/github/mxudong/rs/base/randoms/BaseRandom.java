@@ -216,7 +216,16 @@ public class BaseRandom {
      * @param flags Generating Random float Precision Floating Point Cardinals
      * @return a random value of float type
      */
-    public static float getRandomFloat(float flags){
+    public static float getRandomFloat(float flags) {
         return (float) getRandomDouble(flags);
+    }
+
+    /**
+     * Get a Random Value of boolean Type
+     *
+     * @return true or false
+     */
+    public static boolean getRandomBoolean() {
+        return getRandomInt(0, 2) == 1;
     }
 }
