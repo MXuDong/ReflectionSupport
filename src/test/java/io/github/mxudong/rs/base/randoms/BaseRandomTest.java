@@ -1,5 +1,6 @@
 package io.github.mxudong.rs.base.randoms;
 
+import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -64,5 +65,15 @@ public class BaseRandomTest {
     @Test
     public void getRandomChar() {
         System.out.println(BaseRandom.getRandomChar("Test"));
+    }
+
+    @Test
+    public void getRandomFloat(){
+        System.out.println(BaseRandom.getRandomFloat(10));
+    }
+
+    @Test
+    public void getRandomDouble(){
+        System.out.println(BaseRandom.getRandomDouble(100));
     }
 }
