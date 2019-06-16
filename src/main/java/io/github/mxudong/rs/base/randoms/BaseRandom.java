@@ -49,6 +49,15 @@ public class BaseRandom {
     }
 
     /**
+     * Getting a random character from all character sets
+     *
+     * @return a char
+     */
+    public static char getRandomCharFromAllChar() {
+        return getRandomChar(getAllCharacter());
+    }
+
+    /**
      * Get a random character from a string
      *
      * @param chars a string
