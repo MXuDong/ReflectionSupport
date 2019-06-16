@@ -43,6 +43,16 @@ public class BaseRandom {
     }
 
     /**
+     * get a random value of byte type between 0 and bind
+     *
+     * @param bind maxValue
+     * @return a random value of byte type
+     */
+    public static byte getNextByte(byte bind) {
+        return getNextByte((byte) 0, bind);
+    }
+
+    /**
      * Get a random value of short type
      *
      * @param minValue minimum value
