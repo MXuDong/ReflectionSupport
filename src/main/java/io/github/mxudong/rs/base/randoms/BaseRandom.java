@@ -22,6 +22,13 @@ import java.util.Random;
 
 public class BaseRandom {
 
+    public static final String UPPER_CASE_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static final String LOWER_CASE_LETTERS = "abcdefghijklmnopqrstuvwxyz";
+    public static final String NUMBER_LETTERS = "0123456789";
+    public static final char DOLLAR_CHAR = '$';
+    public static final char UNDER_LINE_CHAR = '_';
+    public static final char POINT_CHAR = '.';
+
     /**
      * Get a random value of byte type
      *
