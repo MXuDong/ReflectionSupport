@@ -30,6 +30,17 @@ public class BaseRandom {
     public static final char POINT_CHAR = '.';
 
     /**
+     * Get a random character from a string
+     *
+     * @param chars a string
+     * @return a random character
+     */
+    public static char getRandomChar(String chars) {
+        int index = getRandomInt(chars.length());
+        return chars.charAt(index);
+    }
+
+    /**
      * Get a random value of byte type
      *
      * @param minValue minimum value
