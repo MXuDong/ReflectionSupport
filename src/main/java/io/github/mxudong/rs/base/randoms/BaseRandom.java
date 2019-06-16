@@ -203,8 +203,20 @@ public class BaseRandom {
      * @param flags Generating Random Double Precision Floating Point Cardinals
      * @return a random value of double type
      */
-    public static double createRandomDouble(double flags) {
+    public static double getRandomDouble(double flags) {
         double temp = Math.abs(new Random().nextDouble());
         return temp + flags;
+    }
+
+    /**
+     * Generate float-precision floating-point numbers
+     * with minimum flags, no more than flags + 1
+     * <p>
+     *
+     * @param flags Generating Random float Precision Floating Point Cardinals
+     * @return a random value of float type
+     */
+    public static float getRandomFloat(float flags){
+        return (float) getRandomDouble(flags);
     }
 }
