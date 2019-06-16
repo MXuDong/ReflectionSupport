@@ -38,7 +38,7 @@ public class BaseRandom {
      *
      * @return a random value of byte type
      */
-    public static byte getNextByte(){
+    public static byte getNextByte() {
         return getNextByte(Byte.MIN_VALUE, Byte.MAX_VALUE);
     }
 
@@ -58,7 +58,7 @@ public class BaseRandom {
      *
      * @return a random value of short type
      */
-    public static short getNextShort(){
+    public static short getNextShort() {
         return getNextShort(Short.MIN_VALUE, Short.MAX_VALUE);
     }
 
@@ -71,6 +71,15 @@ public class BaseRandom {
      */
     public static int getNextInt(int minValue, int maxValue) {
         return (int) getNextLong(minValue, maxValue);
+    }
+
+    /**
+     * Get a random value of int type between int.max and int.min
+     *
+     * @return a random value of int type
+     */
+    public static int getNextInt() {
+        return getNextInt(Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
     /**
