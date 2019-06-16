@@ -1,7 +1,6 @@
 package io.github.mxudong.rs.base.randoms;
 
 import java.util.Random;
-import java.math.*;
 
 /**
  * Class Name : BaseRandom
@@ -32,6 +31,15 @@ public class BaseRandom {
      */
     public static byte getNextByte(byte minValue, byte maxValue) {
         return (byte) getNextLong(minValue, maxValue);
+    }
+
+    /**
+     * Get a random value of int type between Byte.max and Byte.min
+     *
+     * @return a random value of int type
+     */
+    public static byte getNextByte(){
+        return getNextByte(Byte.MIN_VALUE, Byte.MAX_VALUE);
     }
 
     /**
