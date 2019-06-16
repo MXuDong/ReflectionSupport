@@ -23,6 +23,16 @@ import java.math.*;
 
 public class BaseRandom {
 
+    /**
+     * Get a random value of byte type
+     *
+     * @param minValue minimum value
+     * @param maxValue Maximum value (not include)
+     * @return a random value of byte type
+     */
+    public static byte getNextByte(byte minValue, byte maxValue) {
+        return (byte) getNextLong(minValue, maxValue);
+    }
 
     /**
      * Get a random value of short type
