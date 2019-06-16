@@ -14,6 +14,8 @@
 
 支持最小的JDK版本:JDK 1.8
 
+整合了[类随机化项目](https://gitee.com/MXuDong/RandomDataForClass)
+
 # Maven 依赖
 
 ```xml
