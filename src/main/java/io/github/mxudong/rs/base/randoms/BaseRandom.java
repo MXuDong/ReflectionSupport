@@ -100,4 +100,13 @@ public class BaseRandom {
         return (minValue) + (nextLong % range);
     }
 
+    /**
+     * Get a random value of long type between long.max and long.min
+     *
+     * @return a random value of long type
+     */
+    public static long getNextLong() {
+        return getNextLong(Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
 }
