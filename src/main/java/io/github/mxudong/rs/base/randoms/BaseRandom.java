@@ -24,6 +24,16 @@ import java.math.*;
 public class BaseRandom {
 
 
+    /**
+     * Get a random value of short type
+     *
+     * @param minValue minimum value
+     * @param maxValue Maximum value (not include)
+     * @return a random value of short type
+     */
+    public static short getNextShort(short minValue, short maxValue) {
+        return (short) getNextLong(minValue, maxValue);
+    }
 
     /**
      * Get a random value of int type
