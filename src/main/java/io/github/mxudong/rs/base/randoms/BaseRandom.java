@@ -29,8 +29,8 @@ public class BaseRandom {
      * @param maxValue Maximum value (not include)
      * @return a random value of byte type
      */
-    public static byte getNextByte(byte minValue, byte maxValue) {
-        return (byte) getNextLong(minValue, maxValue);
+    public static byte getRandomByte(byte minValue, byte maxValue) {
+        return (byte) getRandomLong(minValue, maxValue);
     }
 
     /**
@@ -38,8 +38,8 @@ public class BaseRandom {
      *
      * @return a random value of byte type
      */
-    public static byte getNextByte() {
-        return getNextByte(Byte.MIN_VALUE, Byte.MAX_VALUE);
+    public static byte getRandomByte() {
+        return getRandomByte(Byte.MIN_VALUE, Byte.MAX_VALUE);
     }
 
     /**
@@ -48,8 +48,8 @@ public class BaseRandom {
      * @param bind maxValue
      * @return a random value of byte type
      */
-    public static byte getNextByte(byte bind) {
-        return getNextByte((byte) 0, bind);
+    public static byte getRandomByte(byte bind) {
+        return getRandomByte((byte) 0, bind);
     }
 
     /**
@@ -59,8 +59,8 @@ public class BaseRandom {
      * @param maxValue Maximum value (not include)
      * @return a random value of short type
      */
-    public static short getNextShort(short minValue, short maxValue) {
-        return (short) getNextLong(minValue, maxValue);
+    public static short getRandomShort(short minValue, short maxValue) {
+        return (short) getRandomLong(minValue, maxValue);
     }
 
     /**
@@ -68,8 +68,8 @@ public class BaseRandom {
      *
      * @return a random value of short type
      */
-    public static short getNextShort() {
-        return getNextShort(Short.MIN_VALUE, Short.MAX_VALUE);
+    public static short getRandomShort() {
+        return getRandomShort(Short.MIN_VALUE, Short.MAX_VALUE);
     }
 
     /**
@@ -78,8 +78,8 @@ public class BaseRandom {
      * @param bind maxValue
      * @return a random value of short type
      */
-    public static short getNextShort(short bind) {
-        return getNextShort((short) 0, bind);
+    public static short getRandomShort(short bind) {
+        return getRandomShort((short) 0, bind);
     }
 
     /**
@@ -89,8 +89,8 @@ public class BaseRandom {
      * @param maxValue Maximum value (not include)
      * @return a random value of int type
      */
-    public static int getNextInt(int minValue, int maxValue) {
-        return (int) getNextLong(minValue, maxValue);
+    public static int getRandomInt(int minValue, int maxValue) {
+        return (int) getRandomLong(minValue, maxValue);
     }
 
     /**
@@ -98,8 +98,8 @@ public class BaseRandom {
      *
      * @return a random value of int type
      */
-    public static int getNextInt() {
-        return getNextInt(Integer.MIN_VALUE, Integer.MAX_VALUE);
+    public static int getRandomInt() {
+        return getRandomInt(Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
     /**
@@ -108,8 +108,8 @@ public class BaseRandom {
      * @param bind maxValue
      * @return a random value of int type
      */
-    public static int getNextInt(int bind) {
-        return getNextInt(0, bind);
+    public static int getRandomInt(int bind) {
+        return getRandomInt(0, bind);
     }
 
     /**
@@ -119,15 +119,15 @@ public class BaseRandom {
      * @param maxValue Maximum value (not include)
      * @return a random value of long type
      */
-    public static long getNextLong(long minValue, long maxValue) {
+    public static long getRandomLong(long minValue, long maxValue) {
         if (maxValue <= minValue) {
             throw new IllegalArgumentException();
         }
         long range = maxValue - minValue;
 
         Random random = new Random();
-        long nextLong = Math.abs(random.nextLong());
-        return (minValue) + (nextLong % range);
+        long RandomLong = Math.abs(random.nextLong());
+        return (minValue) + (RandomLong % range);
     }
 
     /**
@@ -135,8 +135,8 @@ public class BaseRandom {
      *
      * @return a random value of long type
      */
-    public static long getNextLong() {
-        return getNextLong(Long.MIN_VALUE, Long.MAX_VALUE);
+    public static long getRandomLong() {
+        return getRandomLong(Long.MIN_VALUE, Long.MAX_VALUE);
     }
 
     /**
@@ -145,8 +145,8 @@ public class BaseRandom {
      * @param bind maxValue
      * @return a random value of long type
      */
-    public static long getNextLong(long bind) {
-        return getNextLong(0, bind);
+    public static long getRandomLong(long bind) {
+        return getRandomLong(0, bind);
     }
 
 }
