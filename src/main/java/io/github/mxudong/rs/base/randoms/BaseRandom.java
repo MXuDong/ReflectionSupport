@@ -195,4 +195,16 @@ public class BaseRandom {
         return getRandomLong(0, bind);
     }
 
+    /**
+     * Generate double-precision floating-point numbers
+     * with minimum flags, no more than flags + 1
+     * <p>
+     *
+     * @param flags Generating Random Double Precision Floating Point Cardinals
+     * @return a random value of double type
+     */
+    public static double createRandomDouble(double flags) {
+        double temp = Math.abs(new Random().nextDouble());
+        return temp + flags;
+    }
 }
