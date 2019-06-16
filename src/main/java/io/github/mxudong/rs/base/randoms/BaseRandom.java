@@ -73,6 +73,16 @@ public class BaseRandom {
     }
 
     /**
+     * get a random value of short type between 0 and bind
+     *
+     * @param bind maxValue
+     * @return a random value of short type
+     */
+    public static short getNextShort(short bind){
+        return getNextShort((short) 0, bind);
+    }
+
+    /**
      * Get a random value of int type
      *
      * @param minValue minimum value
