@@ -23,8 +23,21 @@ import java.math.*;
 
 public class BaseRandom {
 
+
+
     /**
-     * Get a Random Value of Long Type
+     * Get a random value of int type
+     *
+     * @param minValue minimum value
+     * @param maxValue Maximum value (not include)
+     * @return a random value of int type
+     */
+    public static int getNextInt(int minValue, int maxValue) {
+        return (int) getNextLong(minValue, maxValue);
+    }
+
+    /**
+     * Get a Random Value of long Type
      *
      * @param minValue minimum value
      * @param maxValue Maximum value (not include)
