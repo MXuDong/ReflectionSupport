@@ -63,5 +63,6 @@ public class BaseRandomTest {
 
     @Test
     public void getRandomChar() {
+        System.out.println(BaseRandom.getRandomChar("Test"));
     }
 }
