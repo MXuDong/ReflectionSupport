@@ -139,4 +139,14 @@ public class BaseRandom {
         return getNextLong(Long.MIN_VALUE, Long.MAX_VALUE);
     }
 
+    /**
+     * get a random value of long type between 0 and bind
+     *
+     * @param bind maxValue
+     * @return a random value of long type
+     */
+    public static long getNextLong(long bind) {
+        return getNextLong(0, bind);
+    }
+
 }
