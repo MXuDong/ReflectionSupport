@@ -22,10 +22,37 @@ import java.util.regex.Pattern;
 
 public class StringExtension {
 
+    public static final String UPPER_CASE_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static final String LOWER_CASE_LETTERS = "abcdefghijklmnopqrstuvwxyz";
+    public static final String NUMBER_LETTERS = "0123456789";
+    public static final String OTHER_TYPE_LETTERS = "{}[]()<>,.':;?/=+-*&|!^%#@~`\"\\";
+    public static final char SPACE_CHAR = ' ';
+    public static final char DOLLAR_CHAR = '$';
+    public static final char UNDER_LINE_CHAR = '_';
+    public static final char POINT_CHAR = '.';
+
+
+
     /**
      * to match one character in upper little.
      */
     public final static String UPPER_LITTLE_REGION = "[A-Z]";
+
+    /**
+     * Get all characters
+     *
+     * @return a string of all characters
+     */
+    public static String getAllCharacter() {
+        return UPPER_CASE_LETTERS +
+                LOWER_CASE_LETTERS +
+                NUMBER_LETTERS +
+                OTHER_TYPE_LETTERS +
+                SPACE_CHAR +
+                DOLLAR_CHAR +
+                UNDER_LINE_CHAR +
+                POINT_CHAR;
+    }
 
     /**
      * count a string has how many region
@@ -102,6 +129,7 @@ public class StringExtension {
         return getGetterMethodProperty(new String(chars));
     }
 
+
     /**
      * Create a random string with characters from chars.
      *
@@ -132,4 +160,5 @@ public class StringExtension {
     public static String createRandomString(String chars) {
         return createRandomString(chars, BaseRandom.getRandomInt(DEFAULT_MIN_STRING_LEGNTH, DEFAULT_MAX_STRING_LENGTH));
     }
+
 }

@@ -2,6 +2,8 @@ package io.github.mxudong.rs.base.randoms;
 
 import java.util.Random;
 
+import static io.github.mxudong.rs.base.strings.StringExtension.getAllCharacter;
+
 /**
  * Class Name : BaseRandom
  * Create Time : 22:28
@@ -22,31 +24,8 @@ import java.util.Random;
 
 public class BaseRandom {
 
-    public static final String UPPER_CASE_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    public static final String LOWER_CASE_LETTERS = "abcdefghijklmnopqrstuvwxyz";
-    public static final String NUMBER_LETTERS = "0123456789";
-    public static final String OTHER_TYPE_LETTERS = "{}[]()<>,.':;?/=+-*&|!^%#@~`\"\\";
-    public static final char SPACE_CHAR = ' ';
-    public static final char DOLLAR_CHAR = '$';
-    public static final char UNDER_LINE_CHAR = '_';
-    public static final char POINT_CHAR = '.';
 
 
-    /**
-     * Get all characters
-     *
-     * @return a string of all characters
-     */
-    public static String getAllCharacter() {
-        return UPPER_CASE_LETTERS +
-                LOWER_CASE_LETTERS +
-                NUMBER_LETTERS +
-                OTHER_TYPE_LETTERS +
-                SPACE_CHAR +
-                DOLLAR_CHAR +
-                UNDER_LINE_CHAR +
-                POINT_CHAR;
-    }
 
     /**
      * Getting a random character from all character sets
