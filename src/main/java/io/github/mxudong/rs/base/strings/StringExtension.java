@@ -1,5 +1,6 @@
 package io.github.mxudong.rs.base.strings;
 
+import io.github.mxudong.rs.base.randoms.BaseRandom;
 import io.github.mxudong.rs.exceptions.NullParamException;
 
 import java.util.regex.Matcher;
@@ -15,8 +16,8 @@ import java.util.regex.Pattern;
  * encapsulation of basic usage methods.
  *
  * @author Dong
- * @since 2.0
  * @see io.github.mxudong.rs.base.methods.Invoker
+ * @since 2.0
  */
 
 public class StringExtension {
@@ -64,24 +65,25 @@ public class StringExtension {
 
     /**
      * to get getter property name
+     *
      * @param getterMethodName method name
      * @return property name
      */
-    public static String getGetterMethodProperty(String getterMethodName){
+    public static String getGetterMethodProperty(String getterMethodName) {
         int index = 0;
-        if(getterMethodName.startsWith("get")){
+        if (getterMethodName.startsWith("get")) {
             index = 3;
-        }else{
+        } else {
             index = 2;
         }
 
-        if(getterMethodName.length() <= index){
+        if (getterMethodName.length() <= index) {
             return getterMethodName;
         }
-        char [] chars = getterMethodName.toCharArray();
+        char[] chars = getterMethodName.toCharArray();
         StringBuffer stringBuffer = new StringBuffer();
-        chars[index] = (char)(chars[index] - 'A' + 'a');
-        for(int i = index; i < getterMethodName.length(); i++){
+        chars[index] = (char) (chars[index] - 'A' + 'a');
+        for (int i = index; i < getterMethodName.length(); i++) {
             stringBuffer.append(chars[i]);
         }
 
@@ -90,12 +92,27 @@ public class StringExtension {
 
     /**
      * to get setter property name
+     *
      * @param setterMethodName method name
      * @return property name
      */
-    public static String getSetterMethodProperty(String setterMethodName){
-        char [] chars = setterMethodName.toCharArray();
+    public static String getSetterMethodProperty(String setterMethodName) {
+        char[] chars = setterMethodName.toCharArray();
         chars[0] = 'g';
         return getGetterMethodProperty(new String(chars));
+    }
+
+    /**
+     * Create a random string with characters from chars.
+     *
+     * @param chars string's characters from it.
+     * @return a random string
+     */
+    public static String createRandomString(String chars, int length) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            stringBuilder.append(BaseRandom.getRandomChar(chars));
+        }
+        return stringBuilder.toString();
     }
 }
