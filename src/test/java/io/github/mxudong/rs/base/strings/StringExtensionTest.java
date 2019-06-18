@@ -20,8 +20,13 @@ public class StringExtensionTest {
 //        System.out.println(StringExtension.createRandomString("TTTTTEst", 100));
 //        System.out.println(StringExtension.createRandomString("", 3));
 
-        System.out.println(StringExtension.createRandomString("testestsaklsjx,mnv,x"));
-        System.out.println(StringExtension.createRandomString("testestsaklsjx,mnv,x"));
-        System.out.println(StringExtension.createRandomString("testestsaklsjx,mnv,x"));
+//        System.out.println(StringExtension.createRandomString("testestsaklsjx,mnv,x"));
+//        System.out.println(StringExtension.createRandomString("testestsaklsjx,mnv,x"));
+//        System.out.println(StringExtension.createRandomString("testestsaklsjx,mnv,x"));
+
+        System.out.println(StringExtension.createRandomString());
+        System.out.println(StringExtension.createRandomString());
+        System.out.println(StringExtension.createRandomString());
+
     }
 }
