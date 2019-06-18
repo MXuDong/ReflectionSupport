@@ -105,14 +105,31 @@ public class StringExtension {
     /**
      * Create a random string with characters from chars.
      *
-     * @param chars string's characters from it.
+     * @param chars  string's characters from it.
+     * @param length the string's length
      * @return a random string
      */
     public static String createRandomString(String chars, int length) {
         StringBuilder stringBuilder = new StringBuilder();
+        if (chars.length() == 0) {
+            return "";
+        }
         for (int i = 0; i < length; i++) {
             stringBuilder.append(BaseRandom.getRandomChar(chars));
         }
         return stringBuilder.toString();
+    }
+
+    private static final int DEFAULT_MIN_STRING_LEGNTH = 10;
+    private static final int DEFAULT_MAX_STRING_LENGTH = 15;
+
+    /**
+     * Create a random String with characters from
+     *
+     * @param chars string's characters from it
+     * @return a random string and it length is random too.
+     */
+    public static String createRandomString(String chars) {
+        return createRandomString(chars, BaseRandom.getRandomInt(DEFAULT_MIN_STRING_LEGNTH, DEFAULT_MAX_STRING_LENGTH));
     }
 }
