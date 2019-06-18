@@ -32,7 +32,6 @@ public class StringExtension {
     public static final char POINT_CHAR = '.';
 
 
-
     /**
      * to match one character in upper little.
      */
@@ -52,6 +51,19 @@ public class StringExtension {
                 DOLLAR_CHAR +
                 UNDER_LINE_CHAR +
                 POINT_CHAR;
+    }
+
+    /**
+     * Obtain symbols supported by naming conventions
+     *
+     * @return string
+     */
+    public static String getClassSupportLetters() {
+        return UPPER_CASE_LETTERS +
+                LOWER_CASE_LETTERS +
+                NUMBER_LETTERS +
+                UNDER_LINE_CHAR +
+                DOLLAR_CHAR;
     }
 
     /**
