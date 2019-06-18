@@ -182,4 +182,12 @@ public class StringExtension {
         return createRandomString(chars, BaseRandom.getRandomInt(DEFAULT_MIN_STRING_LEGNTH, DEFAULT_MAX_STRING_LENGTH));
     }
 
+    /**
+     * create a random String
+     *
+     * @return a random string
+     */
+    public static String createRandomString() {
+        return createRandomString(getAllCharacter());
+    }
 }
