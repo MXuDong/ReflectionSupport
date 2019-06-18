@@ -149,7 +149,7 @@ final public class ObjectReflector {
      * @return new array
      */
     public Object[] createArray(int length) {
-        if(length < 0){
+        if (length < 0) {
             return null;
         }
         Object[] result = (Object[]) Array.newInstance(innerClass, length);
@@ -163,11 +163,11 @@ final public class ObjectReflector {
      * @return new array
      */
     public Object[] createArrayAndFill(int length) {
-        if(length < 0){
+        if (length < 0) {
             return null;
         }
-        Object [] result = createArray(length);
-        for(int i = 0; i < result.length; i++){
+        Object[] result = createArray(length);
+        for (int i = 0; i < result.length; i++) {
             result[i] = this.getInstance();
         }
 
@@ -411,7 +411,7 @@ final public class ObjectReflector {
             return null;
         }
 
-        return constructors[defaultConstructorIndex].invoke(null);
+        return constructors[defaultConstructorIndex].invoke(new Object[]{});
     }
 
     /**
