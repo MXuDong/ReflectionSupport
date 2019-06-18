@@ -67,6 +67,15 @@ public class StringExtension {
     }
 
     /**
+     * get all symbols
+     *
+     * @return string
+     */
+    public static String getAllSymbols() {
+        return OTHER_TYPE_LETTERS + DOLLAR_CHAR + POINT_CHAR + SPACE_CHAR + UNDER_LINE_CHAR;
+    }
+
+    /**
      * count a string has how many region
      *
      * @param region be counted strings, it's a regular
