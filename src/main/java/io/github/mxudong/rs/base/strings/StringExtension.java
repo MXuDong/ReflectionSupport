@@ -3,6 +3,8 @@ package io.github.mxudong.rs.base.strings;
 import io.github.mxudong.rs.base.randoms.BaseRandom;
 import io.github.mxudong.rs.exceptions.NullParamException;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -196,6 +198,7 @@ public class StringExtension {
      * Generate according to format requirements
      * <p>
      * format chars
+     * * - any chas
      * c - char contain upper char and lower char
      * u - upper case char
      * l - lower case char
@@ -221,19 +224,163 @@ public class StringExtension {
      * 1. [test] will create : test
      * <p>
      *
-     * @param chars        create chars
      * @param formatRegion format
      * @return a random string
      */
-    public static String createRandomString(String chars, String formatRegion) {
+    public static String createRandomStringBase(String formatRegion) {
+        StringBuilder temp = new StringBuilder();
+        char[] chars = formatRegion.toCharArray();
+        StringBuilder preFix = new StringBuilder();
+        StringBuilder sufFix = new StringBuilder();
         StringBuilder result = new StringBuilder();
-        char[] innerChars = chars.toCharArray();
-        Stack<Character> characterStack = new Stack<>();
-        String preFix = "";
-        String sufFix = "1";
-        StringBuilder preData = new StringBuilder();
+        boolean isBreak = false;
+        for (int i = 0; i < chars.length; i++) {
+            switch (chars[i]) {
+                case '*':
+                case 'c':
+                case 'u':
+                case 'l':
+                case 's':
+                case 'n': {
+                    if (preFix.length() != 0) {
+                        int count = sufFix.length() == 0 ? 1 : convent(sufFix.toString());
+                        result.append(createSimpleString(preFix.toString(), count));
+                        preFix = new StringBuilder();
+                        sufFix = new StringBuilder();
+                    }
+                    preFix.append(chars[i]);
+                    break;
+                }
 
+                case '{':
+                case '[': {
+                    char endFlag = '}';
+
+                    if (chars[i] == '[') {
+                        endFlag = ']';
+                    }
+
+                    if (preFix.length() != 0) {
+                        int count = sufFix.length() == 0 ? 1 : Integer.parseInt(sufFix.toString());
+                        result.append(createSimpleString(preFix.toString(), count));
+                    }
+
+                    preFix = new StringBuilder();
+                    sufFix = new StringBuilder();
+
+                    boolean isTurnMean = false;
+
+                    for (; i < chars.length; i++) {
+                        preFix.append(chars[i]);
+                        if (chars[i] == '-' && !isTurnMean) {
+                            isTurnMean = true;
+                            continue;
+                        }
+                        if (isTurnMean) {
+                            isTurnMean = false;
+                        } else {
+                            if (chars[i] == endFlag) {
+                                break;
+                            }
+                        }
+                    }
+                    if (i == chars.length) {
+                        return "";
+                    }
+                    break;
+                }
+
+                // numbers
+                default: {
+                    boolean isNumber = (chars[i] >= '0' && chars[i] <= '9')
+                            || chars[i] == '<'
+                            || chars[i] == '>'
+                            || chars[i] == '|';
+                    if (isNumber) {
+                        sufFix.append(chars[i]);
+                    } else {
+                        return "";
+                    }
+                }
+            }
+        }
+
+        if (preFix.length() != 0) {
+            int count = sufFix.length() == 0 ? 1 : convent(sufFix.toString());
+            result.append(createSimpleString(preFix.toString(), count));
+        }
+
+        return result.toString();
     }
+
+
+    /**
+     * create inner random string for format create.
+     *
+     * @param region aim format
+     * @param count  create number
+     * @return a random string
+     */
+    private static String createSimpleString(String region, int count) {
+        if (region.length() == 0 || count == 0 || count == -1) {
+            return "";
+        }
+        if (region.length() == 1) {
+            switch (region.charAt(0)) {
+                case 'c': {
+                    return createRandomString(UPPER_CASE_LETTERS + LOWER_CASE_LETTERS, count);
+                }
+                case 'u': {
+                    return createRandomString(UPPER_CASE_LETTERS, count);
+                }
+                case 'l': {
+                    return createRandomString(LOWER_CASE_LETTERS, count);
+                }
+                case 's': {
+                    return createRandomString(OTHER_TYPE_LETTERS, count);
+                }
+                case 'n': {
+                    return createRandomString(NUMBER_LETTERS, count);
+                }
+                default: {
+                    return createRandomString(getAllCharacter(), count);
+                }
+            }
+        } else {
+            if (region.startsWith("{") ||
+                    region.startsWith("[")) {
+                StringBuilder results = new StringBuilder();
+                char[] chars = region.toCharArray();
+                boolean isTurnMean = false;
+                for (int i = 1; i < chars.length - 1; i++) {
+                    if (chars[i] == '-' && !isTurnMean) {
+                        isTurnMean = true;
+                        continue;
+                    }
+                    results.append(chars[i]);
+                    if (!isTurnMean) {
+                        if (chars[i] == '}') {
+                            break;
+                        }
+                        continue;
+                    }
+                    isTurnMean = false;
+                }
+                if (region.startsWith("{")) {
+                    return createRandomString(results.toString(), count);
+                } else {
+                    StringBuilder temp = new StringBuilder();
+                    for (int i = 0; i < count; i++) {
+                        temp.append(results);
+                    }
+                    return temp.toString();
+                }
+            } else {
+                return "===========";
+            }
+        }
+    }
+
 
     /**
      * String turn to number
@@ -270,16 +417,16 @@ public class StringExtension {
 
             int first = convent(firstNumber.toString());
             int second;
-            if(secondNumber.length() == 0){
-                second = Integer.MAX_VALUE;
-            }else {
+            if (secondNumber.length() == 0) {
+                second = 15;
+            } else {
                 second = convent(secondNumber.toString());
             }
 
             if (first >= second) {
                 return -1;
             }
-            if(first == -1 || second == -1){
+            if (first == -1 || second == -1) {
                 return -1;
             }
             return BaseRandom.getRandomInt(first, second);
