@@ -2,6 +2,7 @@ package io.github.mxudong.rs.base.strings;
 
 import io.github.mxudong.rs.base.randoms.BaseRandom;
 import io.github.mxudong.rs.exceptions.NullParamException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -297,7 +298,7 @@ public class StringExtension {
                             i++;
                         } while (count != 0);
                         i--;
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         return "";
                     }
                     preFix = sb;
@@ -327,6 +328,13 @@ public class StringExtension {
         return result.toString();
     }
 
+    /**
+     * Detection of added parameters
+     *
+     * @param preFix insert data
+     * @param count  insert count
+     * @return the string be created
+     */
     private String beAppends(StringBuilder preFix, int count) {
         StringBuilder result = new StringBuilder();
         if (preFix.charAt(0) == '(') {
