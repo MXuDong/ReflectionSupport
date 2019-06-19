@@ -29,4 +29,15 @@ public class StringExtensionTest {
         System.out.println(StringExtension.createRandomString());
 
     }
+
+    @Test
+    public void convent(){
+        System.out.println(StringExtension.convent("3"));
+        System.out.println(StringExtension.convent("<3|10>"));
+        System.out.println(StringExtension.convent("<|10>"));
+        System.out.println(StringExtension.convent("<3|>"));
+        System.out.println(StringExtension.convent("<33a|>"));
+        System.out.println(StringExtension.convent(">"));
+
+    }
 }

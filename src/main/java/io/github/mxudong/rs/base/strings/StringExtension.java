@@ -3,6 +3,7 @@ package io.github.mxudong.rs.base.strings;
 import io.github.mxudong.rs.base.randoms.BaseRandom;
 import io.github.mxudong.rs.exceptions.NullParamException;
 
+import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -189,5 +190,108 @@ public class StringExtension {
      */
     public static String createRandomString() {
         return createRandomString(getAllCharacter());
+    }
+
+    /**
+     * Generate according to format requirements
+     * <p>
+     * format chars
+     * c - char contain upper char and lower char
+     * u - upper case char
+     * l - lower case char
+     * s - all symbol
+     * n - number
+     * () - create () with group
+     * &lt;, &gt; Represents generation limits， use wilt |
+     * - : escape character
+     * {} - use this data to generate
+     * <p>
+     * and characters followed by numbers represent several characters
+     * such as:
+     * 1.c3 :Three English characters will be created
+     * 2.lc3 : Three lower-case English characters will be created
+     * <p>
+     * you can create by () also:
+     * 1.(a3n)3 will create like : abc1dAc3dDC5
+     * <p>
+     * you create by {} :
+     * 1. {test}1 will create like : t
+     * <p>
+     * you can use [] to print data:
+     * 1. [test] will create : test
+     * <p>
+     *
+     * @param chars        create chars
+     * @param formatRegion format
+     * @return a random string
+     */
+    public static String createRandomString(String chars, String formatRegion) {
+        StringBuilder result = new StringBuilder();
+        char[] innerChars = chars.toCharArray();
+        Stack<Character> characterStack = new Stack<>();
+        String preFix = "";
+        String sufFix = "1";
+        StringBuilder preData = new StringBuilder();
+
+    }
+
+    /**
+     * String turn to number
+     *
+     * @param number be turn number
+     * @return a number
+     */
+    public static int convent(String number) {
+        if (number.length() == 0) {
+            return 1;
+        }
+
+        if (number.startsWith("<")) {
+            if (number.length() <= 3) {
+                return -1;
+            }
+            StringBuilder firstNumber = new StringBuilder();
+            StringBuilder secondNumber = new StringBuilder();
+            char[] chars = number.toCharArray();
+            int i = 1;
+            for (; i < chars.length; i++) {
+                if (chars[i] == '|') {
+                    break;
+                }
+                firstNumber.append(chars[i]);
+            }
+            i++;
+            for (; i < chars.length; i++) {
+                if (chars[i] == '>') {
+                    break;
+                }
+                secondNumber.append(chars[i]);
+            }
+
+            int first = convent(firstNumber.toString());
+            int second;
+            if(secondNumber.length() == 0){
+                second = Integer.MAX_VALUE;
+            }else {
+                second = convent(secondNumber.toString());
+            }
+
+            if (first >= second) {
+                return -1;
+            }
+            if(first == -1 || second == -1){
+                return -1;
+            }
+            return BaseRandom.getRandomInt(first, second);
+
+        } else {
+            int x;
+            try {
+                x = Integer.parseInt(number);
+            } catch (Exception e) {
+                x = -1;
+            }
+            return x;
+        }
     }
 }
