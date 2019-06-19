@@ -227,8 +227,7 @@ public class StringExtension {
      * @param formatRegion format
      * @return a random string
      */
-    public static String createRandomStringBase(String formatRegion) {
-        StringBuilder temp = new StringBuilder();
+    public String createRandomStringBase(String formatRegion) {
         char[] chars = formatRegion.toCharArray();
         StringBuilder preFix = new StringBuilder();
         StringBuilder sufFix = new StringBuilder();
@@ -244,32 +243,26 @@ public class StringExtension {
                 case 'n': {
                     if (preFix.length() != 0) {
                         int count = sufFix.length() == 0 ? 1 : convent(sufFix.toString());
-                        result.append(createSimpleString(preFix.toString(), count));
+                        result.append(beAppends(preFix, count));
                         preFix = new StringBuilder();
                         sufFix = new StringBuilder();
                     }
                     preFix.append(chars[i]);
                     break;
                 }
-
                 case '{':
                 case '[': {
                     char endFlag = '}';
-
                     if (chars[i] == '[') {
                         endFlag = ']';
                     }
-
                     if (preFix.length() != 0) {
                         int count = sufFix.length() == 0 ? 1 : Integer.parseInt(sufFix.toString());
-                        result.append(createSimpleString(preFix.toString(), count));
+                        result.append(beAppends(preFix, count));
                     }
-
                     preFix = new StringBuilder();
                     sufFix = new StringBuilder();
-
                     boolean isTurnMean = false;
-
                     for (; i < chars.length; i++) {
                         preFix.append(chars[i]);
                         if (chars[i] == '-' && !isTurnMean) {
@@ -289,7 +282,32 @@ public class StringExtension {
                     }
                     break;
                 }
-
+                case '(': {
+                    if (preFix.length() != 0) {
+                        int count = sufFix.length() == 0 ? 1 : convent(sufFix.toString());
+                        result.append(beAppends(preFix, count));
+                    }
+                    StringBuilder sb = new StringBuilder();
+                    int count = 0;
+                    try {
+                        do {
+                            if (chars[i] == '(') {
+                                count++;
+                            }
+                            if (chars[i] == ')') {
+                                count--;
+                            }
+                            sb.append(chars[i]);
+                            i++;
+                        } while (count != 0);
+                        i--;
+                    }catch (Exception e){
+                        return "";
+                    }
+                    preFix = sb;
+                    sufFix = new StringBuilder();
+                    break;
+                }
                 // numbers
                 default: {
                     boolean isNumber = (chars[i] >= '0' && chars[i] <= '9')
@@ -307,12 +325,25 @@ public class StringExtension {
 
         if (preFix.length() != 0) {
             int count = sufFix.length() == 0 ? 1 : convent(sufFix.toString());
-            result.append(createSimpleString(preFix.toString(), count));
+            result.append(beAppends(preFix, count));
         }
 
         return result.toString();
     }
 
+    private String beAppends(StringBuilder preFix, int count) {
+        StringBuilder result = new StringBuilder();
+        if (preFix.charAt(0) == '(') {
+            preFix.deleteCharAt(0);
+            preFix.deleteCharAt(preFix.length() - 1);
+            for (int j = 0; j < count; j++) {
+                result.append(createRandomStringBase(preFix.toString()));
+            }
+        } else {
+            result.append(createSimpleString(preFix.toString(), count));
+        }
+        return result.toString();
+    }
 
     /**
      * create inner random string for format create.
@@ -321,7 +352,7 @@ public class StringExtension {
      * @param count  create number
      * @return a random string
      */
-    private static String createSimpleString(String region, int count) {
+    private String createSimpleString(String region, int count) {
         if (region.length() == 0 || count == 0 || count == -1) {
             return "";
         }

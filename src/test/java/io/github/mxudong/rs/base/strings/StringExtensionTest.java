@@ -32,16 +32,18 @@ public class StringExtensionTest {
 
     @Test
     public void testCreateRandomFromDataFromat(){
-//        System.out.println(StringExtension.createRandomStringBase("*26"));
-//        System.out.println(StringExtension.createRandomStringBase("{T}10"));
-//        System.out.println(StringExtension.createRandomStringBase("{---}123}"));
-//        System.out.println(StringExtension.createRandomStringBase("c3n{test-}}c"));
-//        System.out.println(StringExtension.createRandomStringBase("c3n{test}12c"));
-//        System.out.println(StringExtension.createRandomStringBase("[https://]2n9[@]2*l2[.com]"));
-        System.out.println(StringExtension.createRandomStringBase("c<2|5>"));
-        System.out.println(StringExtension.createRandomStringBase("c<|5>"));
-        System.out.println(StringExtension.createRandomStringBase("c<2|>"));
-        System.out.println(StringExtension.createRandomStringBase("c<0|>"));
+        StringExtension stringExtension = new StringExtension();
+//        System.out.println(stringExtension.createRandomStringBase("*26"));
+//        System.out.println(stringExtension.createRandomStringBase("{T}10"));
+//        System.out.println(stringExtension.createRandomStringBase("{---}123}"));
+//        System.out.println(stringExtension.createRandomStringBase("c3n{test-}}c"));
+//        System.out.println(stringExtension.createRandomStringBase("c3n{test}12c"));
+//        System.out.println(stringExtension.createRandomStringBase("[https://]n9[@]{q}2[.com]"));
+//        System.out.println(stringExtension.createRandomStringBase("c<2|5>"));
+//        System.out.println(stringExtension.createRandomStringBase("c<|5>"));
+//        System.out.println(stringExtension.createRandomStringBase("c<2|>"));
+//        System.out.println(stringExtension.createRandomStringBase("c<0|>"));
+        System.out.println(stringExtension.createRandomStringBase("[H-]]([t])[p://]"));
 
     }
 
