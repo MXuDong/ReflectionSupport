@@ -17,7 +17,7 @@ import io.github.mxudong.rs.base.ReflectorFactory;
 
 public class Randomizer<T extends Object> {
 
-    private ObjectReflector objectReflector;
+    private ObjectReflector<T> objectReflector;
     private T innerObject = null;
 
     /**
@@ -26,7 +26,7 @@ public class Randomizer<T extends Object> {
      * @param tClass for input class of randomizer
      */
     public Randomizer(Class<T> tClass) {
-        this.objectReflector = ReflectorFactory.getInstance().getObjectReflector(tClass, true);
+        this.objectReflector = (ObjectReflector<T>) ReflectorFactory.getInstance().getObjectReflector(tClass, true);
         innerObject = (T) objectReflector.getInstance();
     }
 
