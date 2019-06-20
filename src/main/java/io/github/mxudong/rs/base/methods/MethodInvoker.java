@@ -72,20 +72,17 @@ public class MethodInvoker implements Invoker {
     public boolean isThisArgs(Object... args) {
         if (args == null) {
             return this.paramCount == 0;
-        }
-        if (args.length != this.paramCount) {
+        }else if (args.length != this.paramCount) {
             return false;
         }
 
         for (int i = 0; i < args.length; i++) {
             if (!paramClass[i].isInstance(args[i])) {
-                if (ClassUtil.isBaseType(paramClass[i])) {
-                    continue;
+                if (!ClassUtil.isBaseType(paramClass[i])) {
+                    return false;
                 }
-                return false;
             }
         }
-
         return true;
     }
 
