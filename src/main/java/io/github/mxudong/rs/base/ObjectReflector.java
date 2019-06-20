@@ -484,4 +484,12 @@ final public class ObjectReflector {
         return commonMethods.values().iterator();
     }
 
+    /**
+     * get static method iterators, overload methods in the same list
+     *
+     * @return static method's iterator
+     */
+    public Iterator<List<Invoker>> getStaticMethodsIterator() {
+        return staticMethods.values().iterator();
+    }
 }
