@@ -3,6 +3,7 @@ package io.github.mxudong.rs.base;
 import io.github.mxudong.rs.base.methods.*;
 import io.github.mxudong.rs.base.strings.StringExtension;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -27,17 +28,17 @@ import java.util.*;
  * @since 2.0
  */
 
-final public class ObjectReflector {
+final public class ObjectReflector<T> {
 
     /**
      * inner class
      */
-    private Class innerClass;
+    private Class<T> innerClass;
     private String packageName;
     private String className;
 
     private int defaultConstructorIndex = -1;
-    private AbsConstructor[] constructors;
+    private AbsConstructor<T>[] constructors;
 
     private Map<String, GetterMethodInvoker> readableProperty;
     private Map<String, SetterMethodInvoker> writableProperty;
@@ -59,7 +60,7 @@ final public class ObjectReflector {
      *
      * @param c inner class
      */
-    protected ObjectReflector(Class c) {
+    protected ObjectReflector(Class<T> c) {
         this(c, false);
     }
 
@@ -69,7 +70,7 @@ final public class ObjectReflector {
      * @param c              innerClass
      * @param loadSuperClass true:load this class's supperClass until Object, else do nothing
      */
-    protected ObjectReflector(Class c, boolean loadSuperClass) {
+    protected ObjectReflector(Class<T> c, boolean loadSuperClass) {
         this.innerClass = c;
 
         if (c.equals(Object.class) || !loadSuperClass) {
@@ -82,7 +83,7 @@ final public class ObjectReflector {
         String[] packages = c.getName().split("\\.");
         StringBuilder stringBuffer = new StringBuilder();
         for (int i = 0; i < packages.length - 1; i++) {
-            stringBuffer.append(packages[i] + ".");
+            stringBuffer.append(packages[i]).append(".");
         }
         this.packageName = stringBuffer.toString().substring(0, stringBuffer.length() - 1);
         this.className = packages[packages.length - 1];
@@ -92,7 +93,7 @@ final public class ObjectReflector {
         Constructor[] constructors = c.getConstructors();
         this.constructors = new AbsConstructor[constructors.length];
         for (int i = 0; i < constructors.length; i++) {
-            this.constructors[i] = new AbsConstructor(constructors[i]);
+            this.constructors[i] = new AbsConstructor<T>(constructors[i]);
             if (this.constructors[i].getParamCount() == 0) {
                 this.defaultConstructorIndex = i;
             }
@@ -142,11 +143,43 @@ final public class ObjectReflector {
     }
 
     /**
+     * Generate an array of InnerClass instances
+     *
+     * @param length the length of array
+     * @return new array
+     */
+    public Object[] createArray(int length) {
+        if (length < 0) {
+            return null;
+        }
+        Object[] result = (Object[]) Array.newInstance(innerClass, length);
+        return result;
+    }
+
+    /**
+     * Generate and populate a new array
+     *
+     * @param length the length of array
+     * @return new array
+     */
+    public Object[] createArrayAndFill(int length) {
+        if (length < 0) {
+            return null;
+        }
+        Object[] result = createArray(length);
+        for (int i = 0; i < result.length; i++) {
+            result[i] = this.getInstance();
+        }
+
+        return result;
+    }
+
+    /**
      * get super class's  ObjectReflector  object
      *
      * @return super class  ObjectReflector  object
      */
-    public ObjectReflector getSuperObjectReflector() {
+    public ObjectReflector<?> getSuperObjectReflector() {
         return fatherObjectReflector;
     }
 
@@ -156,7 +189,7 @@ final public class ObjectReflector {
      * @param isOnce is true, only load first super class else until Object class
      * @return inner class's super object reflector
      */
-    public ObjectReflector loadSuperObjectReflector(boolean isOnce) {
+    public ObjectReflector<?> loadSuperObjectReflector(boolean isOnce) {
         fatherObjectReflector = ReflectorFactory.getInstance().getObjectReflector(innerClass.getSuperclass(), isOnce);
         return fatherObjectReflector;
     }
@@ -373,12 +406,12 @@ final public class ObjectReflector {
      *
      * @return object
      */
-    public Object getInstance() {
+    public T getInstance() {
         if (defaultConstructorIndex < 0) {
             return null;
         }
 
-        return constructors[defaultConstructorIndex].invoke(null);
+        return constructors[defaultConstructorIndex].invoke(new Object[]{});
     }
 
     /**
@@ -387,8 +420,8 @@ final public class ObjectReflector {
      * @param args init params
      * @return Object of class
      */
-    public Object getInstance(Object... args) {
-        for (AbsConstructor absConstructor : constructors) {
+    public T getInstance(Object... args) {
+        for (AbsConstructor<T> absConstructor : constructors) {
             if (absConstructor.isThisParams(args)) {
                 return absConstructor.invoke(args);
             }
@@ -420,7 +453,43 @@ final public class ObjectReflector {
      *
      * @return inner class
      */
-    public Class getInnerClass() {
+    public Class<T> getInnerClass() {
         return innerClass;
+    }
+
+    /**
+     * get getter methods
+     *
+     * @return getter methods' iterator
+     */
+    public Iterator<GetterMethodInvoker> getterMethodIterator() {
+        return readableProperty.values().iterator();
+    }
+
+    /**
+     * get setter methods
+     *
+     * @return setter methods' iterator
+     */
+    public Iterator<SetterMethodInvoker> setterMethodIterator() {
+        return writableProperty.values().iterator();
+    }
+
+    /**
+     * Get common method iterators, overload methods in the same list
+     *
+     * @return common method's iterator
+     */
+    public Iterator<List<Invoker>> getCommonMethodsIterator() {
+        return commonMethods.values().iterator();
+    }
+
+    /**
+     * get static method iterators, overload methods in the same list
+     *
+     * @return static method's iterator
+     */
+    public Iterator<List<Invoker>> getStaticMethodsIterator() {
+        return staticMethods.values().iterator();
     }
 }

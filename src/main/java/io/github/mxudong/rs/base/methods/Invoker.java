@@ -19,7 +19,21 @@ public interface Invoker {
      * @param args   the method needs params
      * @return invoke result
      */
-    Object invoke(Object target, Object ... args);
+    Object invoke(Object target, Object... args);
+
+    /**
+     * Get the parameters required for the call
+     *
+     * @return the parameters
+     */
+    Class[] getParams();
+
+    /**
+     * get the parameters' count required for the call
+     *
+     * @return the count of parameters
+     */
+    int getParamsCount();
 
     /**
      * get the method return type.
@@ -30,8 +44,9 @@ public interface Invoker {
 
     /**
      * to equals args with inner params type;
+     *
      * @param args
      * @return
      */
-    boolean isThisArgs(Object ... args);
+    boolean isThisArgs(Object... args);
 }

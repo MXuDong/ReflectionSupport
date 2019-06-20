@@ -46,4 +46,19 @@ public class ReflectorTest {
         System.out.println(manObject.getReadableProperty());
         System.out.println(manObject.getSuperObjectReflector().getAllProperties());
     }
+
+    @Test
+    public void testArray(){
+        ObjectReflector objectReflector = ReflectorFactory.getInstance().getObjectReflector(Man.class);
+        Man[] mans = (Man[]) objectReflector.createArray(5);
+        System.out.println(mans);
+        for(Man m : mans){
+            System.out.println(m);
+        }
+
+        mans = (Man[]) objectReflector.createArrayAndFill(5);
+        for(Man m : mans){
+            System.out.println(m);
+        }
+    }
 }

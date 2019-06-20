@@ -23,11 +23,11 @@ import java.util.Set;
 public class Reflector<T> {
     /**
      * this object is the aim of reflector to operation,
-     * we call this object the )target object .
+     * we call this object the target object .
      */
     private T object;
     /**
-     * the class of )target object
+     * the class of target object
      */
     private Class tClass;
 
