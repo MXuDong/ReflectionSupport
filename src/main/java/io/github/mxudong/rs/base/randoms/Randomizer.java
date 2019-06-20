@@ -1,6 +1,7 @@
 package io.github.mxudong.rs.base.randoms;
 
 import io.github.mxudong.rs.base.ObjectReflector;
+import io.github.mxudong.rs.base.Reflector;
 import io.github.mxudong.rs.base.ReflectorFactory;
 
 /**
@@ -17,11 +18,9 @@ import io.github.mxudong.rs.base.ReflectorFactory;
 
 public class Randomizer <T extends Object> {
 
-    ObjectReflector objectReflector;
+    private Reflector<T> reflector;
 
     public Randomizer(Class<T> tClass){
-        this.objectReflector = ReflectorFactory.getInstance().getObjectReflector(tClass, true);
+        reflector = new Reflector<>(tClass);
     }
-
-
 }
