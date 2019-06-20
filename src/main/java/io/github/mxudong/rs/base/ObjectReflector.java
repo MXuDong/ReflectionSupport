@@ -456,4 +456,13 @@ final public class ObjectReflector {
     public Class getInnerClass() {
         return innerClass;
     }
+
+    /**
+     * get getter methods
+     *
+     * @return getter methods' iterator
+     */
+    public Iterator<GetterMethodInvoker> getterMethodIterator() {
+        return readableProperty.values().iterator();
+    }
 }
