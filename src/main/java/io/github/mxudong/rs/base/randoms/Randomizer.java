@@ -1,5 +1,8 @@
 package io.github.mxudong.rs.base.randoms;
 
+import io.github.mxudong.rs.base.ObjectReflector;
+import io.github.mxudong.rs.base.ReflectorFactory;
+
 /**
  * Class Name : Randomizer
  * Create Time : 20:06
@@ -13,13 +16,12 @@ package io.github.mxudong.rs.base.randoms;
  */
 
 public class Randomizer <T extends Object> {
-    Class<T> tClass;
+
+    ObjectReflector objectReflector;
 
     public Randomizer(Class<T> tClass){
-        this.tClass = tClass;
+        this.objectReflector = ReflectorFactory.getInstance().getObjectReflector(tClass, true);
     }
 
-    public Class<T> gettClass() {
-        return tClass;
-    }
+
 }
