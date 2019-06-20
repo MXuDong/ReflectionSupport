@@ -15,8 +15,8 @@ import java.lang.reflect.InvocationTargetException;
  * @since 2.0
  */
 
-public class AbsConstructor{
-    private Constructor constructor;
+public class AbsConstructor<T>{
+    private Constructor<T> constructor;
     private int paramCount;
     private Class[] paramClass;
 
@@ -25,7 +25,7 @@ public class AbsConstructor{
      *
      * @param c aim constructor
      */
-    public AbsConstructor(Constructor c) {
+    public AbsConstructor(Constructor<T> c) {
         this.constructor = c;
         this.paramCount = c.getParameterCount();
         this.paramClass = c.getParameterTypes();
@@ -46,7 +46,7 @@ public class AbsConstructor{
      * @param args init params
      * @return new instance of this constructor
      */
-    public Object invoke(Object... args) {
+    public T invoke(Object... args) {
         try {
             return constructor.newInstance(args);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {

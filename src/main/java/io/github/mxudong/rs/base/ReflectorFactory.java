@@ -37,7 +37,7 @@ public class ReflectorFactory {
      *
      * @see ObjectReflector
      */
-    private Map<Class, ObjectReflector> objectReflectorMap;
+    private Map<Class, ObjectReflector<?>> objectReflectorMap;
 
     /**
      * construction method
@@ -63,7 +63,7 @@ public class ReflectorFactory {
      * @param isLoadSuperClass true:load this class's supperClass until Object, else do nothing
      * @return the  ObjectReflector  which handle the  c .
      */
-    public ObjectReflector getObjectReflector(Class c, boolean isLoadSuperClass) {
+    public <T> ObjectReflector<?> getObjectReflector(Class<T> c, boolean isLoadSuperClass) {
         if (c == null) {
             return null;
         }
@@ -74,7 +74,7 @@ public class ReflectorFactory {
             return objectReflectorMap.get(c);
         }
 
-        ObjectReflector objectReflector = new ObjectReflector(c, isLoadSuperClass);
+        ObjectReflector<T> objectReflector = new ObjectReflector<>(c, isLoadSuperClass);
         objectReflectorMap.put(c, objectReflector);
         return objectReflector;
     }
@@ -85,7 +85,7 @@ public class ReflectorFactory {
      * @param c aim class, if it is null, the return is null.
      * @return the  ObjectReflector  which handle the  c .
      */
-    public ObjectReflector getObjectReflector(Class c) {
+    public <T> ObjectReflector<?> getObjectReflector(Class<T> c) {
         return getObjectReflector(c, false);
     }
 }
