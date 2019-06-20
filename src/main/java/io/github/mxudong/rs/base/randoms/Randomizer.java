@@ -38,4 +38,19 @@ public class Randomizer<T extends Object> {
     public T getInnerObject() {
         return innerObject;
     }
+
+    public T getNewInstance() {
+
+    }
+
+    /**
+     * create a new object and update inner object to new object
+     *
+     * @return new object
+     */
+    public T loadAndGetNewInstance() {
+        T newInstance = getNewInstance();
+        this.innerObject = newInstance;
+        return newInstance;
+    }
 }
