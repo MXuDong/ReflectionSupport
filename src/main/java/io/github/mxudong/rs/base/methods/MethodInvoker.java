@@ -39,6 +39,11 @@ public class MethodInvoker implements Invoker {
     private int paramCount;
     private Class[] paramClass;
 
+    @Override
+    public Class[] getParams() {
+        return paramClass;
+    }
+
     public MethodInvoker(Method method) {
         //==================method can't be null
         if (method == null) {
