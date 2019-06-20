@@ -465,4 +465,13 @@ final public class ObjectReflector {
     public Iterator<GetterMethodInvoker> getterMethodIterator() {
         return readableProperty.values().iterator();
     }
+
+    /**
+     * get setter methods
+     *
+     * @return setter methods' iterator
+     */
+    public Iterator<SetterMethodInvoker> setterMethodIterator() {
+        return writableProperty.values().iterator();
+    }
 }
