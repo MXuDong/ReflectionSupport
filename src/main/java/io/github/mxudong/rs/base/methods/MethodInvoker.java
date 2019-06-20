@@ -39,6 +39,15 @@ public class MethodInvoker implements Invoker {
     private int paramCount;
     private Class[] paramClass;
 
+    /**
+     * getter method of method's name
+     *
+     * @return method name
+     */
+    public String getMethodName() {
+        return method.getName();
+    }
+
     @Override
     public int getParamsCount() {
         return paramCount;
@@ -65,7 +74,7 @@ public class MethodInvoker implements Invoker {
     }
 
     @Override
-    public Object invoke(Object target, Object ... args) {
+    public Object invoke(Object target, Object... args) {
         try {
             return method.invoke(target, args);
         } catch (IllegalAccessException | InvocationTargetException e) {
@@ -82,7 +91,7 @@ public class MethodInvoker implements Invoker {
     public boolean isThisArgs(Object... args) {
         if (args == null) {
             return this.paramCount == 0;
-        }else if (args.length != this.paramCount) {
+        } else if (args.length != this.paramCount) {
             return false;
         }
 
