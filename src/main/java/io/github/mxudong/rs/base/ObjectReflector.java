@@ -474,4 +474,14 @@ final public class ObjectReflector {
     public Iterator<SetterMethodInvoker> setterMethodIterator() {
         return writableProperty.values().iterator();
     }
+
+    /**
+     * Get common method iterators, overload methods in the same list
+     *
+     * @return common method's iterator
+     */
+    public Iterator<List<Invoker>> getCommonMethodsIterator() {
+        return commonMethods.values().iterator();
+    }
+
 }
