@@ -29,6 +29,13 @@ public interface Invoker {
     Class[] getParams();
 
     /**
+     * get the parameters' count required for the call
+     *
+     * @return the count of parameters
+     */
+    int getParamsCount();
+
+    /**
      * get the method return type.
      *
      * @return if return null:the method return type is void,else return return type

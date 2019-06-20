@@ -40,6 +40,11 @@ public class MethodInvoker implements Invoker {
     private Class[] paramClass;
 
     @Override
+    public int getParamsCount() {
+        return paramCount;
+    }
+
+    @Override
     public Class[] getParams() {
         return paramClass;
     }
