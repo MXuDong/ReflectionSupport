@@ -55,7 +55,7 @@ public class Randomizer<T extends Object> {
      * @param object be random object
      * @return random processing objects
      */
-    public T doRandom(T object) {
+    private T doRandom(T object) {
 
         return object;
     }
