@@ -453,7 +453,7 @@ public class StringExtension {
             int first = convent(firstNumber.toString());
             int second;
             if (secondNumber.length() == 0) {
-                second = 15;
+                second = DEFAULT_MAX_STRING_LENGTH;
             } else {
                 second = convent(secondNumber.toString());
             }
