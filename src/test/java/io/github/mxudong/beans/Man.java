@@ -7,7 +7,7 @@ package io.github.mxudong.beans;
  * Project : ReflectionSupport
  *
  * @author Dong
- * @since
+ * @since 2.0
  */
 
 public class Man extends People {
