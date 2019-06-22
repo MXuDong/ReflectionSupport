@@ -39,8 +39,25 @@ public class Randomizer<T extends Object> {
         return innerObject;
     }
 
+    /**
+     * create a new object and do random
+     *
+     * @return new object and do random
+     */
     public T getNewInstance() {
+        T object = objectReflector.getInstance();
+        return doRandom(object);
+    }
 
+    /**
+     * random a object
+     *
+     * @param object be random object
+     * @return random processing objects
+     */
+    public T doRandom(T object) {
+
+        return object;
     }
 
     /**
