@@ -84,11 +84,32 @@ public class Randomizer<T extends Object> {
         return doRandom(object, false);
     }
 
+    /**
+     * do random of object
+     * <p>
+     * Reference types will be nulled
+     *
+     * @return random object
+     */
     public T doRandom() {
         if (innerObject == null) {
             innerObject = objectReflector.getInstance();
         }
-        return doRandom(innerObject, true);
+        return doRandom(innerObject, false);
+    }
+
+    /**
+     * Random Depth
+     * <p>
+     * All reference types and primitive types are randomly assigned
+     *
+     * @return random object
+     */
+    public T doRandomDeep() {
+        if (innerObject == null) {
+            innerObject = objectReflector.getInstance();
+        }
+        return doRandom(innerObject, false);
     }
 
     /**
