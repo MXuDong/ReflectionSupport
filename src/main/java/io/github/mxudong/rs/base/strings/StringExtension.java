@@ -202,7 +202,6 @@ public class StringExtension {
      * s - all symbol
      * n - number
      * () - create () with group
-     * &lt;, &gt; Represents generation limits， use wilt |
      * - : escape character
      * {} - use this data to generate
      * <p>
