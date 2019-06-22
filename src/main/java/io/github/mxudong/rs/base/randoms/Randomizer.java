@@ -40,6 +40,14 @@ public class Randomizer<T extends Object> {
 
     /**
      * add random filter
+     * <p>
+     * When at least one filter result is not random among
+     * multiple filters, the randomization of the method will stop.
+     * <p>
+     * When a filter can assign a specified value, other filters
+     * will be ignored, whether randomization is allowed or not.
+     * <p>
+     * The filter order depends on the assignment order.
      *
      * @param randomFilter be added random filter
      */
