@@ -2,6 +2,10 @@ package io.github.mxudong.rs.base.randoms;
 
 import io.github.mxudong.rs.base.ObjectReflector;
 import io.github.mxudong.rs.base.ReflectorFactory;
+import io.github.mxudong.rs.base.methods.SetterMethodInvoker;
+import io.github.mxudong.rs.base.strings.StringExtension;
+
+import java.util.Iterator;
 
 /**
  * Class Name : Randomizer
@@ -46,17 +50,39 @@ public class Randomizer<T extends Object> {
      */
     public T getNewInstance() {
         T object = objectReflector.getInstance();
-        return doRandom(object);
+        return doRandom(object, false);
+    }
+
+    public T doRandom() {
+        if (innerObject == null) {
+            innerObject = objectReflector.getInstance();
+        }
+        return doRandom(innerObject, true);
     }
 
     /**
      * random a object
      *
      * @param object be random object
+     * @param doDeep is do random until object
      * @return random processing objects
      */
-    private T doRandom(T object) {
+    private T doRandom(T object, boolean doDeep) {
+        Iterator<SetterMethodInvoker> setterMethodInvokerIterator = objectReflector.setterMethodIterator();
+        while (setterMethodInvokerIterator.hasNext()) {
+            SetterMethodInvoker setterMethodInvoker = setterMethodInvokerIterator.next();
+            Object[] params = setterMethodInvoker.getParams();
+            Object[] setterParams = new Object[setterMethodInvoker.getParamsCount()];
 
+            for (int i = 0; i < params.length; i++) {
+                Object param = createRandomObject(params[i].toString());
+                if (param == null && doDeep) {
+                    param = new Randomizer(param.getClass()).doRandom();
+                }
+                setterParams[i] = param;
+            }
+            setterMethodInvoker.invoke(object, setterParams);
+        }
         return object;
     }
 
@@ -69,5 +95,44 @@ public class Randomizer<T extends Object> {
         T newInstance = getNewInstance();
         this.innerObject = newInstance;
         return newInstance;
+    }
+
+    /**
+     * create simple object of base type
+     *
+     * @param paramType class name
+     * @return random type
+     */
+    private Object createRandomObject(String paramType) {
+        switch (paramType) {
+            case "java.lang.Byte":
+            case "byte":
+                return BaseRandom.getRandomByte();
+            case "java.lang.Short":
+            case "short":
+                return BaseRandom.getRandomShort();
+            case "java.lang.Integer":
+            case "int":
+                return BaseRandom.getRandomInt();
+            case "java.lang.Long":
+            case "long":
+                return BaseRandom.getRandomLong();
+            case "java.lang.Character":
+            case "char":
+                return BaseRandom.getRandomCharFromAllChar();
+            case "java.lang.Double":
+            case "double":
+                return BaseRandom.getRandomDouble();
+            case "java.lang.Float":
+            case "float":
+                return BaseRandom.getRandomFloat();
+            case "java.lang.Boolean":
+            case "boolean":
+                return BaseRandom.getRandomBoolean();
+            case "java.lang.String":
+                return StringExtension.createRandomString();
+            default:
+                return null;
+        }
     }
 }
