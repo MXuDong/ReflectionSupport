@@ -133,3 +133,37 @@ class Test{
 }
 ```
     获取父级类反射对象
+    
+## 随机化方法
+```java
+class Test{
+    public static void main(String[] args){
+        //获取随机化对象
+      Randomizer<Man> manRandomizer = new Randomizer<>(Man.class);
+        //随机化操作
+      manRandomizer.doRandom();
+        //获取随机化对象（本代码直接输出）
+      System.out.println(manRandomizer.getInnerObject());
+    }
+}
+```
+    获取对象的随机化支持
+
+## 字符串格式化输出
+```java
+class Test{
+    public static void main(String[] args){
+        StringExtension stringExtension = new StringExtension();
+        System.out.println(stringExtension.createRandomStringBase("*26"));
+        System.out.println(stringExtension.createRandomStringBase("[https://]n9[@]{q}2[.com]"));
+    }
+}
+```
+    '*26'表示任意字符共生成26个
+    '([https://]n9[@]{q}2[.com][\n])5'表示生成如下格式字符串：
+        https://405323393@qq.com
+        https://194214554@qq.com
+        https://827324312@qq.com
+        https://777167717@qq.com
+        https://000924846@qq.com
+有关格式化字符输出请看[格式化字符输出]()
