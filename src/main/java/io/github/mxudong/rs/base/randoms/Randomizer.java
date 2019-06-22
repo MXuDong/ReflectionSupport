@@ -5,7 +5,9 @@ import io.github.mxudong.rs.base.ReflectorFactory;
 import io.github.mxudong.rs.base.methods.SetterMethodInvoker;
 import io.github.mxudong.rs.base.strings.StringExtension;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Class Name : Randomizer
@@ -23,6 +25,7 @@ public class Randomizer<T extends Object> {
 
     private ObjectReflector<T> objectReflector;
     private T innerObject = null;
+    private List<RandomFilter> randomFilters;
 
     /**
      * construction method
@@ -30,8 +33,28 @@ public class Randomizer<T extends Object> {
      * @param tClass for input class of randomizer
      */
     public Randomizer(Class<T> tClass) {
+        randomFilters = new ArrayList<>();
         this.objectReflector = (ObjectReflector<T>) ReflectorFactory.getInstance().getObjectReflector(tClass, true);
         innerObject = (T) objectReflector.getInstance();
+    }
+
+    /**
+     * add random filter
+     *
+     * @param randomFilter be added random filter
+     */
+    public void addRandomFilter(RandomFilter randomFilter) {
+        randomFilters.add(randomFilter);
+    }
+
+    /**
+     * remove random filter
+     *
+     * @param randomFilter be remove filter
+     * @return is not exits return false, else return true
+     */
+    public boolean removeRandomFilter(RandomFilter randomFilter) {
+        return randomFilters.remove(randomFilter);
     }
 
     /**
@@ -70,9 +93,29 @@ public class Randomizer<T extends Object> {
     private T doRandom(T object, boolean doDeep) {
         Iterator<SetterMethodInvoker> setterMethodInvokerIterator = objectReflector.setterMethodIterator();
         while (setterMethodInvokerIterator.hasNext()) {
+
             SetterMethodInvoker setterMethodInvoker = setterMethodInvokerIterator.next();
             Object[] params = setterMethodInvoker.getParams();
             Object[] setterParams = new Object[setterMethodInvoker.getParamsCount()];
+
+            boolean doRandom = true;
+
+            for (RandomFilter randomFilter : randomFilters) {
+                if (!randomFilter.canDoRandom(setterMethodInvoker.getMethodName(), params)) {
+                    doRandom = false;
+                    break;
+                }
+                if (randomFilter.isSpecifiedGeneration(setterMethodInvoker.getMethodName(), params)) {
+                    setterParams = randomFilter.methodParamCreater(setterMethodInvoker.getMethodName(), params);
+                    setterMethodInvoker.invoke(object, setterParams);
+                    doRandom = false;
+                    break;
+                }
+            }
+
+            if (!doRandom) {
+                continue;
+            }
 
             for (int i = 0; i < params.length; i++) {
                 Object param = createRandomObject(params[i].toString());
