@@ -31,4 +31,22 @@ public class ClassUtil {
         if(type.equals(double.class)) return true;
         return false;
     }
+
+    /**
+     * Determine whether the target class is a packaging class or not
+     *
+     * @param type input type
+     * @return is packing type
+     */
+    public static boolean isPacking(Class type){
+        if(type.equals(Short.class)) return true;
+        if(type.equals(Byte.class)) return true;
+        if(type.equals(Integer.class)) return true;
+        if(type.equals(Long.class)) return true;
+        if(type.equals(Float.class)) return true;
+        if(type.equals(Double.class)) return true;
+        if(type.equals(Boolean.class)) return true;
+        if(type.equals(Character.class)) return true;
+        return false;
+    }
 }

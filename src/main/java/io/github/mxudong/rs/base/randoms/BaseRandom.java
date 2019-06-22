@@ -25,8 +25,6 @@ import static io.github.mxudong.rs.base.strings.StringExtension.getAllCharacter;
 public class BaseRandom {
 
 
-
-
     /**
      * Getting a random character from all character sets
      *
@@ -188,6 +186,17 @@ public class BaseRandom {
     }
 
     /**
+     * Generate double-precision floating-point numbers
+     * with minimum flags, no more than flags + 1
+     * <p>
+     *
+     * @return a random value of double type
+     */
+    public static double getRandomDouble() {
+        return getRandomDouble(getRandomLong());
+    }
+
+    /**
      * Generate float-precision floating-point numbers
      * with minimum flags, no more than flags + 1
      * <p>
@@ -197,6 +206,17 @@ public class BaseRandom {
      */
     public static float getRandomFloat(float flags) {
         return (float) getRandomDouble(flags);
+    }
+
+    /**
+     * Generate float-precision floating-point numbers
+     * with minimum flags, no more than flags + 1
+     * <p>
+     *
+     * @return a random value of float type
+     */
+    public static float getRandomFloat() {
+        return getRandomFloat(getRandomInt());
     }
 
     /**
