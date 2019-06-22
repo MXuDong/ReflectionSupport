@@ -254,7 +254,7 @@ public class StringExtension {
                         endFlag = ']';
                     }
                     if (preFix.length() != 0) {
-                        int count = sufFix.length() == 0 ? 1 : Integer.parseInt(sufFix.toString());
+                        int count = sufFix.length() == 0 ? 1 : convent(sufFix.toString());
                         result.append(beAppends(preFix, count));
                     }
                     preFix = new StringBuilder();
