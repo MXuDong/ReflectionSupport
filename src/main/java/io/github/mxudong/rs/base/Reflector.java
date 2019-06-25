@@ -169,14 +169,17 @@ public class Reflector<T> {
      *
      * @return map about object info
      */
-    public Map<String, Object> getObjectInfoAll(){
+    public Map<String, Object> getObjectInfoAll() {
         Map<String, Object> infos = new HashMap<>();
 
         Set<String> keys = readablePropertyNames;
         for (String key : keys) {
             Object value = value = objectReflector.invokeGetterMethod(key, object);
-            if(!ClassUtil.isBaseType(value.getClass()) && !ClassUtil.isPacking(value.getClass())){
-                value = new Reflector(value).getObjectInfo();
+            if (!ClassUtil.isBaseType(value.getClass()) && !ClassUtil.isPacking(value.getClass())) {
+                if (!(value instanceof String)) {
+                    value = new Reflector(value).getObjectInfo();
+                }
+
             }
             infos.put(key, value);
         }
@@ -306,7 +309,7 @@ public class Reflector<T> {
     /**
      * override the method : {@code toString()}
      *
-     * @return  target object 's to string.
+     * @return target object 's to string.
      */
     @Override
     public String toString() {
