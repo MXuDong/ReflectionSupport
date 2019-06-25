@@ -1,5 +1,7 @@
 package io.github.mxudong.rs.base;
 
+import io.github.mxudong.rs.base.utils.ClassUtil;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -149,6 +151,37 @@ public class Reflector<T> {
         Set<String> keys = readablePropertyNames;
         for (String key : keys) {
             infos.put(key, objectReflector.invokeGetterMethod(key, object));
+        }
+
+        return infos;
+    }
+
+    /**
+     * turn object to map
+     * <p>
+     * if the property can readable, this property will
+     * be write into map.
+     * <p>
+     * if the property is null, the property also be insert into map.
+     * <p>
+     * This operation only happens in this class, and parent information will not be added to map.
+     * If you want to record parent information, use  getObjectInfoAll()
+     *
+     * @return map about object info
+     */
+    public Map<String, Object> getObjectInfoAll(){
+        Map<String, Object> infos = new HashMap<>();
+
+        Set<String> keys = readablePropertyNames;
+        for (String key : keys) {
+            Object value = infos.get(key);
+            if(!ClassUtil.isBaseType(value.getClass()) && !ClassUtil.isPacking(value.getClass())){
+                value = new Reflector(value).getObjectInfo();
+            }
+            else {
+                value = objectReflector.invokeGetterMethod(key, object);
+            }
+            infos.put(key, value);
         }
 
         return infos;
