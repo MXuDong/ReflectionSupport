@@ -1,10 +1,13 @@
 package io.github.mxudong.rs.base;
 
+import io.github.mxudong.beans.Classic;
 import io.github.mxudong.beans.Man;
 import io.github.mxudong.beans.People;
 import io.github.mxudong.beans.Student;
 import io.github.mxudong.rs.base.methods.AbsConstructor;
 import org.junit.Test;
+
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -60,5 +63,24 @@ public class ReflectorTest {
         for(Man m : mans){
             System.out.println(m);
         }
+    }
+
+    @Test
+    public void testInfos(){
+        Classic classic = new Classic();
+        Student student = new Student();
+        student.setAge(16);
+        student.setName("Test");
+        student.setNumber("123123123");
+
+        classic.setStudent(student);
+
+        Reflector reflector = new Reflector(classic);
+        Map<String, Object> map = reflector.getObjectInfo();
+        for(String key : map.keySet()){
+            System.out.println(key + map.get(key));
+        }
+
+        System.out.println(reflector.getObjectInfoAll());
     }
 }
