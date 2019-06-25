@@ -80,5 +80,7 @@ public class ReflectorTest {
         for(String key : map.keySet()){
             System.out.println(key + map.get(key));
         }
+
+        System.out.println(reflector.getObjectInfoAll());
     }
 }

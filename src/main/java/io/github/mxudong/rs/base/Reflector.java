@@ -174,12 +174,9 @@ public class Reflector<T> {
 
         Set<String> keys = readablePropertyNames;
         for (String key : keys) {
-            Object value = infos.get(key);
+            Object value = value = objectReflector.invokeGetterMethod(key, object);
             if(!ClassUtil.isBaseType(value.getClass()) && !ClassUtil.isPacking(value.getClass())){
                 value = new Reflector(value).getObjectInfo();
-            }
-            else {
-                value = objectReflector.invokeGetterMethod(key, object);
             }
             infos.put(key, value);
         }
