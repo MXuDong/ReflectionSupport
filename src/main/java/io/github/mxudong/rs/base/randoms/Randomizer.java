@@ -3,6 +3,7 @@ package io.github.mxudong.rs.base.randoms;
 import io.github.mxudong.rs.base.ObjectReflector;
 import io.github.mxudong.rs.base.ReflectorFactory;
 import io.github.mxudong.rs.base.methods.SetterMethodInvoker;
+import io.github.mxudong.rs.base.randoms.annotations.Randomset;
 import io.github.mxudong.rs.base.strings.StringExtension;
 
 import java.util.ArrayList;
@@ -41,6 +42,8 @@ public class Randomizer<T extends Object> {
     private double doubleIndex = 15;
     private String defaultChar = StringExtension.getClassSupportLetters();
     private String defaultFormat = "c3n3*3l3u3s3";
+
+    boolean hasInterface = false;
 
     public byte getMinByteValue() {
         return minByteValue;
@@ -147,6 +150,24 @@ public class Randomizer<T extends Object> {
         randomFilters = new ArrayList<>();
         this.objectReflector = (ObjectReflector<T>) ReflectorFactory.getInstance().getObjectReflector(tClass, true);
         innerObject = (T) objectReflector.getInstance();
+
+        Randomset r = tClass.getAnnotation(Randomset.class);
+        if(r != null){
+            hasInterface = true;
+
+            setMinByteValue(r.minByteValue());
+            setMaxByteValue(r.maxByteValue());
+            setMinShortValue(r.minShortValue());
+            setMaxByteValue(r.maxByteValue());
+            setMinIntegerValue(r.minIntegerValue());
+            setMaxIntegerValue(r.maxIntegerValue());
+            setMinLongValue(r.minLongValue());
+            setMaxLongValue(r.maxLongValue());
+            setFloatIndex(r.floatIndex());
+            setDoubleIndex(r.doubleIndex());
+            setDefaultChar(r.defaultChars());
+            setDefaultFormat(r.defaultFormat());
+        }
     }
 
     /**
