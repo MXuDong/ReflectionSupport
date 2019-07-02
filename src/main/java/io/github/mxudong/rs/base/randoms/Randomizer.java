@@ -6,6 +6,7 @@ import io.github.mxudong.rs.base.methods.SetterMethodInvoker;
 import io.github.mxudong.rs.base.randoms.annotations.Randomset;
 import io.github.mxudong.rs.base.strings.StringExtension;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -152,7 +153,7 @@ public class Randomizer<T extends Object> {
         innerObject = (T) objectReflector.getInstance();
 
         Randomset r = tClass.getAnnotation(Randomset.class);
-        if(r != null){
+        if (r != null) {
             hasInterface = true;
 
             setMinByteValue(r.minByteValue());
@@ -261,6 +262,7 @@ public class Randomizer<T extends Object> {
 
             boolean doRandom = true;
 
+
             for (RandomFilter randomFilter : randomFilters) {
                 if (!randomFilter.canDoRandom(setterMethodInvoker.getMethodName(), params)) {
                     doRandom = false;
@@ -291,6 +293,15 @@ public class Randomizer<T extends Object> {
     }
 
     /**
+     * judge is a method has annotation
+     *
+     * @return true or false
+     */
+    public boolean hasannotationInMethod() {
+        return false;
+    }
+
+    /**
      * create a new object and update inner object to new object
      *
      * @return new object
@@ -301,34 +312,34 @@ public class Randomizer<T extends Object> {
         return newInstance;
     }
 
-    private Object createRandomObject(String paramType, Object ... values){
+    private Object createRandomObject(String paramType, Object... values) {
         switch (paramType) {
             case "java.lang.Byte":
             case "byte":
-                return BaseRandom.getRandomByte((byte)values[0], (byte)values[1]);
+                return BaseRandom.getRandomByte((byte) values[0], (byte) values[1]);
             case "java.lang.Short":
             case "short":
-                return BaseRandom.getRandomShort((short)values[0], (short)values[1]);
+                return BaseRandom.getRandomShort((short) values[0], (short) values[1]);
             case "java.lang.Integer":
             case "int":
-                return BaseRandom.getRandomInt((int)values[0], (int)values[1]);
+                return BaseRandom.getRandomInt((int) values[0], (int) values[1]);
             case "java.lang.Long":
             case "long":
-                return BaseRandom.getRandomLong((long)values[0], (long)values[1]);
+                return BaseRandom.getRandomLong((long) values[0], (long) values[1]);
             case "java.lang.Character":
             case "char":
-                return BaseRandom.getRandomChar((String)values[0]);
+                return BaseRandom.getRandomChar((String) values[0]);
             case "java.lang.Double":
             case "double":
-                return BaseRandom.getRandomDouble((double)values[0]);
+                return BaseRandom.getRandomDouble((double) values[0]);
             case "java.lang.Float":
             case "float":
-                return BaseRandom.getRandomFloat((float)values[0]);
+                return BaseRandom.getRandomFloat((float) values[0]);
             case "java.lang.Boolean":
             case "boolean":
                 return BaseRandom.getRandomBoolean();
             case "java.lang.String":
-                return StringExtension.createRandomStringBase((String)values[0]);
+                return StringExtension.createRandomStringBase((String) values[0]);
             default:
                 return null;
         }
