@@ -1,6 +1,9 @@
 package io.github.mxudong.rs.base.randoms;
 
 import io.github.mxudong.beans.Man;
+import io.github.mxudong.beans.People;
+import io.github.mxudong.beans.Student;
+import io.github.mxudong.rs.base.strings.StringExtension;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -32,14 +35,9 @@ public class RandomizerTest {
     }
 
     @Test
-    public void getNewInstance() {
-    }
+    public void test2(){
+        Randomizer<Student> studentRandomizer = new Randomizer<>(Student.class);
+        System.out.println(studentRandomizer.getNewInstance());
 
-    @Test
-    public void doRandom() {
-    }
-
-    @Test
-    public void loadAndGetNewInstance() {
     }
 }

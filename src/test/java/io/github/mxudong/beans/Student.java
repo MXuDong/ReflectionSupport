@@ -1,5 +1,7 @@
 package io.github.mxudong.beans;
 
+import io.github.mxudong.rs.base.randoms.annotations.Randomset;
+
 /**
  * Class Name : Student
  * Create Time : 16:03
@@ -10,6 +12,7 @@ package io.github.mxudong.beans;
  * @since
  */
 
+@Randomset(defaultFormat = "[test]")
 public class Student {
     private int age;
     private String name;

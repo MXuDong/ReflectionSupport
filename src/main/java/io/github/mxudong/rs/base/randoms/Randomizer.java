@@ -342,31 +342,31 @@ public class Randomizer<T extends Object> {
      */
     private Object createRandomObject(String paramType) {
         switch (paramType) {
-            case "java.lang.Byte":
+            case "class java.lang.Byte":
             case "byte":
                 return BaseRandom.getRandomByte(minByteValue, maxByteValue);
-            case "java.lang.Short":
+            case "class java.lang.Short":
             case "short":
                 return BaseRandom.getRandomShort(minShortValue, maxShortValue);
-            case "java.lang.Integer":
+            case "class java.lang.Integer":
             case "int":
                 return BaseRandom.getRandomInt(minIntegerValue, maxIntegerValue);
-            case "java.lang.Long":
+            case "class java.lang.Long":
             case "long":
                 return BaseRandom.getRandomLong(minLongValue, maxLongValue);
-            case "java.lang.Character":
+            case "class java.lang.Character":
             case "char":
                 return BaseRandom.getRandomChar(defaultChar);
-            case "java.lang.Double":
+            case "class java.lang.Double":
             case "double":
                 return BaseRandom.getRandomDouble(doubleIndex);
-            case "java.lang.Float":
+            case "class java.lang.Float":
             case "float":
                 return BaseRandom.getRandomFloat(floatIndex);
-            case "java.lang.Boolean":
+            case "class java.lang.Boolean":
             case "boolean":
                 return BaseRandom.getRandomBoolean();
-            case "java.lang.String":
+            case "class java.lang.String":
                 return StringExtension.createRandomStringBase(defaultFormat);
             default:
                 return null;
