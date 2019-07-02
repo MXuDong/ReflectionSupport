@@ -2,6 +2,7 @@ package io.github.mxudong.rs.base;
 
 import io.github.mxudong.rs.base.utils.ClassUtil;
 
+import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -22,7 +23,7 @@ import java.util.Set;
  * @since 2.0
  */
 
-public class Reflector<T> {
+public class Reflector<T> implements AnnotationsAble{
     /**
      * this object is the aim of reflector to operation,
      * we call this object the target object .
@@ -314,5 +315,20 @@ public class Reflector<T> {
     @Override
     public String toString() {
         return object.toString();
+    }
+
+    @Override
+    public boolean hasAnnotation(Class annotationClass) {
+        return false;
+    }
+
+    @Override
+    public int getAnnotationCount() {
+        return 0;
+    }
+
+    @Override
+    public <A extends Annotation> A getAnnotation(Class<A> annotationClass) {
+        return null;
     }
 }
