@@ -20,4 +20,5 @@ public interface AnnotationAble {
      * @return count of annotation
      */
     int getAnnotationCount();
+
 }

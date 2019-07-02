@@ -1,6 +1,6 @@
 package io.github.mxudong.rs.base;
 
-import io.github.mxudong.rs.base.methods.*;
+import io.github.mxudong.rs.base.encapsulator.*;
 import io.github.mxudong.rs.base.strings.StringExtension;
 
 import java.lang.reflect.Array;
@@ -19,8 +19,8 @@ import java.util.*;
  * calls calls of the parent class,
  * ignoring the differences caused by instances.
  * <p>
- * Including methods of statistics,
- * example methods, static methods,
+ * Including encapsulator of statistics,
+ * example encapsulator, static encapsulator,
  * array generation and other common
  * interfaces.
  *
@@ -106,7 +106,7 @@ final public class ObjectReflector<T> {
             properties.add(field.getName());
         }
 
-        //================================Create methods list
+        //================================Create encapsulator list
         readableProperty = new HashMap<>();
         writableProperty = new HashMap<>();
         staticMethods = new HashMap<>();
@@ -458,25 +458,25 @@ final public class ObjectReflector<T> {
     }
 
     /**
-     * get getter methods
+     * get getter encapsulator
      *
-     * @return getter methods' iterator
+     * @return getter encapsulator' iterator
      */
     public Iterator<GetterMethodInvoker> getterMethodIterator() {
         return readableProperty.values().iterator();
     }
 
     /**
-     * get setter methods
+     * get setter encapsulator
      *
-     * @return setter methods' iterator
+     * @return setter encapsulator' iterator
      */
     public Iterator<SetterMethodInvoker> setterMethodIterator() {
         return writableProperty.values().iterator();
     }
 
     /**
-     * Get common method iterators, overload methods in the same list
+     * Get common method iterators, overload encapsulator in the same list
      *
      * @return common method's iterator
      */
@@ -485,7 +485,7 @@ final public class ObjectReflector<T> {
     }
 
     /**
-     * get static method iterators, overload methods in the same list
+     * get static method iterators, overload encapsulator in the same list
      *
      * @return static method's iterator
      */

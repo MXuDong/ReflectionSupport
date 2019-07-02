@@ -4,12 +4,9 @@ import io.github.mxudong.beans.Classic;
 import io.github.mxudong.beans.Man;
 import io.github.mxudong.beans.People;
 import io.github.mxudong.beans.Student;
-import io.github.mxudong.rs.base.methods.AbsConstructor;
 import org.junit.Test;
 
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 
 public class ReflectorTest {

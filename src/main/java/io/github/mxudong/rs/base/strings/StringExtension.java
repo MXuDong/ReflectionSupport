@@ -13,10 +13,10 @@ import java.util.regex.Pattern;
  * Project : ReflectionSupport
  * <p>
  * the String's extension, and provides
- * encapsulation of basic usage methods.
+ * encapsulation of basic usage encapsulator.
  *
  * @author Dong
- * @see io.github.mxudong.rs.base.methods.Invoker
+ * @see io.github.mxudong.rs.base.encapsulator.Invoker
  * @since 2.0
  */
 

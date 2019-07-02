@@ -10,11 +10,11 @@ import static io.github.mxudong.rs.base.strings.StringExtension.getAllCharacter;
  * Create Date : 2019/6/15
  * Project : ReflectionSupport
  * <p>
- * This class provides a large number of random generation methods,
+ * This class provides a large number of random generation encapsulator,
  * including the randomization of all basic objects, but also can
  * specify a lot of scope.
  * <p>
- * All methods are static methods.
+ * All encapsulator are static encapsulator.
  * <p>
  * All randomness comes from Long type randomness
  *

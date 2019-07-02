@@ -6,7 +6,7 @@ package io.github.mxudong.rs.base.utils;
  * Create Date : 2019/6/11
  * Project : ReflectionSupport
  *
- * support some static methods for check class.
+ * support some static encapsulator for check class.
  *
  * @author Dong
  * @since 2.0

@@ -2,11 +2,10 @@ package io.github.mxudong.rs.base.randoms;
 
 import io.github.mxudong.rs.base.ObjectReflector;
 import io.github.mxudong.rs.base.ReflectorFactory;
-import io.github.mxudong.rs.base.methods.SetterMethodInvoker;
+import io.github.mxudong.rs.base.encapsulator.SetterMethodInvoker;
 import io.github.mxudong.rs.base.randoms.annotations.Randomset;
 import io.github.mxudong.rs.base.strings.StringExtension;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
