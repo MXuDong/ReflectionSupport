@@ -43,7 +43,8 @@ public class StringExtensionTest {
 //        System.out.println(stringExtension.createRandomStringBase("c<|5>"));
 //        System.out.println(stringExtension.createRandomStringBase("c<2|>"));
 //        System.out.println(stringExtension.createRandomStringBase("c<0|>"));
-        System.out.println(stringExtension.createRandomStringBase("[H-]]([t])[p://]"));
+//        System.out.println(stringExtension.createRandomStringBase("[H-]]([t])[p://]"));
+        System.out.println(StringExtension.createRandomStringBase("(n<7|12>[@qq.com][\n])<5|11>"));
 
     }
 

@@ -223,7 +223,7 @@ public class StringExtension {
      * @param formatRegion format
      * @return a random string
      */
-    public String createRandomStringBase(String formatRegion) {
+    public static String createRandomStringBase(String formatRegion) {
         char[] chars = formatRegion.toCharArray();
         StringBuilder preFix = new StringBuilder();
         StringBuilder sufFix = new StringBuilder();
@@ -334,7 +334,7 @@ public class StringExtension {
      * @param count  insert count
      * @return the string be created
      */
-    private String beAppends(StringBuilder preFix, int count) {
+    private static String beAppends(StringBuilder preFix, int count) {
         StringBuilder result = new StringBuilder();
         if (preFix.charAt(0) == '(') {
             preFix.deleteCharAt(0);
@@ -355,7 +355,7 @@ public class StringExtension {
      * @param count  create number
      * @return a random string
      */
-    private String createSimpleString(String region, int count) {
+    private static String createSimpleString(String region, int count) {
         if (region.length() == 0 || count == 0 || count == -1) {
             return "";
         }
