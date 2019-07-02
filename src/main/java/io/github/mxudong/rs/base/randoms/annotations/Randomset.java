@@ -12,6 +12,8 @@ import java.lang.annotation.*;
  * <p>
  * If a field has a specific generated comment, the
  * data is overwritten.
+ *
+ * @author Dong
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
