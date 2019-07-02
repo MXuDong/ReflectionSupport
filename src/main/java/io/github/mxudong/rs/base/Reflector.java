@@ -23,7 +23,7 @@ import java.util.Set;
  * @since 2.0
  */
 
-public class Reflector<T> implements AnnotationsAble{
+public class Reflector<T> implements AnnotationsAble {
     /**
      * this object is the aim of reflector to operation,
      * we call this object the target object .
@@ -52,6 +52,8 @@ public class Reflector<T> implements AnnotationsAble{
     private Set<String> writablePropertyNames;
 
 
+     private Annotation[] classAnnotations;
+
     /**
      * the construction method
      *
@@ -63,6 +65,11 @@ public class Reflector<T> implements AnnotationsAble{
         this.objectReflector = ReflectorFactory.getInstance().getObjectReflector(this.tClass);
         readablePropertyNames = this.objectReflector.getReadableProperty();
         writablePropertyNames = this.objectReflector.getWritableProperty();
+        classAnnotations = this.tClass.getAnnotations();
+    }
+
+    public Annotation[] getClassAnnotations() {
+        return classAnnotations;
     }
 
     /**
