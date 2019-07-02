@@ -9,10 +9,10 @@ import io.github.mxudong.rs.base.randoms.annotations.Randomset;
  * Project : ReflectionSupport
  *
  * @author Dong
- * @since
+ * @since 2.1.1
  */
 
-@Randomset(defaultFormat = "[test]")
+@Randomset(defaultFormat = "[test]", minIntegerValue = 12, maxIntegerValue = 17)
 public class Student {
     private int age;
     private String name;
