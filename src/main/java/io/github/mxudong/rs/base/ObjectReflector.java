@@ -3,6 +3,7 @@ package io.github.mxudong.rs.base;
 import io.github.mxudong.rs.base.encapsulator.*;
 import io.github.mxudong.rs.base.strings.StringExtension;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -48,6 +49,12 @@ final public class ObjectReflector<T> {
 
     private List<String> properties;
 
+    private Annotation[] classAnnotations;
+
+    public Annotation[] getClassAnnotations() {
+        return classAnnotations;
+    }
+
     /**
      * the inner class's super class
      * <p>
@@ -72,6 +79,8 @@ final public class ObjectReflector<T> {
      */
     protected ObjectReflector(Class<T> c, boolean loadSuperClass) {
         this.innerClass = c;
+
+        this.classAnnotations = innerClass.getAnnotations();
 
         if (c.equals(Object.class) || !loadSuperClass) {
             fatherObjectReflector = null;

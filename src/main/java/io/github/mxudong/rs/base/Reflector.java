@@ -52,7 +52,6 @@ public class Reflector<T> implements AnnotationsAble {
     private Set<String> writablePropertyNames;
 
 
-     private Annotation[] classAnnotations;
 
     /**
      * the construction method
@@ -65,12 +64,9 @@ public class Reflector<T> implements AnnotationsAble {
         this.objectReflector = ReflectorFactory.getInstance().getObjectReflector(this.tClass);
         readablePropertyNames = this.objectReflector.getReadableProperty();
         writablePropertyNames = this.objectReflector.getWritableProperty();
-        classAnnotations = this.tClass.getAnnotations();
     }
 
-    public Annotation[] getClassAnnotations() {
-        return classAnnotations;
-    }
+
 
     /**
      * the construction method
