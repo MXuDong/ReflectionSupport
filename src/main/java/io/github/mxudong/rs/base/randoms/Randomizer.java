@@ -27,6 +27,21 @@ public class Randomizer<T extends Object> {
     private T innerObject = null;
     private List<RandomFilter> randomFilters;
 
+    // default value and chars
+
+    private byte minByteValue = 0;
+    private byte maxByteValue = Byte.MAX_VALUE;
+    private short minShortValue = 0;
+    private short maxShortValue = Short.MAX_VALUE;
+    private int minIntegerValue = 0;
+    private int maxIntegerValue = Integer.MAX_VALUE;
+    private long minLongValue = 0;
+    private long maxLongValue = Long.MAX_VALUE;
+    private float floatIndex = 15;
+    private double doubleIndex = 15;
+    private String defaultChar = StringExtension.getClassSupportLetters();
+    private String defaultFormat = "c3n3*3l3u3s3";
+
     /**
      * construction method
      *
@@ -179,30 +194,30 @@ public class Randomizer<T extends Object> {
         switch (paramType) {
             case "java.lang.Byte":
             case "byte":
-                return BaseRandom.getRandomByte();
+                return BaseRandom.getRandomByte(minByteValue, maxByteValue);
             case "java.lang.Short":
             case "short":
-                return BaseRandom.getRandomShort();
+                return BaseRandom.getRandomShort(minShortValue, maxShortValue);
             case "java.lang.Integer":
             case "int":
-                return BaseRandom.getRandomInt();
+                return BaseRandom.getRandomInt(minIntegerValue, maxIntegerValue);
             case "java.lang.Long":
             case "long":
-                return BaseRandom.getRandomLong();
+                return BaseRandom.getRandomLong(minLongValue, maxLongValue);
             case "java.lang.Character":
             case "char":
-                return BaseRandom.getRandomCharFromAllChar();
+                return BaseRandom.getRandomChar(defaultChar);
             case "java.lang.Double":
             case "double":
-                return BaseRandom.getRandomDouble();
+                return BaseRandom.getRandomDouble(doubleIndex);
             case "java.lang.Float":
             case "float":
-                return BaseRandom.getRandomFloat();
+                return BaseRandom.getRandomFloat(floatIndex);
             case "java.lang.Boolean":
             case "boolean":
                 return BaseRandom.getRandomBoolean();
             case "java.lang.String":
-                return StringExtension.createRandomString();
+                return StringExtension.createRandomStringBase(defaultFormat);
             default:
                 return null;
         }
