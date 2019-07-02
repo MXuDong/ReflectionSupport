@@ -42,6 +42,102 @@ public class Randomizer<T extends Object> {
     private String defaultChar = StringExtension.getClassSupportLetters();
     private String defaultFormat = "c3n3*3l3u3s3";
 
+    public byte getMinByteValue() {
+        return minByteValue;
+    }
+
+    public void setMinByteValue(byte minByteValue) {
+        this.minByteValue = minByteValue;
+    }
+
+    public byte getMaxByteValue() {
+        return maxByteValue;
+    }
+
+    public void setMaxByteValue(byte maxByteValue) {
+        this.maxByteValue = maxByteValue;
+    }
+
+    public short getMinShortValue() {
+        return minShortValue;
+    }
+
+    public void setMinShortValue(short minShortValue) {
+        this.minShortValue = minShortValue;
+    }
+
+    public short getMaxShortValue() {
+        return maxShortValue;
+    }
+
+    public void setMaxShortValue(short maxShortValue) {
+        this.maxShortValue = maxShortValue;
+    }
+
+    public int getMinIntegerValue() {
+        return minIntegerValue;
+    }
+
+    public void setMinIntegerValue(int minIntegerValue) {
+        this.minIntegerValue = minIntegerValue;
+    }
+
+    public int getMaxIntegerValue() {
+        return maxIntegerValue;
+    }
+
+    public void setMaxIntegerValue(int maxIntegerValue) {
+        this.maxIntegerValue = maxIntegerValue;
+    }
+
+    public long getMinLongValue() {
+        return minLongValue;
+    }
+
+    public void setMinLongValue(long minLongValue) {
+        this.minLongValue = minLongValue;
+    }
+
+    public long getMaxLongValue() {
+        return maxLongValue;
+    }
+
+    public void setMaxLongValue(long maxLongValue) {
+        this.maxLongValue = maxLongValue;
+    }
+
+    public float getFloatIndex() {
+        return floatIndex;
+    }
+
+    public void setFloatIndex(float floatIndex) {
+        this.floatIndex = floatIndex;
+    }
+
+    public double getDoubleIndex() {
+        return doubleIndex;
+    }
+
+    public void setDoubleIndex(double doubleIndex) {
+        this.doubleIndex = doubleIndex;
+    }
+
+    public String getDefaultChar() {
+        return defaultChar;
+    }
+
+    public void setDefaultChar(String defaultChar) {
+        this.defaultChar = defaultChar;
+    }
+
+    public String getDefaultFormat() {
+        return defaultFormat;
+    }
+
+    public void setDefaultFormat(String defaultFormat) {
+        this.defaultFormat = defaultFormat;
+    }
+
     /**
      * construction method
      *
