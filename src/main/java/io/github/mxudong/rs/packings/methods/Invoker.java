@@ -4,6 +4,7 @@ package io.github.mxudong.rs.packings.methods;
  * it marked the class is packing of {@code method}, and it can be invoked.
  *
  * @author Dong
+ * @since 3.0
  */
 public interface Invoker {
 
