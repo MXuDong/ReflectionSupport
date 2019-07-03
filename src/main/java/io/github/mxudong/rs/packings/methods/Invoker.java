@@ -11,6 +11,9 @@ public interface Invoker {
     /**
      * the method {@code object invoke(Object target, Object ... params} will invoke method
      * which is packing.
+     * <p>
+     * If the call fails, such as throwing an exception, the call stops and the exception
+     * should be printed rather than thrown.
      *
      * @param target the aim target of invoking method
      * @param params the parameters required for the method to be invoked
