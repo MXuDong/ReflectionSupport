@@ -4,13 +4,13 @@ import io.github.mxudong.rs.packings.classes.ClassObject;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 public class CommonMethodTest {
 
     public CommonMethod Construction() throws NoSuchMethodException {
         Method method = CommonMethod.class.getMethod("getReturnType");
-        CommonMethod commonMethod = new CommonMethod(method, new ClassObject<>());
-        return commonMethod;
+        return new CommonMethod(method, new ClassObject<>());
     }
 
     @Test
@@ -33,18 +33,24 @@ public class CommonMethodTest {
         System.out.println(commonMethod.isParamsIsThisMethod());
         System.out.println(commonMethod.isParamsIsThisMethod((Object[]) new Class[]{}));
         System.out.println(commonMethod.isParamsIsThisMethod(1));
-        System.out.println(commonMethod.isParamsIsThisMethod(1,2,3,4,5,6,null,5));
+        System.out.println(commonMethod.isParamsIsThisMethod(1, 2, 3, 4, 5, 6, null, 5));
     }
 
     @Test
-    public void getMethodParamsType() {
+    public void getMethodParamsType() throws NoSuchMethodException {
+        CommonMethod commonMethod = Construction();
+        System.out.println(Arrays.toString(commonMethod.getMethodParamsType()));
     }
 
     @Test
-    public void getBelongClass() {
+    public void getBelongClass() throws NoSuchMethodException {
+        CommonMethod commonMethod = Construction();
+        System.out.println(commonMethod.getBelongClass());
     }
 
     @Test
-    public void getReturnType() {
+    public void getReturnType() throws NoSuchMethodException {
+        CommonMethod commonMethod = Construction();
+        System.out.println(commonMethod.getReturnType());
     }
 }
