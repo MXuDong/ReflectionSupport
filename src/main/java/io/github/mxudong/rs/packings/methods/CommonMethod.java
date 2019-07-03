@@ -26,6 +26,11 @@ public class CommonMethod implements Invoker{
     private Class<?> returnType;
 
     /**
+     * save the classes of {@code packingMethod} required params' class
+     */
+    private Class[] paramClasses;
+
+    /**
      * construction method of {@code CommonMethod}, in this part,
      * the method will be append for packingMethod.
      *
