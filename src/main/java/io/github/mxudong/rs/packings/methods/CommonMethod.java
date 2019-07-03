@@ -1,5 +1,8 @@
 package io.github.mxudong.rs.packings.methods;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 /**
  * this class is packing the common method.
  * <p>
@@ -11,6 +14,13 @@ package io.github.mxudong.rs.packings.methods;
  */
 
 public class CommonMethod implements Invoker{
+
+    /**
+     * the inner method which is packed.
+     */
+    private Method packingMethod;
+
+
     @Override
     public Object invoke(Object target, Object... params) {
         return null;
