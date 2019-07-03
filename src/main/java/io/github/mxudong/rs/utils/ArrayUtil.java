@@ -1,5 +1,7 @@
 package io.github.mxudong.rs.utils;
 
+import java.util.Objects;
+
 /**
  * for array operation, such as equal array
  *
@@ -23,7 +25,11 @@ public class ArrayUtil {
 
         Class<?>[] result = new Class[params.length];
         for (int i = 0; i < params.length; i++) {
-            result[i] = params[i].getClass();
+            if (params[i] == null) {
+                result[i] = null;
+            } else {
+                result[i] = params[i].getClass();
+            }
         }
 
         return result;
@@ -47,7 +53,7 @@ public class ArrayUtil {
         }
 
         for (int i = 0; i < first.length; i++) {
-            if (!first[i].equals(second[i])) {
+            if (!Objects.equals(first[i], second[i])) {
                 return false;
             }
         }
