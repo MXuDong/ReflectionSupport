@@ -12,7 +12,7 @@ import io.github.mxudong.rs.base.randoms.annotations.Randomset;
  * @since 2.1.1
  */
 
-@Randomset(defaultFormat = "[test]", minIntegerValue = 12, maxIntegerValue = 17)
+@Randomset(defaultFormat = "[number:]n13", minIntegerValue = 12, maxIntegerValue = 17)
 public class Student {
     private int age;
     private String name;

@@ -228,13 +228,7 @@ final public class ObjectReflector<T> {
     public Object invokeCommonMethod(String methodName, Object target, int superClassSearchDeep, Object... args) {
         Object result = null;
         if (commonMethods.containsKey(methodName)) {
-            List<Invoker> invokers = commonMethods.get(methodName);
-            for (Invoker invoker : invokers) {
-                if (invoker.isThisArgs(args)) {
-                    result = invoker.invoke(target, args);
-                    break;
-                }
-            }
+            result = getObject(methodName, target, result, commonMethods, args);
         } else {
             if (superClassSearchDeep != 0) {
                 if (innerClass.equals(Object.class)) {
@@ -247,6 +241,17 @@ final public class ObjectReflector<T> {
             }
         }
 
+        return result;
+    }
+
+    private Object getObject(String methodName, Object target, Object result, Map<String, List<Invoker>> commonMethods, Object[] args) {
+        List<Invoker> invokers = commonMethods.get(methodName);
+        for (Invoker invoker : invokers) {
+            if (invoker.isThisArgs(args)) {
+                result = invoker.invoke(target, args);
+                break;
+            }
+        }
         return result;
     }
 
@@ -349,13 +354,7 @@ final public class ObjectReflector<T> {
     synchronized public Object invokeStaticMethod(String methodName, Object target, int superClassSearchDeep, Object... params) {
         Object result = null;
         if (staticMethods.containsKey(methodName)) {
-            List<Invoker> invokers = staticMethods.get(methodName);
-            for (Invoker invoker : invokers) {
-                if (invoker.isThisArgs(params)) {
-                    result = invoker.invoke(target, params);
-                    break;
-                }
-            }
+            result = getObject(methodName, target, result, staticMethods, params);
         } else {
             if (superClassSearchDeep != 0) {
                 if (innerClass.equals(Object.class)) {
