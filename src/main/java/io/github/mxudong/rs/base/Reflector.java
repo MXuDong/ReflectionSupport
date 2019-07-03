@@ -51,8 +51,6 @@ public class Reflector<T> implements AnnotationsAble {
      */
     private Set<String> writablePropertyNames;
 
-
-
     /**
      * the construction method
      *
@@ -65,7 +63,6 @@ public class Reflector<T> implements AnnotationsAble {
         readablePropertyNames = this.objectReflector.getReadableProperty();
         writablePropertyNames = this.objectReflector.getWritableProperty();
     }
-
 
 
     /**
@@ -322,16 +319,16 @@ public class Reflector<T> implements AnnotationsAble {
 
     @Override
     public boolean hasAnnotation(Class annotationClass) {
-        return false;
+        return this.tClass.getAnnotation(annotationClass) != null;
     }
 
     @Override
     public int getAnnotationCount() {
-        return 0;
+        return this.tClass.getAnnotations().length;
     }
 
     @Override
     public <A extends Annotation> A getAnnotation(Class<A> annotationClass) {
-        return null;
+        return (A) this.tClass.getAnnotation(annotationClass);
     }
 }
