@@ -20,6 +20,17 @@ public class CommonMethod implements Invoker{
      */
     private Method packingMethod;
 
+    /**
+     * construction method of {@code CommonMethod}, in this part,
+     * the method will be append for packingMethod.
+     *
+     * the method info will be set in this part
+     *
+     * @param packingMethod
+     */
+    public CommonMethod(Method packingMethod) {
+        this.packingMethod = packingMethod;
+    }
 
     @Override
     public Object invoke(Object target, Object... params) {
