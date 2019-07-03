@@ -37,4 +37,12 @@ public interface Invoker {
      * @since 3.0
      */
     boolean isParamsIsThisMethod(Object... params);
+
+    /**
+     * get the params type of this packing method
+     *
+     * @return the params type of this packing method
+     * @since 3.0
+     */
+    Class[] getMethodParamsType();
 }
