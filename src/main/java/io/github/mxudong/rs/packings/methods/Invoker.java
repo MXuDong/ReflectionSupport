@@ -48,4 +48,12 @@ public interface Invoker {
      * @since 3.0
      */
     Class[] getMethodParamsType();
+
+    /**
+     * get the class of packaging method attribution
+     *
+     * @return the class which packing method belong to
+     * @since 3.0
+     */
+    Class getBelongClass();
 }
