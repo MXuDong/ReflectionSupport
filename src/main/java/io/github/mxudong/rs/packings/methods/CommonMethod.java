@@ -41,7 +41,7 @@ public class CommonMethod implements Invoker {
     private Class[] paramClasses;
 
     /**
-     * save the object which it belong to
+     * save the class which it belong to
      *
      * @see io.github.mxudong.rs.packings.classes.ClassObject
      */
