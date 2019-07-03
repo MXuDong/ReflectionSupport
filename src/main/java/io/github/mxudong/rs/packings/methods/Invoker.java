@@ -63,5 +63,5 @@ public interface Invoker {
      * @return the result class of invoking method
      * @since 3.0
      */
-    Class getReturnType();
+    Class<?> getReturnType();
 }
