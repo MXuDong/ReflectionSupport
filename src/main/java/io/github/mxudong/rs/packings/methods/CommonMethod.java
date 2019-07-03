@@ -93,6 +93,6 @@ public class CommonMethod implements Invoker {
 
     @Override
     public Class<?> getReturnType() {
-        return null;
+        return returnType;
     }
 }
