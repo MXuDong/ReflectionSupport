@@ -88,7 +88,7 @@ public class CommonMethod implements Invoker {
 
     @Override
     public Class getBelongClass() {
-        return null;
+        return belongClass.getPackingClass();
     }
 
     @Override
