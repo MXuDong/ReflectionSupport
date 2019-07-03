@@ -26,7 +26,7 @@ public class CommonMethod implements Invoker{
      *
      * the method info will be set in this part
      *
-     * @param packingMethod
+     * @param packingMethod the packing method
      */
     public CommonMethod(Method packingMethod) {
         this.packingMethod = packingMethod;
