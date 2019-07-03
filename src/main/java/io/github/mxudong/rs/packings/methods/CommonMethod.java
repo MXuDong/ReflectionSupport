@@ -1,6 +1,7 @@
 package io.github.mxudong.rs.packings.methods;
 
 import io.github.mxudong.rs.packings.classes.ClassObject;
+import io.github.mxudong.rs.utils.ArrayUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -79,7 +80,7 @@ public class CommonMethod implements Invoker {
 
     @Override
     public boolean isParamsIsThisMethod(Object... params) {
-        return false;
+        return ArrayUtil.equalsArray(this.paramClasses, ArrayUtil.getArrayClasses(params));
     }
 
     @Override
