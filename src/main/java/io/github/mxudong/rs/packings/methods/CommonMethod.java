@@ -1,6 +1,5 @@
 package io.github.mxudong.rs.packings.methods;
 
-import io.github.mxudong.rs.Reflector;
 import io.github.mxudong.rs.packings.classes.ClassObject;
 
 import java.lang.reflect.InvocationTargetException;
@@ -38,7 +37,7 @@ public class CommonMethod implements Invoker {
     /**
      * save the classes of {@code packingMethod} required params' class
      */
-    private Class[] paramClasses;
+    private Class<?>[] paramClasses;
 
     /**
      * save the class which it belong to
@@ -58,6 +57,8 @@ public class CommonMethod implements Invoker {
     public CommonMethod(Method packingMethod, ClassObject<?> classObject) {
         this.packingMethod = packingMethod;
         this.belongClass = classObject;
+        this.returnType = packingMethod.getReturnType();
+        this.paramClasses = packingMethod.getParameterTypes();
     }
 
     @Override
@@ -82,7 +83,7 @@ public class CommonMethod implements Invoker {
     }
 
     @Override
-    public Class[] getMethodParamsType() {
+    public Class<?>[] getMethodParamsType() {
         return paramClasses;
     }
 
