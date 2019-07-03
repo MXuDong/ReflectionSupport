@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * Project : ReflectionSupport
  * <p>
  * the String's extension, and provides
- * encapsulation of basic usage encapsulator.
+ * encapsulation of basic usage packings.
  *
  * @author Dong
  * @see io.github.mxudong.rs.base.encapsulator.Invoker

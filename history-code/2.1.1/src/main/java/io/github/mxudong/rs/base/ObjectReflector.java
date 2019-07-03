@@ -20,8 +20,8 @@ import java.util.*;
  * calls calls of the parent class,
  * ignoring the differences caused by instances.
  * <p>
- * Including encapsulator of statistics,
- * example encapsulator, static encapsulator,
+ * Including packings of statistics,
+ * example packings, static packings,
  * array generation and other common
  * interfaces.
  *
@@ -115,7 +115,7 @@ final public class ObjectReflector<T> {
             properties.add(field.getName());
         }
 
-        //================================Create encapsulator list
+        //================================Create packings list
         readableProperty = new HashMap<>();
         writableProperty = new HashMap<>();
         staticMethods = new HashMap<>();
@@ -466,25 +466,25 @@ final public class ObjectReflector<T> {
     }
 
     /**
-     * get getter encapsulator
+     * get getter packings
      *
-     * @return getter encapsulator' iterator
+     * @return getter packings' iterator
      */
     public Iterator<GetterMethodInvoker> getterMethodIterator() {
         return readableProperty.values().iterator();
     }
 
     /**
-     * get setter encapsulator
+     * get setter packings
      *
-     * @return setter encapsulator' iterator
+     * @return setter packings' iterator
      */
     public Iterator<SetterMethodInvoker> setterMethodIterator() {
         return writableProperty.values().iterator();
     }
 
     /**
-     * Get common method iterators, overload encapsulator in the same list
+     * Get common method iterators, overload packings in the same list
      *
      * @return common method's iterator
      */
@@ -493,7 +493,7 @@ final public class ObjectReflector<T> {
     }
 
     /**
-     * get static method iterators, overload encapsulator in the same list
+     * get static method iterators, overload packings in the same list
      *
      * @return static method's iterator
      */
