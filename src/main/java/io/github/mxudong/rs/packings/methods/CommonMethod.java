@@ -23,6 +23,12 @@ public class CommonMethod implements Invoker{
 
     @Override
     public Object invoke(Object target, Object... params) {
+        try {
+            return packingMethod.invoke(target, params);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
