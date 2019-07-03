@@ -1,5 +1,6 @@
 *.iml
 .idea/*
 
-*.jar
 target/*
+
+history-code/
