@@ -9,4 +9,13 @@ package io.github.mxudong.rs.packings.classes;
  */
 
 public class ClassObject<T> {
+
+    /**
+     * return the packing class
+     *
+     * @return the packing class
+     */
+    public Class<T> getPackingClass() {
+        return null;
+    }
 }

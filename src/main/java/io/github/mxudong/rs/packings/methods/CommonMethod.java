@@ -57,6 +57,7 @@ public class CommonMethod implements Invoker {
      */
     public CommonMethod(Method packingMethod, ClassObject<?> classObject) {
         this.packingMethod = packingMethod;
+        this.belongClass = classObject;
     }
 
     @Override
