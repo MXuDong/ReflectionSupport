@@ -83,7 +83,7 @@ public class CommonMethod implements Invoker {
 
     @Override
     public Class[] getMethodParamsType() {
-        return new Class[0];
+        return paramClasses;
     }
 
     @Override
