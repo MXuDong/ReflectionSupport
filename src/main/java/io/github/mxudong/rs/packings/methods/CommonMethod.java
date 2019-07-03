@@ -13,7 +13,14 @@ import java.lang.reflect.Method;
  * @since 3.0
  */
 
-public class CommonMethod implements Invoker{
+public class CommonMethod implements Invoker {
+
+    /**
+     * all the common method type is MethodType.CommonMethod
+     *
+     * @see MethodType
+     */
+    private final static MethodType METHOD_TYPE = MethodType.CommonMethod;
 
     /**
      * the inner method which is packed.
@@ -33,7 +40,7 @@ public class CommonMethod implements Invoker{
     /**
      * construction method of {@code CommonMethod}, in this part,
      * the method will be append for packingMethod.
-     *
+     * <p>
      * the method info will be set in this part
      *
      * @param packingMethod the packing method
