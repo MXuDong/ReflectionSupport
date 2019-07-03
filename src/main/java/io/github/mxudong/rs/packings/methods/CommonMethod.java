@@ -73,7 +73,7 @@ public class CommonMethod implements Invoker {
 
     @Override
     public MethodType getMethodType() {
-        return null;
+        return METHOD_TYPE;
     }
 
     @Override
