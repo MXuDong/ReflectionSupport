@@ -2,6 +2,7 @@ package io.github.mxudong.rs.packings.methods;
 
 /**
  * @author Dong
+ * @since 3.0
  */
 public enum MethodType {
 
