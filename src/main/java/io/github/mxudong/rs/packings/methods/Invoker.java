@@ -19,11 +19,21 @@ public interface Invoker {
     Object invoke(Object target, Object... params);
 
     /**
-     * get the method's type
+     * get the packing method's type
      *
      * @return the method's type
      * @see MethodType
      * @since 3.0
      */
     MethodType getMethodType();
+
+    /**
+     * determine whether the incoming parameters are the required parameters for
+     * this method
+     *
+     * @param params be judge params
+     * @return if the params is packing method required param type
+     * @since 3.0
+     */
+    boolean isParamsIsThisMethod(Object... params);
 }
