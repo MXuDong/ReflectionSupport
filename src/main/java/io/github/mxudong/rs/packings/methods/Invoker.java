@@ -56,4 +56,11 @@ public interface Invoker {
      * @since 3.0
      */
     Class getBelongClass();
+
+    /**
+     * get the result class of invoking method
+     *
+     * @return the result class of invoking method
+     */
+    Class getReturnType();
 }
