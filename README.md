@@ -4,6 +4,10 @@
 # 当前版本说明
 #[ReflectionSupport文档](https://apidoc.gitee.com/MXuDong/ReflectionSupport)
 
+##### 代码升级中。。。。。。。。即将重构开启第三个版本
+    第三个版本将全面支持 Annotation、Enum等操作
+    同时对Field、Method、Class进行全面挂钩，重构链接关系与方法
+
 # 2.1 已经发布
 ## [2.1说明文档](mds/Instructions.md)
 支持最小的JDK版本:JDK 1.8
