@@ -1,6 +1,7 @@
 package io.github.mxudong.rs.packings.methods;
 
 import io.github.mxudong.rs.Reflector;
+import io.github.mxudong.rs.packings.classes.ClassObject;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -42,9 +43,9 @@ public class CommonMethod implements Invoker {
     /**
      * save the object which it belong to
      *
-     * @see Reflector
+     * @see io.github.mxudong.rs.packings.classes.ClassObject
      */
-    private Reflector<?> belongReflector;
+    private ClassObject<?> belongClass;
 
     /**
      * construction method of {@code CommonMethod}, in this part,
@@ -54,7 +55,7 @@ public class CommonMethod implements Invoker {
      *
      * @param packingMethod the packing method
      */
-    public CommonMethod(Method packingMethod) {
+    public CommonMethod(Method packingMethod, ClassObject<?> classObject) {
         this.packingMethod = packingMethod;
     }
 
