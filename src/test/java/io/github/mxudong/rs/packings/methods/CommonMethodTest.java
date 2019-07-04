@@ -1,5 +1,6 @@
 package io.github.mxudong.rs.packings.methods;
 
+import io.github.mxudong.rs.packings.classes.ClassFactory;
 import io.github.mxudong.rs.packings.classes.ClassObject;
 import org.junit.Test;
 
@@ -10,7 +11,7 @@ public class CommonMethodTest {
 
     public CommonMethod Construction() throws NoSuchMethodException {
         Method method = CommonMethod.class.getMethod("getReturnType");
-        return new CommonMethod(method, new ClassObject<>());
+        return new CommonMethod(method, ClassFactory.getInstance().getClassObject(CommonMethod.class));
     }
 
     @Test
