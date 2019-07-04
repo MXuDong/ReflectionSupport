@@ -36,7 +36,9 @@ public class ArrayUtil {
     }
 
     /**
-     * to equals two arrays is equal
+     * to equals two arrays is equal, and one thing
+     * that you must make sure, the base type is not
+     * equal null
      *
      * @param first  first array
      * @param second second array
