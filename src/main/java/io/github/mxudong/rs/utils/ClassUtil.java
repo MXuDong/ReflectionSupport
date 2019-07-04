@@ -78,7 +78,7 @@ public class ClassUtil {
      * @param packingBaseType aim packing type
      * @return corresponding bast type
      */
-    public static Class getBastTypeFromPacking(Object packingBaseType) {
+    public static Class getBastTypeFromPacking(Class packingBaseType) {
         if (packingBaseType.equals(Integer.class)) {
             return int.class;
         }
