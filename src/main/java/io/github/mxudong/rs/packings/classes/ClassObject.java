@@ -14,7 +14,15 @@ public class ClassObject<T> {
      * packing class
      */
     private Class<T> packingClass;
-    
+
+    /**
+     * construction method
+     * @param c packing class
+     */
+    protected ClassObject(Class<T> c){
+
+    }
+
     /**
      * return the packing class
      *
