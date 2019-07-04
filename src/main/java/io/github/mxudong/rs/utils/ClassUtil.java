@@ -71,4 +71,39 @@ public class ClassUtil {
         }
         return type.equals(Character.class);
     }
+
+    /**
+     * get the base type from packing bast type
+     *
+     * @param packingBaseType aim packing type
+     * @return corresponding bast type
+     */
+    public static Class getBastTypeFromPacking(Object packingBaseType) {
+        if (packingBaseType.equals(Integer.class)) {
+            return int.class;
+        }
+        if (packingBaseType.equals(Short.class)) {
+            return short.class;
+        }
+        if (packingBaseType.equals(Byte.class)) {
+            return byte.class;
+        }
+        if (packingBaseType.equals(Long.class)) {
+            return long.class;
+        }
+        if (packingBaseType.equals(Float.class)) {
+            return float.class;
+        }
+        if (packingBaseType.equals(Double.class)) {
+            return double.class;
+        }
+        if (packingBaseType.equals(Boolean.class)) {
+            return boolean.class;
+        }
+        if(packingBaseType.equals(Character.class)){
+            return char.class;
+        }
+
+        return null;
+    }
 }
