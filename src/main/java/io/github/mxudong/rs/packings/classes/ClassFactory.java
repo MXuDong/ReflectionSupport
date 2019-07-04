@@ -1,5 +1,8 @@
 package io.github.mxudong.rs.packings.classes;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * this class is the ClassObject creator, you can think that the {@code ClassFactory}
  * is the ClassObject's construction.
@@ -23,10 +26,16 @@ public class ClassFactory {
     private static ClassFactory INSTANCE;
 
     /**
+     * save the info of ClassObject with class' name
+     */
+    private Map<String, ClassObject<?>> classObjectMap;
+
+    /**
      * the {@code ClassFactory} is singleton, so
      * the construction is private
      */
     private ClassFactory() {
+        classObjectMap = new ConcurrentHashMap<>();
     }
 
     /**
@@ -44,5 +53,34 @@ public class ClassFactory {
         }
 
         return INSTANCE;
+    }
+
+    /**
+     * get the ClassObject, if it is interface, enum or annotation will
+     * return null
+     * <p>
+     * if {@code classObjectMap} has loaded the class' info, will return
+     * without new instance, else will get new instance and add to
+     * {@code classObjectMap} and return it.
+     *
+     * @param c aim class
+     * @return ClassObject
+     */
+    public ClassObject<?> getClassObject(Class<?> c) {
+        if (c == null) {
+            return null;
+        }
+
+        if (c.isAnnotation() || c.isEnum() || c.isInterface()) {
+            return null;
+        }
+
+        if (classObjectMap.containsKey(c.getName())) {
+            return classObjectMap.get(c.getName());
+        }
+
+        ClassObject<?> classObject = new ClassObject<>(c);
+        classObjectMap.put(c.getName(), classObject);
+        return classObject;
     }
 }
