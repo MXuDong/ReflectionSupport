@@ -1,5 +1,7 @@
 package io.github.mxudong.rs.packings.classes;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * this class packing the class, and for this class, you
  * only create from ClassObjectFactor
@@ -16,11 +18,19 @@ public class ClassObject<T> {
     private Class<T> packingClass;
 
     /**
+     * super class object of packing class, will it null, it
+     * is {@code Object}
+     */
+    private ClassObject<?> superClassObject;
+
+    /**
      * construction method
+     *
      * @param c packing class
      */
-    protected ClassObject(Class<T> c){
-
+    protected ClassObject(@NotNull Class<T> c) {
+        this.packingClass = c;
+        superClassObject = ClassFactory.getInstance().getClassObject(c.getSuperclass());
     }
 
     /**
@@ -30,5 +40,14 @@ public class ClassObject<T> {
      */
     public Class<T> getPackingClass() {
         return packingClass;
+    }
+
+    /**
+     * getter method of superClassObject;
+     *
+     * @return super class object
+     */
+    public ClassObject<?> getSuperClassObject() {
+        return superClassObject;
     }
 }
