@@ -76,7 +76,6 @@ public class ConstructMethod<T> {
         return MethodUtil.isParamEquals(this.paramClasses, params);
     }
 
-
     /**
      * get the params type
      *
@@ -86,7 +85,6 @@ public class ConstructMethod<T> {
         return paramClasses;
     }
 
-
     /**
      * get the class of packaging method attribution
      *
@@ -95,5 +93,14 @@ public class ConstructMethod<T> {
      */
     public Class getBelongClass() {
         return belongClassObject.getPackingClass();
+    }
+
+    /**
+     * get the params count
+     *
+     * @return params count
+     */
+    public int getParamsCount() {
+        return paramClasses.length;
     }
 }
