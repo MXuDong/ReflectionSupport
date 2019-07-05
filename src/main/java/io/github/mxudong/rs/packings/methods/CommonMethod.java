@@ -1,7 +1,6 @@
 package io.github.mxudong.rs.packings.methods;
 
 import io.github.mxudong.rs.packings.classes.ClassObject;
-import io.github.mxudong.rs.utils.ArrayUtil;
 import io.github.mxudong.rs.utils.MethodUtil;
 
 import java.lang.reflect.InvocationTargetException;
@@ -97,5 +96,10 @@ public class CommonMethod implements Invoker {
     @Override
     public Class<?> getReturnType() {
         return returnType;
+    }
+
+    @Override
+    public String getMethodName() {
+        return this.packingMethod.getName();
     }
 }
