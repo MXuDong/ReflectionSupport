@@ -11,6 +11,7 @@ public class CommonMethodTest {
 
     public CommonMethod Construction() throws NoSuchMethodException {
         Method method = CommonMethod.class.getMethod("getReturnType");
+
         return new CommonMethod(method, ClassFactory.getInstance().getClassObject(CommonMethod.class));
     }
 
