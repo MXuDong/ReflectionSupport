@@ -103,4 +103,15 @@ public class ConstructMethod<T> {
     public int getParamsCount() {
         return paramClasses.length;
     }
+
+    /**
+     * to judge this construction is default construction.
+     * <p>
+     * the default construction's param's count must equals {@code zero}
+     *
+     * @return if is default construction will return true, else return false
+     */
+    public boolean isDefaultConstruction() {
+        return paramClasses.length == 0;
+    }
 }
