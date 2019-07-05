@@ -1,7 +1,6 @@
 package io.github.mxudong.rs.packings.methods;
 
 import io.github.mxudong.rs.packings.classes.ClassFactory;
-import io.github.mxudong.rs.packings.classes.ClassObject;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
