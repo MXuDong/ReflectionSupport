@@ -64,4 +64,11 @@ public interface Invoker {
      * @since 3.0
      */
     Class<?> getReturnType();
+
+    /**
+     * get the method's name
+     *
+     * @return the method's name
+     */
+    String getMethodName();
 }
