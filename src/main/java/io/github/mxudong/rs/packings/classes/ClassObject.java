@@ -231,6 +231,26 @@ public class ClassObject<T> {
     }
 
     /**
+     * get some filed's getter method
+     *
+     * @param getterName be get name
+     * @return getterMethods or if not exits return null
+     */
+    public GetterMethod[] getGetterMethod(String getterName) {
+        if (this.getterMethods.containsKey(getterName)) {
+            List<Integer> indexes = this.getterMethods.get(getterName);
+            GetterMethod[] getterMethods = new GetterMethod[indexes.size()];
+            for (int i = 0; i < indexes.size(); i++) {
+                getterMethods[i] = (GetterMethod) invokers[indexes.get(i)];
+            }
+
+            return getterMethods;
+        }
+
+        return null;
+    }
+
+    /**
      * get the construction array length
      *
      * @return construction array length
