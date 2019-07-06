@@ -125,6 +125,23 @@ public class CommonField {
     }
 
     /**
+     * get field value, but get direct, if you want to invoker getter
+     * method, please use {@code getValue(Object target, Object... param)}
+     * or {@code getValue(Object target)}
+     *
+     * @param target aim object
+     * @return value of field
+     */
+    public Object getValueDirect(Object target) {
+        try {
+            return packingField.get(target);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * set field value, in fact, it invoke setter method,
      * if you want to set direct please use
      * {@code setValueDirect(Object target, Object value)}
