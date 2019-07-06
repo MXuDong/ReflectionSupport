@@ -64,6 +64,15 @@ public class CommonField {
     }
 
     /**
+     * get the packing field name
+     *
+     * @return packing field name
+     */
+    public String getFieldName() {
+        return this.packingFieldName;
+    }
+
+    /**
      * get the field getter method name
      *
      * @return getter method name
@@ -83,19 +92,6 @@ public class CommonField {
      */
     public String getSetterMethodName() {
         return addPreFix("set", packingFieldName);
-    }
-
-    /**
-     * get field value, in fact, it invoke getter method,
-     * if you want to get direct please use
-     * {@code getValueDirect(Object target)}
-     *
-     * @param target aim object
-     * @return value of field
-     * @see GetterMethod
-     */
-    public Object getValue(Object target) {
-        return getValue(target);
     }
 
     /**
