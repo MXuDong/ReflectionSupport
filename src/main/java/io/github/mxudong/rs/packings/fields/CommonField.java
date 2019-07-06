@@ -86,14 +86,54 @@ public class CommonField {
     }
 
     /**
+     * get field value, in fact, it invoke getter method,
+     * if you want to get direct please use
+     * {@code getValueDirect(Object target)}
+     *
+     * @param target aim object
+     * @return value of field
+     * @see GetterMethod
+     */
+    public Object getValue(Object target) {
+        return getValue(target);
+    }
+
+    /**
+     * get field value, in fact, it invoke getter method,
+     * if you want to get direct please use
+     * {@code getValueDirect(Object target)}
+     *
+     * @param target aim object
+     * @param params invoke getter method required params
+     * @return value of field
+     * @see GetterMethod
+     */
+    public Object getValue(Object target, Object... params) {
+        for (GetterMethod getterMethod : this.fieldGetterMethod) {
+            if (getterMethod.isParamsIsThisMethod(params)) {
+                return getterMethod.invoke(target, params);
+            }
+        }
+
+        try {
+            throw new ReflectionException("CommonField", "getValue", "the params can't convert to getter method params");
+        } catch (ReflectionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
      * set field value, in fact, it invoke setter method,
      * if you want to set direct please use
      * {@code setValueDirect(Object target, Object value)}
      *
      * @param target aim object which you want to invoke
      * @param value  you expect value
+     * @see SetterMethod
      */
-    public void setValue(Object target, Object ... value) {
+    public void setValue(Object target, Object... value) {
         for (SetterMethod setterMethod : this.fieldSetterMethod) {
             if (setterMethod.isParamsIsThisMethod(value)) {
                 setterMethod.invoke(target, value);
