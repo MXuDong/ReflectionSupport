@@ -118,6 +118,8 @@ public class CommonField {
      * get field value, in fact, it invoke getter method,
      * if you want to get direct please use
      * {@code getValueDirect(Object target)}
+     * <p>
+     * if the field has no getter method, it will return null
      *
      * @param target aim object
      * @param params invoke getter method required params
@@ -125,6 +127,15 @@ public class CommonField {
      * @see GetterMethod
      */
     public Object getValue(Object target, Object... params) {
+        if (this.fieldGetterMethod == null) {
+            try {
+                throw new ReflectionException("CommonField", "getValue", "the field has no getter method");
+            } catch (ReflectionException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
         for (GetterMethod getterMethod : this.fieldGetterMethod) {
             if (getterMethod.isParamsIsThisMethod(params)) {
                 return getterMethod.invoke(target, params);
@@ -169,12 +180,22 @@ public class CommonField {
      * set field value, in fact, it invoke setter method,
      * if you want to set direct please use
      * {@code setValueDirect(Object target, Object value)}
+     * <p>
+     * if the field has no setter method, it will do nothing
      *
      * @param target aim object which you want to invoke
      * @param value  you expect value
      * @see SetterMethod
      */
     public void setValue(Object target, Object... value) {
+
+        if (this.fieldSetterMethod == null) {
+            try {
+                throw new ReflectionException("CommonField", "setValueDirect", "the field has no setter method");
+            } catch (ReflectionException e) {
+                e.printStackTrace();
+            }
+        }
         for (SetterMethod setterMethod : this.fieldSetterMethod) {
             if (setterMethod.isParamsIsThisMethod(value)) {
                 setterMethod.invoke(target, value);
