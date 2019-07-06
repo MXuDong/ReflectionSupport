@@ -2,6 +2,7 @@ package io.github.mxudong.rs.packings.classes;
 
 import io.github.mxudong.rs.exceptions.ReflectionException;
 import io.github.mxudong.rs.packings.methods.ConstructMethod;
+import io.github.mxudong.rs.utils.MethodUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Constructor;
@@ -37,7 +38,15 @@ public class ClassObject<T> {
 
      */
 
+    /**
+     * constructors of packing class
+     * @see ConstructMethod
+     */
     private List<ConstructMethod<T>> constructMethods;
+    /**
+     * default constructor of packing class
+     * @see ConstructMethod
+     */
     private ConstructMethod<T> defaultConstructorMethod = null;
 
     /**
@@ -62,6 +71,8 @@ public class ClassObject<T> {
 
         // get the methods for this class =========================================================
         Method[] methods = c.getDeclaredMethods();
+
+
 
         // get the construction of this class =====================================================
         this.constructMethods = new ArrayList<>();
