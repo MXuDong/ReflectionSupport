@@ -45,4 +45,11 @@ public class ClassObjectTest {
             System.out.println(invoker);
         }
     }
+
+    @Test
+    public void test5(){
+        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+        Invoker invoker = classObject.getMethodInvoker("toString");
+        System.out.println(invoker);
+    }
 }

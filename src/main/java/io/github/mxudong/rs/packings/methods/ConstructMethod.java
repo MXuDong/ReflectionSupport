@@ -129,6 +129,6 @@ public class ConstructMethod<T> {
 
     @Override
     public String toString() {
-        return "Constructor - " + constructor.getName() + ";";
+        return METHOD_TYPE.getType() + " - " + constructor.getName() + " : " + getBelongClass().getName();
     }
 }

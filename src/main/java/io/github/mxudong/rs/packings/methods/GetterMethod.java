@@ -40,6 +40,6 @@ public class GetterMethod extends CommonMethod{
 
     @Override
     public String toString() {
-        return METHOD_TYPE.getType() + " - " + getMethodName() + ";";
+        return METHOD_TYPE.getType() + " - " + getMethodName() + " : " + getBelongClass().getName();
     }
 }
