@@ -103,4 +103,9 @@ public class CommonMethod implements Invoker {
     public String getMethodName() {
         return this.packingMethod.getName();
     }
+
+    @Override
+    public String toString() {
+        return METHOD_TYPE.getType() + " - " + getMethodName() + ";";
+    }
 }

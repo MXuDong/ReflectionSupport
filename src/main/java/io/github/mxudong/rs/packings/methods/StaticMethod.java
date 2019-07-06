@@ -49,4 +49,9 @@ public class StaticMethod extends CommonMethod {
     public MethodType getMethodType() {
         return METHOD_TYPE;
     }
+
+    @Override
+    public String toString() {
+        return METHOD_TYPE.getType() + " - " + getMethodName() + ";";
+    }
 }
