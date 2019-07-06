@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
  * @since 3.0
  */
 
-public class GetterMethod extends CommonMethod{
+public class GetterMethod extends CommonMethod {
 
     private final static MethodType METHOD_TYPE = MethodType.GetterMethod;
 
@@ -28,9 +28,15 @@ public class GetterMethod extends CommonMethod{
         super(packingMethod, classObject);
     }
 
-    @Override
-    public Object invoke(Object target, Object... params) {
-        return super.invoke(target, params);
+
+    /**
+     * the getter method invoke not required params
+     *
+     * @param target aim object
+     * @return field value
+     */
+    public Object invoke(Object target) {
+        return super.invoke(target);
     }
 
     @Override
