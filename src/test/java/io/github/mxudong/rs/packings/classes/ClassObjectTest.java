@@ -24,7 +24,7 @@ public class ClassObjectTest {
     }
 
     @Test
-    public void test2(){
+    public void test2() {
         ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
         System.out.println(classObject.getNewInstance());
         System.out.println(classObject.getNewInstance(15));
@@ -32,25 +32,25 @@ public class ClassObjectTest {
     }
 
     @Test
-    public void test3(){
+    public void test3() {
         ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
         System.out.println(classObject.getConstructionMethodCount());
-        for(ConstructMethod<?> constructMethod : classObject.getConstructMethods()){
+        for (ConstructMethod<?> constructMethod : classObject.getConstructMethods()) {
             System.out.println(constructMethod);
         }
     }
 
     @Test
-    public void test4(){
+    public void test4() {
         ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
-        Invoker [] invokers = classObject.getAllmethods();
-        for(Invoker invoker : invokers){
+        Invoker[] invokers = classObject.getAllmethods();
+        for (Invoker invoker : invokers) {
             System.out.println(invoker);
         }
     }
 
     @Test
-    public void test5(){
+    public void test5() {
         ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
         Invoker invoker = classObject.getMethodInvoker("toString");
         People people = new People();
@@ -65,7 +65,7 @@ public class ClassObjectTest {
     }
 
     @Test
-    public void test6(){
+    public void test6() {
         ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
         System.out.println(Arrays.toString(classObject.getGetterMethod("getAge")));
         System.out.println(Arrays.toString(classObject.getGetterMethod("getA")));
@@ -75,7 +75,7 @@ public class ClassObjectTest {
     }
 
     @Test
-    public void test7(){
+    public void test7() {
         ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
         People people = new People();
         CommonField commonField = classObject.getField("age");
@@ -83,6 +83,20 @@ public class ClassObjectTest {
         commonField.setValue(people, 13);
         System.out.println(commonField.getValue(people));
         commonField.setValueDirect(people, 13);
+        System.out.println(commonField.getValueDirect(people));
+        System.out.println(commonField.getValue(people));
+    }
+
+    @Test
+    public void test8() {
+        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+        People people = new People();
+        System.out.println("================================");
+        CommonField commonField = classObject.getField("number");
+        System.out.println(commonField.getFieldName());
+        commonField.setValue(people, "test");
+        System.out.println(commonField.getValue(people));
+        commonField.setValueDirect(people, "test2");
         System.out.println(commonField.getValueDirect(people));
         System.out.println(commonField.getValue(people));
     }

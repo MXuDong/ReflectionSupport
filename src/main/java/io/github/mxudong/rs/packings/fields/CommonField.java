@@ -205,11 +205,6 @@ public class CommonField {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-            try {
-                throw new ReflectionException("CommonField", "setValueDirect", "the aim value can't convert field type");
-            } catch (ReflectionException e) {
-                e.printStackTrace();
-            }
         }
     }
 
