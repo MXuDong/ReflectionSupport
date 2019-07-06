@@ -68,5 +68,7 @@ public class ClassObjectTest {
         ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
         System.out.println(Arrays.toString(classObject.getGetterMethod("getAge")));
         System.out.println(Arrays.toString(classObject.getGetterMethod("getA")));
+        System.out.println(Arrays.toString(classObject.getSetterMethod("setAge")));
+        System.out.println(Arrays.toString(classObject.getSetterMethod("setAg")));
     }
 }
