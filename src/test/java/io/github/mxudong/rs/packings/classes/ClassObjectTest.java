@@ -35,4 +35,9 @@ public class ClassObjectTest {
             System.out.println(constructMethod);
         }
     }
+
+    @Test
+    public void test4(){
+        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+    }
 }

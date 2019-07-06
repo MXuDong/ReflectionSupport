@@ -1,15 +1,16 @@
 package io.github.mxudong.rs.packings.classes;
 
 import io.github.mxudong.rs.exceptions.ReflectionException;
-import io.github.mxudong.rs.packings.methods.ConstructMethod;
+import io.github.mxudong.rs.packings.methods.*;
 import io.github.mxudong.rs.utils.MethodUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * this class packing the class, and for this class, you
@@ -39,12 +40,35 @@ public class ClassObject<T> {
      */
 
     /**
+     * all the common methods, and the key is method's name
+     */
+    private Map<String, List<CommonMethod>> commonMethods;
+    /**
+     * all the static methods, and the key is method's name
+     * <p>
+     * and if some method is static and at same time it is a
+     * getter method or setter method, it will in {@code staticMethods},
+     * but not in {@code setterMethods} or {@code getterMethods}
+     */
+    private Map<String, List<StaticMethod>> staticMethods;
+    /**
+     * all the setter method, and the key is method's name
+     */
+    private Map<String, List<SetterMethod>> setterMethods;
+    /**
+     * all teh getter method, and the key is method's name
+     */
+    private Map<String, List<GetterMethod>> getterMethods;
+
+    /**
      * constructors of packing class
+     *
      * @see ConstructMethod
      */
     private List<ConstructMethod<T>> constructMethods;
     /**
      * default constructor of packing class
+     *
      * @see ConstructMethod
      */
     private ConstructMethod<T> defaultConstructorMethod = null;
@@ -69,13 +93,45 @@ public class ClassObject<T> {
         this.packingClass = c;
         superClassObject = ClassFactory.getInstance().getClassObject(c.getSuperclass());
 
+        // init some properties
+        this.constructMethods = new ArrayList<>();
+        this.staticMethods = new HashMap<>();
+        this.getterMethods = new HashMap<>();
+        this.setterMethods = new HashMap<>();
+        this.commonMethods = new HashMap<>();
+
         // get the methods for this class =========================================================
         Method[] methods = c.getDeclaredMethods();
 
-
+        for (Method m : methods) {
+            if (MethodUtil.isStaticMethod(m)) {
+                StaticMethod staticMethod = new StaticMethod(m, this);
+                if (!this.staticMethods.containsKey(staticMethod.getMethodName())) {
+                    this.staticMethods.put(staticMethod.getMethodName(), new ArrayList<>());
+                }
+                this.staticMethods.get(staticMethod.getMethodName()).add(staticMethod);
+            } else if (MethodUtil.isGetterMethod(m)) {
+                GetterMethod getterMethod = new GetterMethod(m, this);
+                if (!this.getterMethods.containsKey(getterMethod.getMethodName())) {
+                    this.getterMethods.put(getterMethod.getMethodName(), new ArrayList<>());
+                }
+                this.getterMethods.get(getterMethod.getMethodName()).add(getterMethod);
+            } else if (MethodUtil.isSetterMethod(m)) {
+                SetterMethod setterMethod = new SetterMethod(m, this);
+                if (!this.setterMethods.containsKey(setterMethod.getMethodName())) {
+                    this.setterMethods.put(setterMethod.getMethodName(), new ArrayList<>());
+                }
+                this.setterMethods.get(setterMethod.getMethodName()).add(setterMethod);
+            } else {
+                CommonMethod commonMethod = new CommonMethod(m, this);
+                if (!this.commonMethods.containsKey(commonMethod.getMethodName())) {
+                    this.commonMethods.put(commonMethod.getMethodName(), new ArrayList<>());
+                }
+                this.commonMethods.get(commonMethod.getMethodName()).add(commonMethod);
+            }
+        }
 
         // get the construction of this class =====================================================
-        this.constructMethods = new ArrayList<>();
         Constructor<T>[] constructors = (Constructor<T>[]) c.getConstructors();
         for (Constructor<T> constructor : constructors) {
             ConstructMethod<T> constructMethod = new ConstructMethod<>(constructor, this);
@@ -176,9 +232,10 @@ public class ClassObject<T> {
 
     /**
      * return packing class' name
+     *
      * @return class' name
      */
-    public String getPackingClassName(){
+    public String getPackingClassName() {
         return this.packingClass.getName();
     }
 }
