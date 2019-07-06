@@ -22,7 +22,7 @@ public class StaticMethod extends CommonMethod {
     private final static MethodType METHOD_TYPE = MethodType.StaticMethod;
 
     /**
-     * construction method of {@code StaticMethod}, in this part,
+     * method of {@code StaticMethod}, in this part,
      * the method will be append for packingMethod.
      * <p>
      * the method info will be set in this part
