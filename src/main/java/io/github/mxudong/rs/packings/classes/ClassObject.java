@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.*;
 
 /**
@@ -289,6 +290,13 @@ public class ClassObject<T> {
         return this.packingClass.getName();
     }
 
+    /**
+     * is class public
+     * @return if class is public return true, else return false
+     */
+    public boolean isPublic(){
+        return Modifier.isPublic(packingClass.getModifiers());
+    }
 
     @Override
     public String toString() {
