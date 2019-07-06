@@ -36,25 +36,30 @@ public class ClassObject<T> {
      */
 
     /**
-     * all the common methods, and the key is method's name
+     * the method truly info
      */
-    private Map<String, List<CommonMethod>> commonMethods;
+    private Invoker[] invokers;
+
     /**
-     * all the static methods, and the key is method's name
+     * all the common methods index, and the key is method's name
+     */
+    private Map<String, List<Integer>> commonMethods;
+    /**
+     * all the static methods index, and the key is method's name
      * <p>
      * and if some method is static and at same time it is a
      * getter method or setter method, it will in {@code staticMethods},
      * but not in {@code setterMethods} or {@code getterMethods}
      */
-    private Map<String, List<StaticMethod>> staticMethods;
+    private Map<String, List<Integer>> staticMethods;
     /**
-     * all the setter method, and the key is method's name
+     * all the setter method index, and the key is method's name
      */
-    private Map<String, List<SetterMethod>> setterMethods;
+    private Map<String, List<Integer>> setterMethods;
     /**
-     * all teh getter method, and the key is method's name
+     * all teh getter method index, and the key is method's name
      */
-    private Map<String, List<GetterMethod>> getterMethods;
+    private Map<String, List<Integer>> getterMethods;
 
     /**
      * constructors of packing class
@@ -97,42 +102,48 @@ public class ClassObject<T> {
 
         // get the methods for this class =========================================================
         Method[] methods = c.getDeclaredMethods();
+        this.invokers = new Invoker[methods.length];
 
-        for (Method m : methods) {
-            if (MethodUtil.isStaticMethod(m)) {
-                StaticMethod staticMethod = new StaticMethod(m, this);
-                if (!this.staticMethods.containsKey(staticMethod.getMethodName())) {
-                    this.staticMethods.put(staticMethod.getMethodName(), new ArrayList<>());
+        for(int i = 0; i < methods.length; i++){
+
+            Invoker invoker;
+
+            if (MethodUtil.isStaticMethod(methods[i])) {
+                invoker = new StaticMethod(methods[i], this);
+                if (!this.staticMethods.containsKey(invoker.getMethodName())) {
+                    this.staticMethods.put(invoker.getMethodName(), new ArrayList<>());
                 }
-                this.staticMethods.get(staticMethod.getMethodName()).add(staticMethod);
-            } else if (MethodUtil.isGetterMethod(m)) {
-                GetterMethod getterMethod = new GetterMethod(m, this);
-                if (!this.getterMethods.containsKey(getterMethod.getMethodName())) {
-                    this.getterMethods.put(getterMethod.getMethodName(), new ArrayList<>());
+                this.staticMethods.get(invoker.getMethodName()).add(i);
+            } else if (MethodUtil.isGetterMethod(methods[i])) {
+                invoker = new GetterMethod(methods[i], this);
+                if (!this.getterMethods.containsKey(invoker.getMethodName())) {
+                    this.getterMethods.put(invoker.getMethodName(), new ArrayList<>());
                 }
-                this.getterMethods.get(getterMethod.getMethodName()).add(getterMethod);
-            } else if (MethodUtil.isSetterMethod(m)) {
-                SetterMethod setterMethod = new SetterMethod(m, this);
-                if (!this.setterMethods.containsKey(setterMethod.getMethodName())) {
-                    this.setterMethods.put(setterMethod.getMethodName(), new ArrayList<>());
+                this.getterMethods.get(invoker.getMethodName()).add(i);
+            } else if (MethodUtil.isSetterMethod(methods[i])) {
+                invoker = new SetterMethod(methods[i], this);
+                if (!this.setterMethods.containsKey(invoker.getMethodName())) {
+                    this.setterMethods.put(invoker.getMethodName(), new ArrayList<>());
                 }
-                this.setterMethods.get(setterMethod.getMethodName()).add(setterMethod);
+                this.setterMethods.get(invoker.getMethodName()).add(i);
             } else {
-                CommonMethod commonMethod = new CommonMethod(m, this);
-                if (!this.commonMethods.containsKey(commonMethod.getMethodName())) {
-                    this.commonMethods.put(commonMethod.getMethodName(), new ArrayList<>());
+                invoker = new CommonMethod(methods[i], this);
+                if (!this.commonMethods.containsKey(invoker.getMethodName())) {
+                    this.commonMethods.put(invoker.getMethodName(), new ArrayList<>());
                 }
-                this.commonMethods.get(commonMethod.getMethodName()).add(commonMethod);
+                this.commonMethods.get(invoker.getMethodName()).add(i);
             }
+
+            this.invokers[i] = invoker;
         }
 
         // get the construction of this class =====================================================
         Constructor<T>[] constructors = (Constructor<T>[]) c.getConstructors();
         this.constructMethods = new ConstructMethod[constructors.length];
 
-        for(int i = 0; i < constructors.length; i++){
+        for (int i = 0; i < constructors.length; i++) {
             ConstructMethod<T> constructMethod = new ConstructMethod<>(constructors[i], this);
-            if(constructMethod.isDefaultConstruction()){
+            if (constructMethod.isDefaultConstruction()) {
                 defaultConstructorMethod = i;
             }
             this.constructMethods[i] = constructMethod;
@@ -175,6 +186,15 @@ public class ClassObject<T> {
      */
     public ConstructMethod<T>[] getConstructMethods() {
         return Arrays.copyOf(this.constructMethods, this.constructMethods.length);
+    }
+
+    /**
+     * get the all methods
+     * @return all methods
+     * @see Invoker
+     */
+    public Invoker[] getAllmethods(){
+        return Arrays.copyOf(this.invokers, this.invokers.length);
     }
 
     /**
