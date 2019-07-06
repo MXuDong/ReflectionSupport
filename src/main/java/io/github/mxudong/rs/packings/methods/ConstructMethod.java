@@ -126,4 +126,9 @@ public class ConstructMethod<T> {
     public boolean isDefaultConstruction() {
         return paramClasses.length == 0;
     }
+
+    @Override
+    public String toString() {
+        return "Constructor - " + constructor.getName() + ";";
+    }
 }
