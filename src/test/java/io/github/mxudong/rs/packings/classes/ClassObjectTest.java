@@ -1,6 +1,7 @@
 package io.github.mxudong.rs.packings.classes;
 
 import io.github.mxudong.rs.bean.People;
+import io.github.mxudong.rs.packings.methods.ConstructMethod;
 import org.junit.Test;
 
 public class ClassObjectTest {
@@ -30,5 +31,8 @@ public class ClassObjectTest {
     public void test3(){
         ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
         System.out.println(classObject.getConstructionMethodCount());
+        for(ConstructMethod<?> constructMethod : classObject.getConstructMethods()){
+            System.out.println(constructMethod);
+        }
     }
 }
