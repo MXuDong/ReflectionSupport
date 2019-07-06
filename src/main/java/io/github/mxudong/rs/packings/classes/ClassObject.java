@@ -7,10 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * this class packing the class, and for this class, you
@@ -24,7 +21,6 @@ public class ClassObject<T> {
 
     /*
     规划：
-        包含重载方法集合
         包含全部字段集合
         包含所有实现的接口信息
         包含所有类级别的注解信息
@@ -65,13 +61,13 @@ public class ClassObject<T> {
      *
      * @see ConstructMethod
      */
-    private List<ConstructMethod<T>> constructMethods;
+    private ConstructMethod<T>[] constructMethods;
     /**
      * default constructor of packing class
      *
      * @see ConstructMethod
      */
-    private ConstructMethod<T> defaultConstructorMethod = null;
+    private int defaultConstructorMethod = -1;
 
     /**
      * packing class
@@ -94,7 +90,6 @@ public class ClassObject<T> {
         superClassObject = ClassFactory.getInstance().getClassObject(c.getSuperclass());
 
         // init some properties
-        this.constructMethods = new ArrayList<>();
         this.staticMethods = new HashMap<>();
         this.getterMethods = new HashMap<>();
         this.setterMethods = new HashMap<>();
@@ -133,12 +128,14 @@ public class ClassObject<T> {
 
         // get the construction of this class =====================================================
         Constructor<T>[] constructors = (Constructor<T>[]) c.getConstructors();
-        for (Constructor<T> constructor : constructors) {
-            ConstructMethod<T> constructMethod = new ConstructMethod<>(constructor, this);
-            if (constructMethod.isDefaultConstruction()) {
-                this.defaultConstructorMethod = constructMethod;
+        this.constructMethods = new ConstructMethod[constructors.length];
+
+        for(int i = 0; i < constructors.length; i++){
+            ConstructMethod<T> constructMethod = new ConstructMethod<>(constructors[i], this);
+            if(constructMethod.isDefaultConstruction()){
+                defaultConstructorMethod = i;
             }
-            this.constructMethods.add(constructMethod);
+            this.constructMethods[i] = constructMethod;
         }
     }
 
@@ -148,7 +145,7 @@ public class ClassObject<T> {
      * @return if has return true, else return false
      */
     public boolean hasDefaultConstructorMethod() {
-        return this.defaultConstructorMethod != null;
+        return this.defaultConstructorMethod != -1;
     }
 
     /**
@@ -159,7 +156,7 @@ public class ClassObject<T> {
      */
     public T getNewInstance() {
         if (hasDefaultConstructorMethod()) {
-            return defaultConstructorMethod.newInstance();
+            return this.constructMethods[defaultConstructorMethod].newInstance();
         } else {
             try {
                 throw new ReflectionException("ClassObject", "getNewInstance()", "has no default construction");
@@ -177,8 +174,7 @@ public class ClassObject<T> {
      * @return construction array
      */
     public ConstructMethod<T>[] getConstructMethods() {
-        ConstructMethod<T>[] constructMethods = new ConstructMethod[this.constructMethods.size()];
-        return this.constructMethods.toArray(constructMethods);
+        return Arrays.copyOf(this.constructMethods, this.constructMethods.length);
     }
 
     /**
@@ -187,7 +183,7 @@ public class ClassObject<T> {
      * @return construction array length
      */
     public int getConstructionMethodCount() {
-        return this.constructMethods.size();
+        return this.constructMethods.length;
     }
 
     /**
