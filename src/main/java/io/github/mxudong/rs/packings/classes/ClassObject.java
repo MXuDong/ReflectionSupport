@@ -359,6 +359,33 @@ public class ClassObject<T> {
         return Modifier.isStatic(packingClass.getModifiers());
     }
 
+    /**
+     * get common field
+     *
+     * @param fieldName the field name
+     * @return common field if not exit will find it in super class object until null
+     * if not exits in super class will return null
+     */
+    public CommonField getField(String fieldName) {
+        for (CommonField commonField : this.allFields) {
+            if (commonField.getFieldName().equals(fieldName)) {
+                return commonField;
+            }
+        }
+
+        if (superClassObject != null) {
+            return superClassObject.getField(fieldName);
+        }
+
+        try {
+            throw new ReflectionException("ClassObject", "getField", "can't find field name [" + fieldName + "]");
+        } catch (ReflectionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     @Override
     public String toString() {
         return this.packingClass.toString();
