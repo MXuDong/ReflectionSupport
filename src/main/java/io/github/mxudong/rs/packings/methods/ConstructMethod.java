@@ -35,6 +35,18 @@ public class ConstructMethod<T> {
 
 
     /**
+     * the construction of this class
+     *
+     * @param constructor packing construction
+     * @param classObject belong class object
+     */
+    public ConstructMethod(Constructor<T> constructor, ClassObject<T> classObject) {
+        this.constructor = constructor;
+        this.paramClasses = constructor.getParameterTypes();
+        this.belongClassObject = classObject;
+    }
+
+    /**
      * invoke the construction method
      *
      * @param params invoke the construction needed params
