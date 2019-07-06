@@ -6,6 +6,8 @@ import io.github.mxudong.rs.packings.methods.GetterMethod;
 import io.github.mxudong.rs.packings.methods.SetterMethod;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.sql.Ref;
 
 /**
  * the CommonField packing the Field in class, and
@@ -147,10 +149,18 @@ public class CommonField {
      * @return value of field
      */
     public Object getValueDirect(Object target) {
-        try {
-            return packingField.get(target);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        if (!isPublic()) {
+            try {
+                throw new ReflectionException("CommonField", "getValueDirect", "the field is not public");
+            } catch (ReflectionException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                return packingField.get(target);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -176,24 +186,40 @@ public class CommonField {
     /**
      * set field value, but set direct, if you want to invoke
      * setter method, please use {@code setValue(Object target, Object value)}
+     * <p>
+     * if the field is not public it will throw {@code ReflectionException}, and set value failed
      *
      * @param target aim object
      * @param value  new value
      */
     public void setValueDirect(Object target, Object value) {
-        if (packingFieldType.isInstance(value)) {
+        if (!isPublic()) {
+            try {
+                throw new ReflectionException("CommonField", "setValueDirect", "the field is not public");
+            } catch (ReflectionException e) {
+                e.printStackTrace();
+            }
+        } else {
             try {
                 packingField.set(target, value);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-        } else {
             try {
                 throw new ReflectionException("CommonField", "setValueDirect", "the aim value can't convert field type");
             } catch (ReflectionException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * is this field public
+     *
+     * @return if is public return true, else return false;
+     */
+    public boolean isPublic() {
+        return Modifier.isPublic(this.packingField.getModifiers());
     }
 
     /**

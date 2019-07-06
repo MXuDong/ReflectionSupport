@@ -8,7 +8,7 @@ package io.github.mxudong.rs.bean;
 public class People {
     private int age;
     private String name;
-    private String number;
+    public String number;
 
     public People() {
     }

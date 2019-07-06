@@ -1,6 +1,7 @@
 package io.github.mxudong.rs.packings.classes;
 
 import io.github.mxudong.rs.bean.People;
+import io.github.mxudong.rs.packings.fields.CommonField;
 import io.github.mxudong.rs.packings.methods.ConstructMethod;
 import io.github.mxudong.rs.packings.methods.Invoker;
 import org.junit.Test;
@@ -76,5 +77,13 @@ public class ClassObjectTest {
     @Test
     public void test7(){
         ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+        People people = new People();
+        CommonField commonField = classObject.getField("age");
+        System.out.println(commonField.getFieldName());
+        commonField.setValue(people, 13);
+        System.out.println(commonField.getValue(people));
+        commonField.setValueDirect(people, 13);
+        System.out.println(commonField.getValueDirect(people));
+        System.out.println(commonField.getValue(people));
     }
 }
