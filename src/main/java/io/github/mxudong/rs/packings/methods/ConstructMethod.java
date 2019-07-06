@@ -53,8 +53,8 @@ public class ConstructMethod<T> {
      * @return new instance
      * @since 3.0
      */
-    public Object newInstance(Object... params) {
-        Object result = null;
+    public T newInstance(Object... params) {
+        T result = null;
         try {
             result = constructor.newInstance(params);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {

@@ -1,5 +1,6 @@
 package io.github.mxudong.rs.packings.classes;
 
+import io.github.mxudong.rs.exceptions.ReflectionException;
 import io.github.mxudong.rs.packings.methods.ConstructMethod;
 import org.jetbrains.annotations.NotNull;
 
@@ -78,6 +79,48 @@ public class ClassObject<T> {
      */
     public boolean hasDefaultConstructorMethod() {
         return this.defaultConstructorMethod == null;
+    }
+
+    /**
+     * get the newInstance of this packing class,
+     * but if has no default construction, it will return null
+     *
+     * @return new instance
+     */
+    public T getNewInstance() {
+        if (hasDefaultConstructorMethod()) {
+            return defaultConstructorMethod.newInstance();
+        } else {
+            try {
+                throw new ReflectionException("ClassObject", "getNewInstance()", "has no default construction");
+            } catch (ReflectionException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+    /**
+     * get the newInstance of this packing class,
+     * but if can't match construction of params, it will return null
+     *
+     * @param params aim params
+     * @return new instance
+     */
+    public T getNewInstance(Object... params) {
+        for (ConstructMethod<T> constructMethod : this.constructMethods) {
+            if (constructMethod.isParamsIsThisMethod(params)) {
+                return constructMethod.newInstance(params);
+            }
+        }
+
+        try {
+            throw new ReflectionException("ClassObject", "getNewInstance()", "can find param match construction");
+        } catch (ReflectionException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
