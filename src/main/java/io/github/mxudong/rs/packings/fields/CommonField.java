@@ -39,12 +39,12 @@ public class CommonField {
     /**
      * the getter method of this field
      */
-    private GetterMethod fieldGetterMethod;
+    private GetterMethod [] fieldGetterMethod;
 
     /**
      * the setter method of this field
      */
-    private SetterMethod fieldSetterMethod;
+    private SetterMethod [] fieldSetterMethod;
 
 
     /**
@@ -57,7 +57,9 @@ public class CommonField {
         this.packingField = packingField;
         this.classObject = classObject;
         this.packingFieldName = packingField.getName();
-        packingFieldType = packingField.getType();
+        this.packingFieldType = packingField.getType();
+        this.fieldSetterMethod = classObject.getSetterMethod(getSetterMethodName());
+        this.fieldGetterMethod = classObject.getGetterMethod(getGetterMethodName());
     }
 
     /**
@@ -80,6 +82,20 @@ public class CommonField {
      */
     public String getSetterMethodName() {
         return addPreFix("set", packingFieldName);
+    }
+
+    /**
+     * set field value
+     * @param target aim object which you want to invoke
+     * @param value you expect value
+     */
+    public void setValue(Object target, Object value){
+        for(SetterMethod setterMethod : this.fieldSetterMethod){
+            if(setterMethod.isParamsIsThisMethod(value)){
+                setterMethod.invoke(target, value);
+                break;
+            }
+        }
     }
 
     /**
