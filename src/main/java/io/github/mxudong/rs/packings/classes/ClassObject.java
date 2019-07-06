@@ -47,8 +47,8 @@ public class ClassObject<T> {
      * all the static methods index, and the key is method's name
      * <p>
      * and if some method is static and at same time it is a
-     * getter method or setter method, it will in {@code staticMethods},
-     * but not in {@code setterMethods} or {@code getterMethods}
+     * getter method or setter method, it will be marked as getter
+     * or setter method
      */
     private Map<String, List<Integer>> staticMethods;
     /**
@@ -107,13 +107,7 @@ public class ClassObject<T> {
 
             Invoker invoker;
 
-            if (MethodUtil.isStaticMethod(methods[i])) {
-                invoker = new StaticMethod(methods[i], this);
-                if (!this.staticMethods.containsKey(invoker.getMethodName())) {
-                    this.staticMethods.put(invoker.getMethodName(), new ArrayList<>());
-                }
-                this.staticMethods.get(invoker.getMethodName()).add(i);
-            } else if (MethodUtil.isGetterMethod(methods[i])) {
+            if (MethodUtil.isGetterMethod(methods[i])) {
                 invoker = new GetterMethod(methods[i], this);
                 if (!this.getterMethods.containsKey(invoker.getMethodName())) {
                     this.getterMethods.put(invoker.getMethodName(), new ArrayList<>());
@@ -125,6 +119,12 @@ public class ClassObject<T> {
                     this.setterMethods.put(invoker.getMethodName(), new ArrayList<>());
                 }
                 this.setterMethods.get(invoker.getMethodName()).add(i);
+            } else if (MethodUtil.isStaticMethod(methods[i])) {
+                invoker = new StaticMethod(methods[i], this);
+                if (!this.staticMethods.containsKey(invoker.getMethodName())) {
+                    this.staticMethods.put(invoker.getMethodName(), new ArrayList<>());
+                }
+                this.staticMethods.get(invoker.getMethodName()).add(i);
             } else {
                 invoker = new CommonMethod(methods[i], this);
                 if (!this.commonMethods.containsKey(invoker.getMethodName())) {
