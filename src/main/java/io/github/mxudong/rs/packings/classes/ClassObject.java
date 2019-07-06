@@ -115,6 +115,15 @@ public class ClassObject<T> {
     }
 
     /**
+     * get the construction array length
+     *
+     * @return construction array length
+     */
+    public int getConstructionMethodCount() {
+        return this.constructMethods.size();
+    }
+
+    /**
      * get the newInstance of this packing class,
      * but if can't match construction of params, it will return null
      *
