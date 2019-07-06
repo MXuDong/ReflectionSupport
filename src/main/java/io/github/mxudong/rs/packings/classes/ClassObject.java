@@ -292,9 +292,10 @@ public class ClassObject<T> {
 
     /**
      * is class public
+     *
      * @return if class is public return true, else return false
      */
-    public boolean isPublic(){
+    public boolean isPublic() {
         return Modifier.isPublic(packingClass.getModifiers());
     }
 
