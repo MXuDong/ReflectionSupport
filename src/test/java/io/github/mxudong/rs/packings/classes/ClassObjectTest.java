@@ -5,6 +5,8 @@ import io.github.mxudong.rs.packings.methods.ConstructMethod;
 import io.github.mxudong.rs.packings.methods.Invoker;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 public class ClassObjectTest {
 
     @Test
@@ -50,6 +52,14 @@ public class ClassObjectTest {
     public void test5(){
         ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
         Invoker invoker = classObject.getMethodInvoker("toString");
+        People people = new People();
         System.out.println(invoker);
+        System.out.println(invoker.invoke(people));
+        System.out.println(invoker.getMethodType());
+        System.out.println(invoker.getMethodName());
+        System.out.println(invoker.getBelongClass());
+        System.out.println(invoker.getReturnType());
+        System.out.println(Arrays.toString(invoker.getMethodParamsType()));
+        System.out.println(classObject.equals(ClassFactory.getInstance().getClassObject(People.class)));
     }
 }
