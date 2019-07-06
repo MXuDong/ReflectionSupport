@@ -22,5 +22,7 @@ public class ClassObjectTest {
     public void test2(){
         ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
         System.out.println(classObject.getNewInstance());
+        System.out.println(classObject.getNewInstance(15));
+        System.out.println(classObject.getNewInstance("testBug"));
     }
 }

@@ -10,6 +10,13 @@ public class People {
     private String name;
     private String number;
 
+    public People() {
+    }
+
+    public People(int age) {
+        this.age = age;
+    }
+
     public int getAge() {
         return age;
     }
