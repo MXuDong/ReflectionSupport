@@ -73,6 +73,24 @@ public class CommonField {
     }
 
     /**
+     * get the belong class
+     *
+     * @return belong class
+     */
+    public Class getFieldBelongClass() {
+        return this.classObject.getPackingClass();
+    }
+
+    /**
+     * get the belong class object
+     *
+     * @return belong class object
+     */
+    public ClassObject getFieldBelgonClass() {
+        return this.classObject;
+    }
+
+    /**
      * get the field getter method name
      *
      * @return getter method name
