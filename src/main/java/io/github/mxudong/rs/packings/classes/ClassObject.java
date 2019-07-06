@@ -162,4 +162,12 @@ public class ClassObject<T> {
     public ClassObject<?> getSuperClassObject() {
         return superClassObject;
     }
+
+    /**
+     * return packing class' name
+     * @return class' name
+     */
+    public String getPackingClassName(){
+        return this.packingClass.getName();
+    }
 }
