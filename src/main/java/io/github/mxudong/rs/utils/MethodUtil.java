@@ -65,4 +65,14 @@ public class MethodUtil {
     public static boolean isStaticMethod(Method method) {
         return Modifier.isStatic(method.getModifiers());
     }
+
+    /**
+     * is method getter
+     * @param method be check method
+     * @return if is getter method return true, else return false
+     */
+    public static boolean isGetterMethod(Method method){
+        String methodName = method.getName();
+        return methodName.startsWith("get") || methodName.startsWith("is");
+    }
 }
