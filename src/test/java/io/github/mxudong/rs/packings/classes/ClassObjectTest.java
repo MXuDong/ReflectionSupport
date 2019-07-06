@@ -25,4 +25,10 @@ public class ClassObjectTest {
         System.out.println(classObject.getNewInstance(15));
         System.out.println(classObject.getNewInstance("testBug"));
     }
+
+    @Test
+    public void test3(){
+        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+        System.out.println(classObject.getConstructionMethodCount());
+    }
 }
