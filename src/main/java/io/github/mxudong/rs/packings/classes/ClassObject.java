@@ -105,6 +105,16 @@ public class ClassObject<T> {
     }
 
     /**
+     * get the construction array
+     *
+     * @return construction array
+     */
+    public ConstructMethod<T>[] getConstructMethods() {
+        ConstructMethod<T>[] constructMethods = new ConstructMethod[this.constructMethods.size()];
+        return this.constructMethods.toArray(constructMethods);
+    }
+
+    /**
      * get the newInstance of this packing class,
      * but if can't match construction of params, it will return null
      *
