@@ -32,10 +32,11 @@ public class SetterMethod extends CommonMethod {
      * invoke the setter method
      *
      * @param target aim object
+     * @param value  aim value
      * @return the result of invoke
      */
-    public Object invoke(Object target) {
-        return super.invoke(target);
+    public void invoke(Object target, Object value) {
+        super.invoke(target, value);
     }
 
     @Override
