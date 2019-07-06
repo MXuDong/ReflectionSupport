@@ -62,4 +62,11 @@ public class ClassObjectTest {
         System.out.println(Arrays.toString(invoker.getMethodParamsType()));
         System.out.println(classObject.equals(ClassFactory.getInstance().getClassObject(People.class)));
     }
+
+    @Test
+    public void test6(){
+        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+        System.out.println(Arrays.toString(classObject.getGetterMethod("getAge")));
+        System.out.println(Arrays.toString(classObject.getGetterMethod("getA")));
+    }
 }
