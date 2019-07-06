@@ -75,12 +75,15 @@ public class ClassFactory {
             return null;
         }
 
-        if (classObjectMap.containsKey(c.getName())) {
-            return classObjectMap.get(c.getName());
+        if (!classObjectMap.containsKey(c.getName())) {
+            synchronized (ClassFactory.class) {
+                if (!classObjectMap.containsKey(c.getName())) {
+                    ClassObject<?> classObject = new ClassObject<>(c);
+                    classObjectMap.put(c.getName(), classObject);
+                }
+            }
         }
 
-        ClassObject<?> classObject = new ClassObject<>(c);
-        classObjectMap.put(c.getName(), classObject);
-        return classObject;
+        return classObjectMap.get(c.getName());
     }
 }
