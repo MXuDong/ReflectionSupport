@@ -93,7 +93,7 @@ public class CommonField {
      * @param target aim object which you want to invoke
      * @param value  you expect value
      */
-    public void setValue(Object target, Object value) {
+    public void setValue(Object target, Object ... value) {
         for (SetterMethod setterMethod : this.fieldSetterMethod) {
             if (setterMethod.isParamsIsThisMethod(value)) {
                 setterMethod.invoke(target, value);
