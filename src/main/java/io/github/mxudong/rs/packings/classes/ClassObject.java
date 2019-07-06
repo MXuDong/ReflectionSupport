@@ -208,6 +208,30 @@ public class ClassObject<T> {
     }
 
     /**
+     * get the method invoker
+     *
+     * @param methodName aim method's name
+     * @param params     the method declared params
+     * @return if exits return it, else not in this packing,
+     * will find from superClassObject, until null, if not exits, return null
+     */
+    public Invoker getMethodInvoker(String methodName, Object... params) {
+        for (Invoker invoker : this.invokers) {
+            if (invoker.getMethodName().equals(methodName)) {
+                if (invoker.isParamsIsThisMethod(params)) {
+                    return invoker;
+                }
+            }
+        }
+
+        if (superClassObject == null) {
+            return null;
+        }
+
+        return superClassObject.getMethodInvoker(methodName, params);
+    }
+
+    /**
      * get the construction array length
      *
      * @return construction array length
