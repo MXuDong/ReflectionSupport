@@ -72,7 +72,12 @@ public class ClassObject<T> {
         }
     }
 
-    public boolean hasDefaultConstructorMethod(){
+    /**
+     * is has default constructor method
+     *
+     * @return if has return true, else return false
+     */
+    public boolean hasDefaultConstructorMethod() {
         return this.defaultConstructorMethod == null;
     }
 
