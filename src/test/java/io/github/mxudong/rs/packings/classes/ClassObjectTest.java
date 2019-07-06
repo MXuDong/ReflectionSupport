@@ -70,5 +70,6 @@ public class ClassObjectTest {
         System.out.println(Arrays.toString(classObject.getGetterMethod("getA")));
         System.out.println(Arrays.toString(classObject.getSetterMethod("setAge")));
         System.out.println(Arrays.toString(classObject.getSetterMethod("setAg")));
+        System.out.println(Arrays.toString(classObject.getSetterMethod(null)));
     }
 }
