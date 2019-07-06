@@ -22,6 +22,14 @@ public class CommonField {
      * the packing field
      */
     private Field packingField;
+    /**
+     * the packing field type
+     */
+    private Class<?> packingFieldType;
+    /**
+     * the packing field name
+     */
+    private String packingFieldName;
 
     /**
      * the class which has packing field
@@ -38,6 +46,7 @@ public class CommonField {
      */
     private SetterMethod fieldSetterMethod;
 
+
     /**
      * construction method, in this method, filed info will be save
      *
@@ -47,5 +56,7 @@ public class CommonField {
     public CommonField(Field packingField, ClassObject<?> classObject) {
         this.packingField = packingField;
         this.classObject = classObject;
+        this.packingFieldName = packingField.getName();
+        packingFieldType = packingField.getType();
     }
 }
