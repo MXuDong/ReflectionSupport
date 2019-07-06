@@ -1,6 +1,11 @@
 package io.github.mxudong.rs.packings.classes;
 
+import io.github.mxudong.rs.packings.methods.ConstructMethod;
 import org.jetbrains.annotations.NotNull;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * this class packing the class, and for this class, you
@@ -16,8 +21,6 @@ public class ClassObject<T> {
     规划：
         包含重载方法集合
         包含全部字段集合
-        包含全部构造器集合
-        检测默认构造器
         包含所有实现的接口信息
         包含所有类级别的注解信息
 
@@ -30,6 +33,9 @@ public class ClassObject<T> {
         判断是否私有、公开、默认、保护的权限
 
      */
+
+    private List<ConstructMethod<T>> constructMethods;
+    private ConstructMethod<T> defaultConstructorMethod = null;
 
     /**
      * packing class
@@ -50,6 +56,24 @@ public class ClassObject<T> {
     protected ClassObject(@NotNull Class<T> c) {
         this.packingClass = c;
         superClassObject = ClassFactory.getInstance().getClassObject(c.getSuperclass());
+
+        // get the methods for this class =========================================================
+        Method[] methods = c.getDeclaredMethods();
+
+        // get the construction of this class =====================================================
+        Constructor<T>[] constructors = (Constructor<T>[]) c.getConstructors();
+        for (Constructor<T> constructor : constructors) {
+            ConstructMethod<T> constructMethod = new ConstructMethod<>(constructor, this);
+            if (constructMethod.isDefaultConstruction()) {
+                this.defaultConstructorMethod = constructMethod;
+            } else {
+                this.constructMethods.add(constructMethod);
+            }
+        }
+    }
+
+    public boolean hasDefaultConstructorMethod(){
+        return this.defaultConstructorMethod == null;
     }
 
     /**
