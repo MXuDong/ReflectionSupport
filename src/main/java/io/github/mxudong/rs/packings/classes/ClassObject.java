@@ -6,6 +6,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -62,6 +64,7 @@ public class ClassObject<T> {
         Method[] methods = c.getDeclaredMethods();
 
         // get the construction of this class =====================================================
+        this.constructMethods = new ArrayList<>();
         Constructor<T>[] constructors = (Constructor<T>[]) c.getConstructors();
         for (Constructor<T> constructor : constructors) {
             ConstructMethod<T> constructMethod = new ConstructMethod<>(constructor, this);
@@ -78,7 +81,7 @@ public class ClassObject<T> {
      * @return if has return true, else return false
      */
     public boolean hasDefaultConstructorMethod() {
-        return this.defaultConstructorMethod == null;
+        return this.defaultConstructorMethod != null;
     }
 
     /**

@@ -17,4 +17,10 @@ public class ClassObjectTest {
 
         System.out.println(peopleClassObject.getPackingClass());
     }
+
+    @Test
+    public void test2(){
+        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+        System.out.println(classObject.getNewInstance());
+    }
 }
