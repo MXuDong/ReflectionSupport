@@ -251,6 +251,25 @@ public class ClassObject<T> {
     }
 
     /**
+     * get some field's setter method
+     *
+     * @param setterName be get name
+     * @return setterMethods or if not exits return null
+     */
+    public SetterMethod[] getSetterMethod(String setterName) {
+        if (this.setterMethods.containsKey(setterName)) {
+            List<Integer> indexes = this.setterMethods.get(setterName);
+            SetterMethod[] setterMethods = new SetterMethod[indexes.size()];
+            for (int i = 0; i < indexes.size(); i++) {
+                setterMethods[i] = (SetterMethod) invokers[indexes.get(i)];
+            }
+            return setterMethods;
+        }
+
+        return null;
+    }
+
+    /**
      * get the construction array length
      *
      * @return construction array length
