@@ -299,6 +299,15 @@ public class ClassObject<T> {
         return Modifier.isPublic(packingClass.getModifiers());
     }
 
+    /**
+     * is class static
+     *
+     * @return if class is static return true, else return false
+     */
+    public boolean isStatic() {
+        return Modifier.isStatic(packingClass.getModifiers());
+    }
+
     @Override
     public String toString() {
         return this.packingClass.toString();
