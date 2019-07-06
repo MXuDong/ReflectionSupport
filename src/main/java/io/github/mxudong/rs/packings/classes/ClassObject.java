@@ -288,4 +288,18 @@ public class ClassObject<T> {
     public String getPackingClassName() {
         return this.packingClass.getName();
     }
+
+
+    @Override
+    public String toString() {
+        return this.packingClass.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof ClassObject) {
+            return this.packingClass.equals(obj);
+        }
+        return false;
+    }
 }
