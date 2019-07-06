@@ -1,5 +1,7 @@
 package io.github.mxudong.rs.utils;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Objects;
 
 /**
@@ -52,5 +54,15 @@ public class MethodUtil {
         }
 
         return true;
+    }
+
+    /**
+     * is the method static
+     *
+     * @param method be check method
+     * @return if is static return true, else return false
+     */
+    public static boolean isStaticMethod(Method method) {
+        return Modifier.isStatic(method.getModifiers());
     }
 }
