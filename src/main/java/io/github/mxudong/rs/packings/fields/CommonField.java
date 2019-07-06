@@ -1,5 +1,6 @@
 package io.github.mxudong.rs.packings.fields;
 
+import io.github.mxudong.rs.exceptions.ReflectionException;
 import io.github.mxudong.rs.packings.classes.ClassObject;
 import io.github.mxudong.rs.packings.methods.GetterMethod;
 import io.github.mxudong.rs.packings.methods.SetterMethod;
@@ -39,12 +40,12 @@ public class CommonField {
     /**
      * the getter method of this field
      */
-    private GetterMethod [] fieldGetterMethod;
+    private GetterMethod[] fieldGetterMethod;
 
     /**
      * the setter method of this field
      */
-    private SetterMethod [] fieldSetterMethod;
+    private SetterMethod[] fieldSetterMethod;
 
 
     /**
@@ -85,15 +86,41 @@ public class CommonField {
     }
 
     /**
-     * set field value
+     * set field value, in fact, it invoke setter method,
+     * if you want to set direct please use
+     * {@code setValueDirect(Object target, Object value)}
+     *
      * @param target aim object which you want to invoke
-     * @param value you expect value
+     * @param value  you expect value
      */
-    public void setValue(Object target, Object value){
-        for(SetterMethod setterMethod : this.fieldSetterMethod){
-            if(setterMethod.isParamsIsThisMethod(value)){
+    public void setValue(Object target, Object value) {
+        for (SetterMethod setterMethod : this.fieldSetterMethod) {
+            if (setterMethod.isParamsIsThisMethod(value)) {
                 setterMethod.invoke(target, value);
                 break;
+            }
+        }
+    }
+
+    /**
+     * set field value, but set direct, if you want to invoke
+     * setter method, please use {@code setValue(Object target, Object value)}
+     *
+     * @param target aim object
+     * @param value  new value
+     */
+    public void setValueDirect(Object target, Object value) {
+        if (packingFieldType.isInstance(value)) {
+            try {
+                packingField.set(target, value);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                throw new ReflectionException("CommonField", "setValueDirect", "the aim value can't convert field type");
+            } catch (ReflectionException e) {
+                e.printStackTrace();
             }
         }
     }
