@@ -66,9 +66,8 @@ public class ClassObject<T> {
             ConstructMethod<T> constructMethod = new ConstructMethod<>(constructor, this);
             if (constructMethod.isDefaultConstruction()) {
                 this.defaultConstructorMethod = constructMethod;
-            } else {
-                this.constructMethods.add(constructMethod);
             }
+            this.constructMethods.add(constructMethod);
         }
     }
 
