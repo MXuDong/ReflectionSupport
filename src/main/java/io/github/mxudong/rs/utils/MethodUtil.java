@@ -67,12 +67,24 @@ public class MethodUtil {
     }
 
     /**
-     * is method getter
+     * is method getter, and this method only can check the method name,
+     *
      * @param method be check method
      * @return if is getter method return true, else return false
      */
-    public static boolean isGetterMethod(Method method){
+    public static boolean isGetterMethod(Method method) {
         String methodName = method.getName();
         return methodName.startsWith("get") || methodName.startsWith("is");
+    }
+
+    /**
+     * is method setter, and this method only can check the method name
+     *
+     * @param method be check method
+     * @return if is setter method return true, else return false
+     */
+    public static boolean isSetterMethod(Method method) {
+        String methodName = method.getName();
+        return methodName.startsWith("set");
     }
 }
