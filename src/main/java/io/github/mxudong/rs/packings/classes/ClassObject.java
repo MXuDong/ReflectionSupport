@@ -104,7 +104,7 @@ public class ClassObject<T> {
         Method[] methods = c.getDeclaredMethods();
         this.invokers = new Invoker[methods.length];
 
-        for(int i = 0; i < methods.length; i++){
+        for (int i = 0; i < methods.length; i++) {
 
             Invoker invoker;
 
@@ -190,11 +190,21 @@ public class ClassObject<T> {
 
     /**
      * get the all methods
+     *
      * @return all methods
      * @see Invoker
      */
-    public Invoker[] getAllmethods(){
+    public Invoker[] getAllmethods() {
         return Arrays.copyOf(this.invokers, this.invokers.length);
+    }
+
+    /**
+     * get count of method
+     *
+     * @return the count of method
+     */
+    public int getMethodCount() {
+        return this.invokers.length;
     }
 
     /**
