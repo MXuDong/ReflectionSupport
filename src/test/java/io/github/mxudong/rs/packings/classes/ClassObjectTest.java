@@ -2,6 +2,7 @@ package io.github.mxudong.rs.packings.classes;
 
 import io.github.mxudong.rs.bean.People;
 import io.github.mxudong.rs.packings.methods.ConstructMethod;
+import io.github.mxudong.rs.packings.methods.Invoker;
 import org.junit.Test;
 
 public class ClassObjectTest {
@@ -39,5 +40,9 @@ public class ClassObjectTest {
     @Test
     public void test4(){
         ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+        Invoker [] invokers = classObject.getAllmethods();
+        for(Invoker invoker : invokers){
+            System.out.println(invoker);
+        }
     }
 }
