@@ -59,4 +59,45 @@ public class CommonField {
         this.packingFieldName = packingField.getName();
         packingFieldType = packingField.getType();
     }
+
+    /**
+     * get the field getter method name
+     *
+     * @return getter method name
+     */
+    public String getGetterMethodName() {
+        if (packingFieldType.equals(boolean.class) || packingFieldType.equals(Boolean.class)) {
+            return addPreFix("is", packingFieldName);
+        } else {
+            return addPreFix("get", packingFieldName);
+        }
+    }
+
+    /**
+     * get the field setter method name
+     *
+     * @return setter method name
+     */
+    public String getSetterMethodName() {
+        return addPreFix("set", packingFieldName);
+    }
+
+    /**
+     * add prefix for packingFieldName, if first char is little char, it will
+     * be upper
+     *
+     * @param preFix           be add prefix
+     * @param packingFieldName aim packingFieldName
+     * @return add prefix and packingFieldName
+     */
+    private static String addPreFix(String preFix, String packingFieldName) {
+        StringBuilder result = new StringBuilder(preFix);
+
+        char[] name = packingFieldName.toCharArray();
+        if (name[0] >= 'a' && name[0] <= 'z') {
+            name[0] = (char) (name[0] - 'a' + 'A');
+        }
+
+        return result.append(name).toString();
+    }
 }
