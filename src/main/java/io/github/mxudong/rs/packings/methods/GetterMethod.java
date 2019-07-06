@@ -13,6 +13,8 @@ import java.lang.reflect.Method;
 
 public class GetterMethod extends CommonMethod{
 
+    private final static MethodType METHOD_TYPE = MethodType.GetterMethod;
+
     /**
      * method of {@code CommonMethod}, in this part,
      * the method will be append for packingMethod.
@@ -24,5 +26,15 @@ public class GetterMethod extends CommonMethod{
      */
     public GetterMethod(Method packingMethod, ClassObject<?> classObject) {
         super(packingMethod, classObject);
+    }
+
+    @Override
+    public Object invoke(Object target, Object... params) {
+        return super.invoke(target, params);
+    }
+
+    @Override
+    public MethodType getMethodType() {
+        return METHOD_TYPE;
     }
 }
