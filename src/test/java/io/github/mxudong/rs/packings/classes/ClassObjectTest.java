@@ -72,4 +72,9 @@ public class ClassObjectTest {
         System.out.println(Arrays.toString(classObject.getSetterMethod("setAg")));
         System.out.println(Arrays.toString(classObject.getSetterMethod(null)));
     }
+
+    @Test
+    public void test7(){
+        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+    }
 }

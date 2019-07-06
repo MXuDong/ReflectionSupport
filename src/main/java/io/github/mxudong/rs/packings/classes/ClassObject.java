@@ -1,11 +1,13 @@
 package io.github.mxudong.rs.packings.classes;
 
 import io.github.mxudong.rs.exceptions.ReflectionException;
+import io.github.mxudong.rs.packings.fields.CommonField;
 import io.github.mxudong.rs.packings.methods.*;
 import io.github.mxudong.rs.utils.MethodUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
@@ -56,9 +58,14 @@ public class ClassObject<T> {
      */
     private Map<String, List<Integer>> setterMethods;
     /**
-     * all teh getter method index, and the key is method's name
+     * all the getter method index, and the key is method's name
      */
     private Map<String, List<Integer>> getterMethods;
+
+    /**
+     * all the Field
+     */
+    private CommonField[] allFields;
 
     /**
      * constructors of packing class
@@ -146,6 +153,13 @@ public class ClassObject<T> {
                 defaultConstructorMethod = i;
             }
             this.constructMethods[i] = constructMethod;
+        }
+
+        // get the all field of this class ========================================================
+        Field[] fields = c.getDeclaredFields();
+        this.allFields = new CommonField[fields.length];
+        for (int i = 0; i < fields.length; i++) {
+            this.allFields[i] = new CommonField(fields[i], this);
         }
     }
 
