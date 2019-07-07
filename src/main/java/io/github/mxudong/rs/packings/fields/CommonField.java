@@ -307,6 +307,6 @@ public class CommonField {
 
     @Override
     public String toString() {
-        return "";
+        return this.fieldType.getValue() + " - " + packingFieldName + " - " + classObject.toString();
     }
 }
