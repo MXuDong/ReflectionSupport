@@ -16,11 +16,17 @@ public class InterfaceObject<T> {
     private Class<T> interfaceClass;
 
     /**
+     * the name of packing interface
+     */
+    private String interfaceName;
+
+    /**
      * construction method
+     *
      * @param interfaceObject packing interface
      */
     public InterfaceObject(Class<T> interfaceObject) {
         this.interfaceClass = interfaceObject;
-
+        this.interfaceName = interfaceObject.getName();
     }
 }
