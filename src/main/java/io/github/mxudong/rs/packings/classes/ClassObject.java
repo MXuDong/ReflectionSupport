@@ -98,7 +98,7 @@ public class ClassObject<T> {
      */
     protected ClassObject(@NotNull Class<T> c) {
         this.packingClass = c;
-        superClassObject = ClassFactory.getInstance().getClassObject(c.getSuperclass());
+        superClassObject = ObjectFactory.getInstance().getClassObject(c.getSuperclass());
 
         // init some properties
         this.staticMethods = new HashMap<>();

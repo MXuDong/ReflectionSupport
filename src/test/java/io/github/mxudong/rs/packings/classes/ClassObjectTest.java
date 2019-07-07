@@ -8,14 +8,13 @@ import io.github.mxudong.rs.packings.methods.Invoker;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.Map;
 
 public class ClassObjectTest {
 
     @Test
     public void test1() {
         ClassObject peopleClassObject;
-        peopleClassObject = ClassFactory.getInstance().getClassObject(People.class);
+        peopleClassObject = ObjectFactory.getInstance().getClassObject(People.class);
         ClassObject temp = peopleClassObject;
         while (temp != null) {
             System.out.println(temp.getPackingClass().getName());
@@ -27,7 +26,7 @@ public class ClassObjectTest {
 
     @Test
     public void test2() {
-        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+        ClassObject<?> classObject = ObjectFactory.getInstance().getClassObject(People.class);
         System.out.println(classObject.getNewInstance());
         System.out.println(classObject.getNewInstance(15));
         System.out.println(classObject.getNewInstance("testBug"));
@@ -35,7 +34,7 @@ public class ClassObjectTest {
 
     @Test
     public void test3() {
-        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+        ClassObject<?> classObject = ObjectFactory.getInstance().getClassObject(People.class);
         System.out.println(classObject.getConstructionMethodCount());
         for (ConstructMethod<?> constructMethod : classObject.getConstructMethods()) {
             System.out.println(constructMethod);
@@ -44,7 +43,7 @@ public class ClassObjectTest {
 
     @Test
     public void test4() {
-        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+        ClassObject<?> classObject = ObjectFactory.getInstance().getClassObject(People.class);
         Invoker[] invokers = classObject.getAllmethods();
         for (Invoker invoker : invokers) {
             System.out.println(invoker);
@@ -53,7 +52,7 @@ public class ClassObjectTest {
 
     @Test
     public void test5() {
-        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+        ClassObject<?> classObject = ObjectFactory.getInstance().getClassObject(People.class);
         Invoker invoker = classObject.getMethodInvoker("toString");
         People people = new People();
         System.out.println(invoker);
@@ -63,12 +62,12 @@ public class ClassObjectTest {
         System.out.println(invoker.getBelongClass());
         System.out.println(invoker.getReturnType());
         System.out.println(Arrays.toString(invoker.getMethodParamsType()));
-        System.out.println(classObject.equals(ClassFactory.getInstance().getClassObject(People.class)));
+        System.out.println(classObject.equals(ObjectFactory.getInstance().getClassObject(People.class)));
     }
 
     @Test
     public void test6() {
-        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+        ClassObject<?> classObject = ObjectFactory.getInstance().getClassObject(People.class);
         System.out.println(Arrays.toString(classObject.getGetterMethod("getAge")));
         System.out.println(Arrays.toString(classObject.getGetterMethod("getA")));
         System.out.println(Arrays.toString(classObject.getSetterMethod("setAge")));
@@ -78,7 +77,7 @@ public class ClassObjectTest {
 
     @Test
     public void test7() {
-        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+        ClassObject<?> classObject = ObjectFactory.getInstance().getClassObject(People.class);
         People people = new People();
         CommonField commonField = classObject.getField("age");
         System.out.println(commonField.getFieldName());
@@ -91,7 +90,7 @@ public class ClassObjectTest {
 
     @Test
     public void test8() {
-        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+        ClassObject<?> classObject = ObjectFactory.getInstance().getClassObject(People.class);
         People people = new People();
         System.out.println("================================");
         CommonField commonField = classObject.getField("number");
@@ -105,7 +104,7 @@ public class ClassObjectTest {
 
     @Test
     public void test9(){
-        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+        ClassObject<?> classObject = ObjectFactory.getInstance().getClassObject(People.class);
         People people = new People();
         CommonField commonField = classObject.getField("number");
         System.out.println(commonField);
@@ -113,7 +112,7 @@ public class ClassObjectTest {
 
     @Test
     public void test10(){
-        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(Man.class);
+        ClassObject<?> classObject = ObjectFactory.getInstance().getClassObject(Man.class);
         CommonField commonField = classObject.getField("SEX");
         System.out.println(commonField);
     }

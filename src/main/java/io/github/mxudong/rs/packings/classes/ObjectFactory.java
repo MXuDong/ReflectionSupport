@@ -4,13 +4,13 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * this class is the ClassObject creator, you can think that the {@code ClassFactory}
+ * this class is the ClassObject creator, you can think that the {@code ObjectFactory}
  * is the ClassObject's construction.
  * <p>
  * this class also save the info of the class object, so you can quick get the class object
  * second.
  * <p>
- * the ClassFactory is singleton, please keep the singleton feature.
+ * the ObjectFactory is singleton, please keep the singleton feature.
  * <p>
  * if you want to load a class, all the super class from this will be load too. Until object or
  * head, if the super class is loaded, it will stop.
@@ -19,11 +19,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 3.0
  */
 
-public class ClassFactory {
+public class ObjectFactory {
     /**
-     * the ClassFactory's instance
+     * the ObjectFactory's instance
      */
-    private static ClassFactory INSTANCE;
+    private static ObjectFactory INSTANCE;
 
     /**
      * save the info of ClassObject with class' name
@@ -31,23 +31,23 @@ public class ClassFactory {
     private Map<String, ClassObject<?>> classObjectMap;
 
     /**
-     * the {@code ClassFactory} is singleton, so
+     * the {@code ObjectFactory} is singleton, so
      * the construction is private
      */
-    private ClassFactory() {
+    private ObjectFactory() {
         classObjectMap = new ConcurrentHashMap<>();
     }
 
     /**
-     * get ClassFactory instance
+     * get ObjectFactory instance
      *
-     * @return ClassFactory instance
+     * @return ObjectFactory instance
      */
-    public static ClassFactory getInstance() {
+    public static ObjectFactory getInstance() {
         if (INSTANCE == null) {
-            synchronized (ClassFactory.class) {
+            synchronized (ObjectFactory.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new ClassFactory();
+                    INSTANCE = new ObjectFactory();
                 }
             }
         }
@@ -76,7 +76,7 @@ public class ClassFactory {
         }
 
         if (!classObjectMap.containsKey(c.getName())) {
-            synchronized (ClassFactory.class) {
+            synchronized (ObjectFactory.class) {
                 if (!classObjectMap.containsKey(c.getName())) {
                     ClassObject<?> classObject = new ClassObject<>(c);
                     classObjectMap.put(c.getName(), classObject);
