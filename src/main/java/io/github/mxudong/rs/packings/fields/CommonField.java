@@ -7,7 +7,6 @@ import io.github.mxudong.rs.packings.methods.SetterMethod;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.sql.Ref;
 
 /**
  * the CommonField packing the Field in class, and
@@ -33,6 +32,10 @@ public class CommonField {
      * the packing field name
      */
     private String packingFieldName;
+    /**
+     * the packing field type
+     */
+    private FieldType fieldType;
 
     /**
      * the class which has packing field
@@ -63,6 +66,13 @@ public class CommonField {
         this.packingFieldType = packingField.getType();
         this.fieldSetterMethod = classObject.getSetterMethod(getSetterMethodName());
         this.fieldGetterMethod = classObject.getGetterMethod(getGetterMethodName());
+        if (Modifier.isFinal(packingField.getModifiers())) {
+            this.fieldType = FieldType.FINAL_FIELD;
+        } else if (Modifier.isStatic(packingField.getModifiers())) {
+            this.fieldType = FieldType.STATIC_FIELD;
+        } else {
+            this.fieldType = FieldType.COMMON_FIELD;
+        }
     }
 
     /**
@@ -112,6 +122,24 @@ public class CommonField {
      */
     public String getSetterMethodName() {
         return addPreFix("set", packingFieldName);
+    }
+
+    /**
+     * is field final
+     *
+     * @return if field is final return true, else return false
+     */
+    public boolean isFinal() {
+        return fieldType.equals(FieldType.FINAL_FIELD);
+    }
+
+    /**
+     * is field static
+     *
+     * @return if field is static return true, else return false
+     */
+    public boolean isStatic() {
+        return fieldType.equals(FieldType.STATIC_FIELD);
     }
 
     /**
@@ -182,12 +210,22 @@ public class CommonField {
      * {@code setValueDirect(Object target, Object value)}
      * <p>
      * if the field has no setter method, it will do nothing
+     * <p>
+     * if the field is final, will throw new ReflectionException
      *
      * @param target aim object which you want to invoke
      * @param value  you expect value
      * @see SetterMethod
      */
     public void setValue(Object target, Object... value) {
+
+        if (isFinal()) {
+            try {
+                throw new ReflectionException("CommonField", "setValueDirect", "the field is final");
+            } catch (ReflectionException e) {
+                e.printStackTrace();
+            }
+        }
 
         if (this.fieldSetterMethod == null) {
             try {
@@ -209,11 +247,21 @@ public class CommonField {
      * setter method, please use {@code setValue(Object target, Object value)}
      * <p>
      * if the field is not public it will throw {@code ReflectionException}, and set value failed
+     * <p>
+     * if the field is final, will throw new ReflectionException
      *
      * @param target aim object
      * @param value  new value
      */
     public void setValueDirect(Object target, Object value) {
+        if (isFinal()) {
+            try {
+                throw new ReflectionException("CommonField", "setValueDirect", "the field is final");
+            } catch (ReflectionException e) {
+                e.printStackTrace();
+            }
+        }
+
         if (!isPublic()) {
             try {
                 throw new ReflectionException("CommonField", "setValueDirect", "the field is not public");
@@ -255,5 +303,10 @@ public class CommonField {
         }
 
         return result.append(name).toString();
+    }
+
+    @Override
+    public String toString() {
+        return "";
     }
 }
