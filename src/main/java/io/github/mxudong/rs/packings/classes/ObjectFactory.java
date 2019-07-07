@@ -56,7 +56,7 @@ public class ObjectFactory {
     }
 
     /**
-     * get the ClassObject, if it is interface, enum or annotation will
+     * get the ClassObject, if it is annotation will
      * return null
      * <p>
      * if {@code classObjectMap} has loaded the class' info, will return

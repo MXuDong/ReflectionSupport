@@ -8,12 +8,9 @@ package io.github.mxudong.rs.others;
 public class tests {
     public static void main(String[] args) {
         Class<TestInterface> tClass = TestInterface.class;
-        try {
-            System.out.println(tClass.newInstance());
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
 
+        System.out.println(tClass.isAssignableFrom(TestAble.class));
+        System.out.println(tClass.isAssignableFrom(TestInterface2.class));
     }
 }
 
@@ -31,4 +28,8 @@ interface TestInterface {
      * @return 1
      */
     int getInt();
+}
+
+interface TestInterface2 extends TestInterface{
+
 }
