@@ -1,5 +1,6 @@
 package io.github.mxudong.rs.packings.classes;
 
+import io.github.mxudong.rs.bean.Man;
 import io.github.mxudong.rs.bean.People;
 import io.github.mxudong.rs.packings.fields.CommonField;
 import io.github.mxudong.rs.packings.methods.ConstructMethod;
@@ -7,6 +8,7 @@ import io.github.mxudong.rs.packings.methods.Invoker;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Map;
 
 public class ClassObjectTest {
 
@@ -106,6 +108,13 @@ public class ClassObjectTest {
         ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
         People people = new People();
         CommonField commonField = classObject.getField("number");
+        System.out.println(commonField);
+    }
+
+    @Test
+    public void test10(){
+        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(Man.class);
+        CommonField commonField = classObject.getField("SEX");
         System.out.println(commonField);
     }
 }
