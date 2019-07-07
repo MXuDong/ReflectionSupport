@@ -29,4 +29,13 @@ public class InterfaceObject<T> {
         this.interfaceClass = interfaceObject;
         this.interfaceName = interfaceObject.getName();
     }
+
+    /**
+     * get the interface name
+     *
+     * @return interface name
+     */
+    public String getInterfaceName() {
+        return interfaceName;
+    }
 }
