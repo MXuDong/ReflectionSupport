@@ -13,6 +13,8 @@ import java.lang.reflect.Modifier;
  * provides method to manage Field
  * <p>
  * for every field, will check setterMethod and check getterMethod
+ * <p>
+ * and it not sync
  *
  * @author Dong
  * @since 3.0

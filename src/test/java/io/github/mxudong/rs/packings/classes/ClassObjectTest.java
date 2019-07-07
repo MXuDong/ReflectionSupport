@@ -100,4 +100,12 @@ public class ClassObjectTest {
         System.out.println(commonField.getValueDirect(people));
         System.out.println(commonField.getValue(people));
     }
+
+    @Test
+    public void test9(){
+        ClassObject<?> classObject = ClassFactory.getInstance().getClassObject(People.class);
+        People people = new People();
+        CommonField commonField = classObject.getField("number");
+        System.out.println(commonField);
+    }
 }
