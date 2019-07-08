@@ -93,6 +93,11 @@ public class ClassObject<T> {
     private Class<T> packingClass;
 
     /**
+     * the object interfaces
+     */
+    private ClassObject<?> []interfaces;
+
+    /**
      * super class object of packing class, will it null, it
      * is {@code Object}
      */
@@ -174,6 +179,12 @@ public class ClassObject<T> {
         this.allFields = new CommonField[fields.length];
         for (int i = 0; i < fields.length; i++) {
             this.allFields[i] = new CommonField(fields[i], this);
+        }
+
+        Class<?>[] interfaces = c.getInterfaces();
+        this.interfaces = new ClassObject[interfaces.length];
+        for(int i = 0; i < interfaces.length; i++){
+            this.interfaces[i] = ObjectFactory.getInstance().getClassObject(interfaces[i]);
         }
     }
 
@@ -407,6 +418,10 @@ public class ClassObject<T> {
         }
 
         return null;
+    }
+
+    public int getInterfacesCount(){
+        return this.interfaces.length;
     }
 
     @Override
