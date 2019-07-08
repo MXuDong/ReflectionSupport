@@ -29,8 +29,6 @@ public class ClassObject<T> {
 
         可通过此类实现实例方法
             默认和指定参数类型两种方式
-        获取方法
-        获取字段
         调用方法
         获取字段值
      */
@@ -180,6 +178,7 @@ public class ClassObject<T> {
             this.allFields[i] = new CommonField(fields[i], this);
         }
 
+        // get the all interfaces of this class ===================================================
         Class<?>[] interfaces = c.getInterfaces();
         this.interfaces = new ClassObject[interfaces.length];
         for (int i = 0; i < interfaces.length; i++) {
