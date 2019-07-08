@@ -25,7 +25,6 @@ public class ClassObject<T> {
     /*
     规划：
         包含全部字段集合
-        包含所有实现的接口信息
         包含所有类级别的注解信息
 
         可通过此类实现实例方法
@@ -95,7 +94,7 @@ public class ClassObject<T> {
     /**
      * the object interfaces
      */
-    private ClassObject<?> []interfaces;
+    private ClassObject<?>[] interfaces;
 
     /**
      * super class object of packing class, will it null, it
@@ -183,7 +182,7 @@ public class ClassObject<T> {
 
         Class<?>[] interfaces = c.getInterfaces();
         this.interfaces = new ClassObject[interfaces.length];
-        for(int i = 0; i < interfaces.length; i++){
+        for (int i = 0; i < interfaces.length; i++) {
             this.interfaces[i] = ObjectFactory.getInstance().getClassObject(interfaces[i]);
         }
     }
@@ -195,26 +194,6 @@ public class ClassObject<T> {
      */
     public boolean hasDefaultConstructorMethod() {
         return this.defaultConstructorMethod != -1;
-    }
-
-    /**
-     * get the newInstance of this packing class,
-     * but if has no default construction, it will return null
-     *
-     * @return new instance
-     */
-    public T getNewInstance() {
-        if (hasDefaultConstructorMethod()) {
-            return this.constructMethods[defaultConstructorMethod].newInstance();
-        } else {
-            try {
-                throw new ReflectionException("ClassObject", "getNewInstance()", "has no default construction");
-            } catch (ReflectionException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
     }
 
     /**
@@ -319,6 +298,27 @@ public class ClassObject<T> {
 
     /**
      * get the newInstance of this packing class,
+     * but if has no default construction, it will return null
+     *
+     * @return new instance
+     */
+    public T getNewInstance() {
+        if (hasDefaultConstructorMethod()) {
+            return this.constructMethods[defaultConstructorMethod].newInstance();
+        } else {
+            try {
+                throw new ReflectionException("ClassObject", "getNewInstance()", "has no default construction");
+            } catch (ReflectionException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+
+    /**
+     * get the newInstance of this packing class,
      * but if can't match construction of params, it will return null
      *
      * @param params aim params
@@ -420,7 +420,7 @@ public class ClassObject<T> {
         return null;
     }
 
-    public int getInterfacesCount(){
+    public int getInterfacesCount() {
         return this.interfaces.length;
     }
 
