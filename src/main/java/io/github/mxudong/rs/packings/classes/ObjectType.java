@@ -1,5 +1,6 @@
 package io.github.mxudong.rs.packings.classes;
 
+
 /**
  * @author Dong
  * @since 3.0
