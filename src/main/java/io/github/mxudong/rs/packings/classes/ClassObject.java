@@ -296,6 +296,29 @@ public class ClassObject<T> {
     }
 
     /**
+     * invoke the method which name is methodName and params is args.class
+     *
+     * @param methodName method name
+     * @param target     aim object
+     * @param args       aim args
+     * @return invoke result
+     */
+    public Object invokeMethod(String methodName, Object target, Object... args) {
+        Invoker invoker = this.getMethodInvoker(methodName, args);
+        if (invoker == null) {
+            try {
+                throw new ReflectionException("ClassObject", "invokeMethod", "can't find method with name" +
+                        "[" + methodName + "] or param wrong");
+            } catch (ReflectionException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        return invoker.invoke(target, args);
+    }
+
+    /**
      * get the newInstance of this packing class,
      * but if has no default construction, it will return null
      *
