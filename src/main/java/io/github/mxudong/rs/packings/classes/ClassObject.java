@@ -68,6 +68,13 @@ public class ClassObject<T> {
     private CommonField[] allFields;
 
     /**
+     * the object type
+     *
+     * @see ObjectType
+     */
+    private ObjectType objectType;
+
+    /**
      * constructors of packing class
      *
      * @see ConstructMethod
@@ -99,6 +106,13 @@ public class ClassObject<T> {
     protected ClassObject(@NotNull Class<T> c) {
         this.packingClass = c;
         superClassObject = ObjectFactory.getInstance().getClassObject(c.getSuperclass());
+        if (c.isInterface()) {
+            objectType = ObjectType.INTERFACE;
+        } else if (c.isEnum()) {
+            objectType = ObjectType.ENUM;
+        } else {
+            objectType = ObjectType.CLASS;
+        }
 
         // init some properties
         this.staticMethods = new HashMap<>();
@@ -357,6 +371,15 @@ public class ClassObject<T> {
      */
     public boolean isStatic() {
         return Modifier.isStatic(packingClass.getModifiers());
+    }
+
+    /**
+     * get the object type
+     *
+     * @return object type
+     */
+    public ObjectType getObjectType() {
+        return this.objectType;
     }
 
     /**
