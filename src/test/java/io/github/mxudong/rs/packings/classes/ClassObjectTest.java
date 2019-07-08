@@ -116,4 +116,12 @@ public class ClassObjectTest {
         CommonField commonField = classObject.getField("SEX");
         System.out.println(commonField);
     }
+
+    @Test
+    public void test11(){
+        ClassObject<?> classObject = ObjectFactory.getInstance().getClassObject(Man.class);
+        Man man = new Man();
+        CommonField commonField = classObject.getField("SEX");
+        System.out.println(classObject.invokeMethod("getSEX", man));
+    }
 }
