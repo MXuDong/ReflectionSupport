@@ -1,5 +1,8 @@
 package io.github.mxudong.rs.others;
 
+import io.github.mxudong.rs.packings.classes.ClassObject;
+import io.github.mxudong.rs.packings.classes.ObjectFactory;
+
 import java.util.Arrays;
 
 /**
@@ -16,6 +19,9 @@ public class tests {
         System.out.println(Arrays.toString(TestInterface2.class.getDeclaredMethods()));
         System.out.println(Arrays.toString(TestAble.class.getInterfaces()));
         System.out.println(Arrays.toString(TestInterface2.class.getInterfaces()));
+
+        ClassObject<TestAble> testAbleClassObject = (ClassObject<TestAble>) ObjectFactory.getInstance().getClassObject(tClass);
+        System.out.println(Arrays.toString(testAbleClassObject.getAllmethods()));
     }
 }
 
