@@ -71,7 +71,7 @@ public class ObjectFactory {
             return null;
         }
 
-        if (c.isAnnotation() || c.isEnum() || c.isInterface()) {
+        if (c.isAnnotation()) {
             return null;
         }
 
