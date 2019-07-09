@@ -13,6 +13,7 @@ public class ReflectorTest {
     public void test1(){
         Reflector<Man> manReflector = new Reflector<>(new Man());
         System.out.println(Arrays.toString(manReflector.getClassObject().getAllmethods()));
+        System.out.println(manReflector.turnToMap(true));
     }
 
 }
