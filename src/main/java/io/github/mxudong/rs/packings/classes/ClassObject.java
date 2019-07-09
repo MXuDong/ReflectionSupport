@@ -6,10 +6,7 @@ import io.github.mxudong.rs.packings.methods.*;
 import io.github.mxudong.rs.utils.MethodUtil;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.*;
 import java.util.*;
 
 /**
@@ -456,6 +453,19 @@ public class ClassObject<T> {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * create an array of class
+     *
+     * @param length the array length
+     * @return an new array
+     */
+    public T[] getArray(int length) {
+        if (length < 0) {
+            return null;
+        }
+        return (T[]) Array.newInstance(this.packingClass, length);
     }
 
     /**
