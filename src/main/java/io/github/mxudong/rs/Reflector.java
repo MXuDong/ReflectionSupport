@@ -6,6 +6,7 @@ import io.github.mxudong.rs.packings.classes.ClassObject;
 import io.github.mxudong.rs.packings.classes.ObjectFactory;
 import io.github.mxudong.rs.packings.fields.CommonField;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,8 +61,8 @@ public class Reflector<T> {
     }
 
     public Map<String, Object> turnToMap(boolean canBeNull) {
-        CommonField[] commonFields = classObject.getAllFields();
-        Map<String, Object> map = new HashMap<>(commonFields.length);
+        ArrayList<CommonField> commonFields = classObject.getAllFields();
+        Map<String, Object> map = new HashMap<>(commonFields.size());
         for (CommonField commonField : commonFields) {
             Object result = commonField.getValue(this.packingObject);
             if (result == null) {
