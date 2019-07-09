@@ -572,6 +572,11 @@ public class ClassObject<T> {
         return commonField.getValue(target, args);
     }
 
+    /**
+     * get the interface count
+     *
+     * @return get the interface count
+     */
     public int getInterfacesCount() {
         return this.interfaces.length;
     }
