@@ -329,19 +329,49 @@ public class ClassObject<T> {
      * the setter method is all the method which start with get
      *
      * @param methodName the method name
-     * @param target aim object
-     * @param args aim value
+     * @param target     aim object
+     * @param args       aim value
      * @return the result of getter
      */
     public Object invokeGetterMethod(String methodName, Object target, Object... args) {
-        if(this.getterMethods.containsKey(methodName)){
-            for(int i : this.getterMethods.get(methodName)){
-                if(this.invokers[i].isParamsIsThisMethod(args)){
+        if (this.getterMethods.containsKey(methodName)) {
+            for (int i : this.getterMethods.get(methodName)) {
+                if (this.invokers[i].isParamsIsThisMethod(args)) {
                     return this.invokers[i].invoke(target, args);
                 }
             }
-        }else {
-            if(superClassObject != null){
+        } else {
+            if (superClassObject != null) {
+                return superClassObject.invokeGetterMethod(methodName, target, args);
+            }
+        }
+
+        try {
+            throw new ReflectionException("ClassObject", "invokeGetterMethod", "can't find getter method");
+        } catch (ReflectionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * invoke setter method
+     *
+     * @param methodName method name
+     * @param target     aim obejct
+     * @param args       aim value
+     * @return invoke result
+     */
+    public Object invokeSetterMethod(String methodName, Object target, Object... args) {
+        if (this.setterMethods.containsKey(methodName)) {
+            for (int i : this.setterMethods.get(methodName)) {
+                if (this.invokers[i].isParamsIsThisMethod(args)) {
+                    return this.invokers[i].invoke(target, args);
+                }
+            }
+        } else {
+            if (superClassObject != null) {
                 return superClassObject.invokeGetterMethod(methodName, target, args);
             }
         }
