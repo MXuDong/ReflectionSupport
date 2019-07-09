@@ -595,12 +595,25 @@ public class ClassObject<T> {
     }
 
     /**
-     * get the all fields
+     * get the packing class declared fields
      *
+     * @return packing class declared fields
+     */
+    public CommonField[] getFields() {
+        return Arrays.copyOf(this.allFields, this.allFields.length);
+    }
+
+    /**
+     * get the all fields
      * @return all fields
      */
-    public CommonField[] getAllFields() {
-        return Arrays.copyOf(this.allFields, this.allFields.length);
+    public ArrayList<CommonField> getAllFields() {
+        ArrayList<CommonField> commonFields = new ArrayList<>();
+        if (this.superClassObject != null) {
+            commonFields.addAll(superClassObject.getAllFields());
+        }
+        commonFields.addAll(Arrays.asList(this.allFields));
+        return commonFields;
     }
 
     /**
