@@ -219,7 +219,7 @@ public class CommonField {
      * @param value  you expect value
      * @see SetterMethod
      */
-    public void setValue(Object target, Object... value) {
+    public Object setValue(Object target, Object... value) {
 
         if (isFinal()) {
             try {
@@ -238,10 +238,11 @@ public class CommonField {
         }
         for (SetterMethod setterMethod : this.fieldSetterMethod) {
             if (setterMethod.isParamsIsThisMethod(value)) {
-                setterMethod.invoke(target, value);
-                break;
+                return setterMethod.invoke(target, value);
             }
         }
+
+        return null;
     }
 
     /**
