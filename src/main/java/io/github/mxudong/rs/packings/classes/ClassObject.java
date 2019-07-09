@@ -196,13 +196,27 @@ public class ClassObject<T> {
     }
 
     /**
+     * get the packing classes' methods
+     *
+     * @return packing classes' methods
+     * @see Invoker
+     */
+    public Invoker[] getMethods() {
+        return Arrays.copyOf(this.invokers, this.invokers.length);
+    }
+
+    /**
      * get the all methods
      *
      * @return all methods
-     * @see Invoker
      */
-    public Invoker[] getAllmethods() {
-        return Arrays.copyOf(this.invokers, this.invokers.length);
+    public ArrayList<Invoker> getAllMethods() {
+        ArrayList<Invoker> invokers = new ArrayList<>();
+        if (this.superClassObject != null) {
+            invokers.addAll(superClassObject.getAllMethods());
+        }
+        invokers.addAll(Arrays.asList(getMethods()));
+        return invokers;
     }
 
     /**
@@ -605,6 +619,7 @@ public class ClassObject<T> {
 
     /**
      * get the all fields
+     *
      * @return all fields
      */
     public ArrayList<CommonField> getAllFields() {
