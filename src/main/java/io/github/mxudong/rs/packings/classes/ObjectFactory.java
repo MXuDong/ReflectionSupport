@@ -1,6 +1,6 @@
 package io.github.mxudong.rs.packings.classes;
 
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -83,7 +83,15 @@ public class ObjectFactory {
                 }
             }
         }
-
         return classObjectMap.get(c.getName());
     }
+
+    /**
+     * get the all class object
+     * @return all class object
+     */
+    public ArrayList<ClassObject<?>> getClassObject(){
+        return new ArrayList<>(this.classObjectMap.values());
+    }
+
 }
