@@ -377,7 +377,37 @@ public class ClassObject<T> {
         }
 
         try {
-            throw new ReflectionException("ClassObject", "invokeGetterMethod", "can't find getter method");
+            throw new ReflectionException("ClassObject", "invokeGetterMethod", "can't find setter method");
+        } catch (ReflectionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * invoke static method
+     *
+     * @param methodName method name
+     * @param target     aim object
+     * @param args       aim params
+     * @return invoke result
+     */
+    public Object invokeStaticMethod(String methodName, Object target, Object... args) {
+        if (this.staticMethods.containsKey(methodName)) {
+            for (int i : this.staticMethods.get(methodName)) {
+                if (this.invokers[i].isParamsIsThisMethod(args)) {
+                    return this.invokers[i].invoke(target, args);
+                }
+            }
+        } else {
+            if (superClassObject != null) {
+                return superClassObject.invokeGetterMethod(methodName, target, args);
+            }
+        }
+
+        try {
+            throw new ReflectionException("ClassObject", "invokeGetterMethod", "can't find static method");
         } catch (ReflectionException e) {
             e.printStackTrace();
         }
