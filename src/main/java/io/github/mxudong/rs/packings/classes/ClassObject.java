@@ -595,6 +595,15 @@ public class ClassObject<T> {
     }
 
     /**
+     * get the all fields
+     *
+     * @return all fields
+     */
+    public CommonField[] getAllFields() {
+        return Arrays.copyOf(this.allFields, this.allFields.length);
+    }
+
+    /**
      * get the interface count
      *
      * @return get the interface count
