@@ -4,6 +4,10 @@ package io.github.mxudong.rs;
 
 import io.github.mxudong.rs.packings.classes.ClassObject;
 import io.github.mxudong.rs.packings.classes.ObjectFactory;
+import io.github.mxudong.rs.packings.fields.CommonField;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * it has packing the object operation of reflection
@@ -23,7 +27,7 @@ public class Reflector<T> {
     /**
      * packing the object
      */
-    private T object;
+    private T packingObject;
 
     /**
      * the object factory
@@ -34,7 +38,7 @@ public class Reflector<T> {
 
     public Reflector(T object) {
         classObject = (ClassObject<T>) objectFactory.getClassObject(object.getClass());
-        this.object = object;
+        this.packingObject = object;
     }
 
     /**
@@ -52,6 +56,22 @@ public class Reflector<T> {
      * @return inner object
      */
     public T getInnerObject() {
-        return object;
+        return packingObject;
+    }
+
+    public Map<String, Object> turnToMap(boolean canBeNull) {
+        CommonField[] commonFields = classObject.getAllFields();
+        Map<String, Object> map = new HashMap<>(commonFields.length);
+        for (CommonField commonField : commonFields) {
+            Object result = commonField.getValue(this.packingObject);
+            if (result == null) {
+                if (canBeNull) {
+                    map.put(commonField.getFieldName(), null);
+                }
+                continue;
+            }
+            map.put(commonField.getFieldName(), result);
+        }
+        return map;
     }
 }
