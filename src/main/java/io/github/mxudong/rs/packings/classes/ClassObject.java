@@ -306,16 +306,53 @@ public class ClassObject<T> {
     public Object invokeMethod(String methodName, Object target, Object... args) {
         Invoker invoker = this.getMethodInvoker(methodName, args);
         if (invoker == null) {
-            try {
-                throw new ReflectionException("ClassObject", "invokeMethod", "can't find method with name" +
-                        "[" + methodName + "] or param wrong");
-            } catch (ReflectionException e) {
-                e.printStackTrace();
-                return null;
+
+            if (superClassObject != null) {
+                return superClassObject.invokeMethod(methodName, target, args);
+            } else {
+                try {
+                    throw new ReflectionException("ClassObject", "invokeMethod", "can't find method with name" +
+                            "[" + methodName + "] or param wrong");
+                } catch (ReflectionException e) {
+                    e.printStackTrace();
+                    return null;
+                }
             }
         }
 
         return invoker.invoke(target, args);
+    }
+
+    /**
+     * this method will invoke getter method
+     * <p>
+     * the setter method is all the method which start with get
+     *
+     * @param methodName the method name
+     * @param target aim object
+     * @param args aim value
+     * @return the result of getter
+     */
+    public Object invokeGetterMethod(String methodName, Object target, Object... args) {
+        if(this.getterMethods.containsKey(methodName)){
+            for(int i : this.getterMethods.get(methodName)){
+                if(this.invokers[i].isParamsIsThisMethod(args)){
+                    return this.invokers[i].invoke(target, args);
+                }
+            }
+        }else {
+            if(superClassObject != null){
+                return superClassObject.invokeGetterMethod(methodName, target, args);
+            }
+        }
+
+        try {
+            throw new ReflectionException("ClassObject", "invokeGetterMethod", "can't find getter method");
+        } catch (ReflectionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     /**
