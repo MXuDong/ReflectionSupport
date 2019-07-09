@@ -44,7 +44,7 @@ public class ClassObjectTest {
     @Test
     public void test4() {
         ClassObject<?> classObject = ObjectFactory.getInstance().getClassObject(People.class);
-        Invoker[] invokers = classObject.getAllmethods();
+        Invoker[] invokers = classObject.getMethods();
         for (Invoker invoker : invokers) {
             System.out.println(invoker);
         }

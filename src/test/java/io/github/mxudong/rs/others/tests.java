@@ -21,7 +21,7 @@ public class tests {
         System.out.println(Arrays.toString(TestInterface2.class.getInterfaces()));
 
         ClassObject<TestAble> testAbleClassObject = (ClassObject<TestAble>) ObjectFactory.getInstance().getClassObject(tClass);
-        System.out.println(Arrays.toString(testAbleClassObject.getAllmethods()));
+        System.out.println(Arrays.toString(testAbleClassObject.getMethods()));
     }
 }
 
