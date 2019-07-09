@@ -3,6 +3,7 @@ package io.github.mxudong.rs;
 import io.github.mxudong.rs.bean.BoyStudent;
 import io.github.mxudong.rs.bean.Man;
 import io.github.mxudong.rs.packings.classes.ObjectFactory;
+import io.github.mxudong.rs.packings.methods.Invoker;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -30,7 +31,9 @@ public class ReflectorTest {
         Reflector<BoyStudent> reflector = new Reflector<>(boyStudent);
         System.out.println(reflector.getInnerObject());
         System.out.println(reflector.turnToMap(true));
-        System.out.println(Arrays.toString(reflector.getClassObject().getMethods()));
+        for(Invoker invoker : reflector.getClassObject().getAllMethods()){
+            System.out.println(invoker);
+        }
         System.out.println(reflector.getClassObject().getAllFields());
         System.out.println(reflector.getClassObject().getObjectType().getType());
         System.out.println(reflector.getClassObject().getPackingClassName());
