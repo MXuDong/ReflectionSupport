@@ -539,6 +539,39 @@ public class ClassObject<T> {
         return null;
     }
 
+
+    /**
+     * get the field value of target
+     *
+     * @param fieldName field name
+     * @param target    target object
+     * @return field value
+     */
+    public Object getFieldValue(String fieldName, Object target) {
+        return getFieldValue(fieldName, target, new Object() {
+        });
+    }
+
+    /**
+     * get the field value of target
+     *
+     * @param fieldName field name
+     * @param target    target object
+     * @param args      required params
+     * @return field value
+     */
+    public Object getFieldValue(String fieldName, Object target, Object... args) {
+        CommonField commonField = this.getField(fieldName);
+        if (commonField == null) {
+            if (superClassObject != null) {
+                return superClassObject.getFieldValue(fieldName, target, args);
+            }
+            return null;
+        }
+
+        return commonField.getValue(target, args);
+    }
+
     public int getInterfacesCount() {
         return this.interfaces.length;
     }
