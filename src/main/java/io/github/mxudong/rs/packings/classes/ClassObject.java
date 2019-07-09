@@ -548,8 +548,7 @@ public class ClassObject<T> {
      * @return field value
      */
     public Object getFieldValue(String fieldName, Object target) {
-        return getFieldValue(fieldName, target, new Object() {
-        });
+        return getFieldValue(fieldName, target, (Object[]) null);
     }
 
     /**
@@ -570,6 +569,25 @@ public class ClassObject<T> {
         }
 
         return commonField.getValue(target, args);
+    }
+
+    /**
+     * set the field value of target
+     *
+     * @param fieldName field name
+     * @param target    target object
+     * @param args      bet set value
+     * @return invoke result, an some time, it cloud null
+     */
+    public Object setFieldValue(String fieldName, Object target, Object... args) {
+        CommonField commonField = this.getField(fieldName);
+        if (commonField == null) {
+            if (superClassObject != null) {
+                return superClassObject.setFieldValue(fieldName, target, args);
+            }
+            return null;
+        }
+        return commonField.setValue(target, args);
     }
 
     /**
