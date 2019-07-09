@@ -11,8 +11,11 @@ public class ReflectorTest {
 
     @Test
     public void test1(){
-        Reflector<Man> manReflector = new Reflector<>(new Man());
+        Man man = new Man();
+        Reflector<Man> manReflector = new Reflector<>(man);
         System.out.println(Arrays.toString(manReflector.getClassObject().getAllmethods()));
+        System.out.println(manReflector.turnToMap(true));
+        man.setAge(15);
         System.out.println(manReflector.turnToMap(true));
     }
 
