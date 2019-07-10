@@ -37,9 +37,28 @@ public class Reflector<T> {
      */
     ObjectFactory objectFactory = ObjectFactory.getInstance();
 
+    /**
+     * the construction method, and it can receive the object
+     *
+     * @param object target object which will be packed
+     */
     public Reflector(T object) {
         classObject = (ClassObject<T>) objectFactory.getClassObject(object.getClass());
         this.packingObject = object;
+    }
+
+    /**
+     * the construction method, and it can receive the object's class,
+     * and the aim class must have the default construction, if not,
+     * it will throw some exception {@link ClassObject#getNewInstance()}
+     * <p>
+     * so by this construction, will create a new object from tClass
+     *
+     * @param tClass target class of packing object
+     */
+    public Reflector(Class<T> tClass) {
+        this.classObject = (ClassObject<T>) objectFactory.getClassObject(tClass);
+        this.packingObject = getNewInstance();
     }
 
     /**
