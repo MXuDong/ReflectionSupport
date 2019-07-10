@@ -81,4 +81,13 @@ public class Reflector<T> {
         }
         return map;
     }
+
+    /**
+     * get the new instance
+     *
+     * @return new instance
+     */
+    public T getNewInstance() {
+        return this.classObject.getNewInstance();
+    }
 }
