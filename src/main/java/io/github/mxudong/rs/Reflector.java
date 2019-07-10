@@ -101,4 +101,14 @@ public class Reflector<T> {
     public T getNewInstance(Object... args) {
         return this.classObject.getNewInstance(args);
     }
+
+    /**
+     * get the new array
+     *
+     * @param length the new array length
+     * @return new array
+     */
+    public T[] getNewArray(int length) {
+        return this.classObject.getArray(length);
+    }
 }
