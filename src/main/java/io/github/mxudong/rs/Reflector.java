@@ -62,6 +62,16 @@ public class Reflector<T> {
     }
 
     /**
+     * it like {@link #Reflector(Class)}, but it can receive ClassObject
+     *
+     * @param tReflector aim ClassObject
+     */
+    public Reflector(ClassObject<T> tReflector) {
+        this.classObject = tReflector;
+        this.packingObject = getNewInstance();
+    }
+
+    /**
      * get the classObject
      *
      * @return ClassObject
