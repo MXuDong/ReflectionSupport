@@ -41,4 +41,20 @@ public class ReflectorTest {
         System.out.println(reflector.getClassObject().getInterfacesCount());
     }
 
+    @Test
+    public void test3(){
+        Man[] men = new Man[5];
+
+        Reflector<Man[]> menR = new Reflector<>(men);
+
+        System.out.println(menR.getClassObject());
+        System.out.println(ObjectFactory.getInstance().getClassObject());
+        System.out.println(menR.getClassObject().getAllMethods());
+        System.out.println(menR.getClassObject().getAllFields());
+        System.out.println(menR.getClassObject().getSuperClassObject());
+
+        System.out.println(Arrays.toString(menR.getClassObject().getConstructMethods()));
+        System.out.println(Arrays.deepToString(menR.getNewArray(3)));
+    }
+
 }
