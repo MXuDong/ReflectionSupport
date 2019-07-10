@@ -60,6 +60,12 @@ public class Reflector<T> {
         return packingObject;
     }
 
+    /**
+     * turn the object to map
+     *
+     * @param canBeNull if true, the params will be not append which is null
+     * @return the map
+     */
     public Map<String, Object> turnToMap(boolean canBeNull) {
         ArrayList<CommonField> commonFields = classObject.getAllFields();
         Map<String, Object> map = new HashMap<>(commonFields.size());
