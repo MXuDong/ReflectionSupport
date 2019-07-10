@@ -167,7 +167,7 @@ public class CommonField {
             return null;
         }
         for (GetterMethod getterMethod : this.fieldGetterMethod) {
-            if (getterMethod.isParamsIsThisMethod(params)) {
+            if (getterMethod != null && getterMethod.isParamsIsThisMethod(params)) {
                 return getterMethod.invoke(target, params);
             }
         }
@@ -223,7 +223,7 @@ public class CommonField {
 
         if (isFinal()) {
             try {
-                throw new ReflectionException("CommonField", "setValueDirect", "the field is final");
+                throw new ReflectionException("CommonField", "setValue", "the field is final");
             } catch (ReflectionException e) {
                 e.printStackTrace();
             }
@@ -231,13 +231,13 @@ public class CommonField {
 
         if (this.fieldSetterMethod == null) {
             try {
-                throw new ReflectionException("CommonField", "setValueDirect", "the field has no setter method");
+                throw new ReflectionException("CommonField", "setValue", "the field has no setter method");
             } catch (ReflectionException e) {
                 e.printStackTrace();
             }
         }
         for (SetterMethod setterMethod : this.fieldSetterMethod) {
-            if (setterMethod.isParamsIsThisMethod(value)) {
+            if (setterMethod != null && setterMethod.isParamsIsThisMethod(value)) {
                 return setterMethod.invoke(target, value);
             }
         }

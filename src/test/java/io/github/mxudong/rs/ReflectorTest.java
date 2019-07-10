@@ -57,4 +57,24 @@ public class ReflectorTest {
         System.out.println(Arrays.deepToString(menR.getNewArray(3)));
     }
 
+
+    @Test
+    public void test4(){
+        BoyStudent boyStudent = new BoyStudent();
+        boyStudent.setGrade("123");
+        boyStudent.setAge(15);
+        boyStudent.setName("zhaobenshan");
+        boyStudent.setNumber("12343515");
+
+        Reflector<BoyStudent> reflector = new Reflector<>(boyStudent);
+        System.out.println(reflector.turnToMap(true));
+
+        BoyStudent b = new BoyStudent();
+        Reflector<BoyStudent> reflector1 = new Reflector<>(b);
+        System.out.println(reflector1.turnToMap(true));
+
+        reflector1.setFromMap(reflector.turnToMap(true));
+        System.out.println(reflector.getInnerObject());
+        System.out.println(reflector1.turnToMap(true));
+    }
 }

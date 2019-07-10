@@ -92,7 +92,7 @@ public class Reflector<T> {
             Object params = infos.get(fieldName);
 
             CommonField commonField = this.classObject.getField(fieldName);
-            if (commonField != null) {
+            if (commonField != null && !commonField.isFinal()) {
                 commonField.setValue(this.packingObject, params);
             }
         }
