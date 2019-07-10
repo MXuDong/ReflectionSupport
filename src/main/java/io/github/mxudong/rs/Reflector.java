@@ -90,4 +90,15 @@ public class Reflector<T> {
     public T getNewInstance() {
         return this.classObject.getNewInstance();
     }
+
+
+    /**
+     * get the new instance
+     *
+     * @param args init object params
+     * @return new instance
+     */
+    public T getNewInstance(Object... args) {
+        return this.classObject.getNewInstance(args);
+    }
 }
