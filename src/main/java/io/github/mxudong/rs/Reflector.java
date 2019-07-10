@@ -1,7 +1,5 @@
 package io.github.mxudong.rs;
 
-//it is writing
-
 import io.github.mxudong.rs.packings.classes.ClassObject;
 import io.github.mxudong.rs.packings.classes.ObjectFactory;
 import io.github.mxudong.rs.packings.fields.CommonField;
@@ -87,6 +85,16 @@ public class Reflector<T> {
      */
     public T getInnerObject() {
         return packingObject;
+    }
+
+
+    /**
+     * get the class name
+     *
+     * @return class name
+     */
+    public String getClassName() {
+        return this.classObject.getPackingClassName();
     }
 
     /**
