@@ -127,4 +127,24 @@ public class Reflector<T> {
     public T[] getNewArray(int length) {
         return this.classObject.getArray(length);
     }
+
+    /**
+     * invoke the setter method
+     *
+     * @param fieldName field name
+     * @param args      new values
+     */
+    public void setFieldValue(String fieldName, Object... args) {
+        this.classObject.setFieldValue(fieldName, this.packingObject, args);
+    }
+
+    /**
+     * invoke the getter method
+     *
+     * @param fieldName field name
+     * @return the field value
+     */
+    public Object getFieldValue(String fieldName) {
+        return this.classObject.getFieldValue(fieldName, this.packingObject);
+    }
 }
