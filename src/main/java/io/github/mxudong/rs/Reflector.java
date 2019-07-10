@@ -147,4 +147,14 @@ public class Reflector<T> {
     public Object getFieldValue(String fieldName) {
         return this.classObject.getFieldValue(fieldName, this.packingObject);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.packingObject.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        return "Reflector : " + this.packingObject.toString();
+    }
 }
