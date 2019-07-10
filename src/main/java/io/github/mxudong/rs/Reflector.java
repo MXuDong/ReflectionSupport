@@ -150,7 +150,10 @@ public class Reflector<T> {
 
     @Override
     public boolean equals(Object obj) {
-        return this.packingObject.equals(obj);
+        if (this.classObject.getPackingClass().isInstance(obj)) {
+            return this.packingObject.equals(obj);
+        }
+        return false;
     }
 
     @Override
