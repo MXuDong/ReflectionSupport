@@ -83,6 +83,22 @@ public class Reflector<T> {
     }
 
     /**
+     * set the object from infos
+     *
+     * @param infos be setter infos
+     */
+    public void setFromMap(Map<String, Object> infos) {
+        for (String fieldName : infos.keySet()) {
+            Object params = infos.get(fieldName);
+
+            CommonField commonField = this.classObject.getField(fieldName);
+            if (commonField != null) {
+                commonField.setValue(this.packingObject, params);
+            }
+        }
+    }
+
+    /**
      * get the new instance
      *
      * @return new instance
