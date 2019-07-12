@@ -3,9 +3,11 @@ package io.github.mxudong.rs.packings.classes;
 import io.github.mxudong.rs.exceptions.ReflectionException;
 import io.github.mxudong.rs.packings.fields.CommonField;
 import io.github.mxudong.rs.packings.methods.*;
+import io.github.mxudong.rs.utils.ClassUtil;
 import io.github.mxudong.rs.utils.MethodUtil;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 import java.util.*;
 
@@ -85,6 +87,11 @@ public class ClassObject<T> {
      * is {@code Object}
      */
     private ClassObject<?> superClassObject;
+
+    /**
+     * annotations
+     */
+    private AnnotationObject[] annotationObjects;
 
     /**
      * construction method
@@ -170,6 +177,26 @@ public class ClassObject<T> {
         for (int i = 0; i < interfaces.length; i++) {
             this.interfaces[i] = ObjectFactory.getInstance().getClassObject(interfaces[i]);
         }
+
+        // get the all annotations of this class ==================================================
+        if (!ClassUtil.isMetaAnnotation(this.packingClass)) {
+            Annotation[] annotations = this.packingClass.getDeclaredAnnotations();
+            this.annotationObjects = new AnnotationObject[annotations.length];
+            for (int i = 0; i < annotations.length; i++) {
+                this.annotationObjects[i] = new AnnotationObject(annotations[i]);
+            }
+        } else {
+            this.annotationObjects = new AnnotationObject[0];
+        }
+    }
+
+    /**
+     * get the annotation count
+     *
+     * @return annotation count
+     */
+    public int getAnnotationCount() {
+        return this.annotationObjects.length;
     }
 
     /**
