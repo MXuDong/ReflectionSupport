@@ -17,11 +17,17 @@ public class AnnotationObject {
     private AnnotationClass annotationClass;
 
     /**
+     * target annotation
+     */
+    private Annotation packingAnnotation;
+
+    /**
      * the construction
      *
      * @param annotation traget annotation
      */
     public AnnotationObject(Annotation annotation) {
+        this.packingAnnotation = annotation;
         this.annotationClass = ObjectFactory.getInstance().getAnnotationClass(annotation.getClass());
     }
 
