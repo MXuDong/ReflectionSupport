@@ -19,11 +19,6 @@ import java.util.*;
 
 public class ClassObject<T> {
 
-    /*
-    规划：
-        包含所有类级别的注解信息
-     */
-
     /**
      * the method truly info
      */
