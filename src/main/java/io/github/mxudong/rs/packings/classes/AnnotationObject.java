@@ -82,4 +82,9 @@ public class AnnotationObject {
 
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Annotation : " + this.packingAnnotation.getClass().getName();
+    }
 }
