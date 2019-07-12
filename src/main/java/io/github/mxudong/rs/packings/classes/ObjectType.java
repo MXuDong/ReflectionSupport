@@ -13,7 +13,9 @@ public enum ObjectType {
     // enum
     ENUM("enum"),
     // interface
-    INTERFACE("interface");
+    INTERFACE("interface"),
+    // annotation
+    ANNOTATION("annotation");
 
     String type;
 
@@ -22,6 +24,6 @@ public enum ObjectType {
     }
 
     public String getType() {
-        return type;
+        return type + " type";
     }
 }
