@@ -23,7 +23,17 @@ public class AnnotationClass extends ClassObject{
         super(c);
     }
 
+    /**
+     * the annotation type
+     */
+    private ObjectType objectType = ObjectType.ANNOTATION;
+
     public Object invokeMethod(String methodName, Object target) {
         return super.invokeMethod(methodName, target);
+    }
+
+    @Override
+    public String toString() {
+        return objectType.getType() + ":" + super.getPackingClassName();
     }
 }

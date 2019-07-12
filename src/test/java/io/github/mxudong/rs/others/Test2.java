@@ -39,5 +39,6 @@ public class Test2 {
         AnnotationObject annotationObject = new AnnotationObject(testAnnotation);
         System.out.println(annotationObject.turnToMap());
         System.out.println(annotationObject.getInfo("annotationName"));
+        System.out.println(annotationObject);
     }
 }
