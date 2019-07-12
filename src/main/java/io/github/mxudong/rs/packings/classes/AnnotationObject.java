@@ -33,7 +33,7 @@ public class AnnotationObject {
      */
     public AnnotationObject(Annotation annotation) {
         this.packingAnnotation = annotation;
-        this.annotationClass = ObjectFactory.getInstance().getAnnotationClass(annotation.getClass());
+        this.annotationClass = ObjectFactory.getInstance().getAnnotationClass(annotation.annotationType());
     }
 
     /**
