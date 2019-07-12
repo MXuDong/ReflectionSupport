@@ -7,7 +7,7 @@ import io.github.mxudong.rs.annotations.TestAnnotation;
  * @since 3.0
  */
 
-@TestAnnotation(annotationName = "TEST")
+@TestAnnotation()
 public class BoyStudent extends Man implements SpeakAble {
 
     private String grade;

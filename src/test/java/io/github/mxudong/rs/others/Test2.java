@@ -23,16 +23,19 @@ public class Test2 {
         Class testAnnotationClass = testAnnotation.getClass();
         System.out.println(Arrays.toString(testAnnotationClass.getDeclaredMethods()));
         Method[] methods = testAnnotationClass.getDeclaredMethods();
+        System.out.println("==================================================");
         for(Method m : methods){
             System.out.println(m.getName());
         }
-        String test = testAnnotation.annotationName();
-        System.out.println(test);
+        System.out.println("==================================================");
         try {
             System.out.println(Arrays.toString(testAnnotationClass.getFields()));
             System.out.println(testAnnotationClass.getMethod("annotationName").invoke(testAnnotation));
         } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
         }
+
+
+
     }
 }

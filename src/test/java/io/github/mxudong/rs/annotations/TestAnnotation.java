@@ -13,5 +13,5 @@ import java.lang.annotation.RetentionPolicy;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface TestAnnotation {
-    String annotationName();
+//    String annotationName();
 }
