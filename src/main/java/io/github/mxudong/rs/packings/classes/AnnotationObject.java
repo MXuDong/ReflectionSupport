@@ -39,4 +39,14 @@ public class AnnotationObject {
     public AnnotationClass getAnnotationClass() {
         return this.annotationClass;
     }
+
+    /**
+     * get the annotation field value
+     *
+     * @param annotationField the value which you want get
+     * @return value
+     */
+    public Object getInfo(String annotationField) {
+        return annotationClass.invokeMethod(annotationField, packingAnnotation);
+    }
 }
