@@ -1,10 +1,13 @@
 package io.github.mxudong.rs.bean;
 
+import io.github.mxudong.rs.annotations.TestAnnotation;
+
 /**
  * @author Dong
  * @since 3.0
  */
 
+@TestAnnotation(annotationName = "TEST")
 public class BoyStudent extends Man implements SpeakAble {
 
     private String grade;
