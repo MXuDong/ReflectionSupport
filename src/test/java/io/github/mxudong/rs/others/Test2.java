@@ -6,6 +6,7 @@ import io.github.mxudong.rs.packings.classes.AnnotationObject;
 import org.junit.Test;
 
 import java.lang.annotation.Annotation;
+import java.lang.annotation.Documented;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -40,5 +41,13 @@ public class Test2 {
         System.out.println(annotationObject.turnToMap());
         System.out.println(annotationObject.getInfo("annotationName"));
         System.out.println(annotationObject);
+    }
+
+    @Test
+    public void Test2(){
+        Class<BoyStudent> boyStudentClass = BoyStudent.class;
+        Annotation testAnnotation = boyStudentClass.getDeclaredAnnotation(TestAnnotation.class);
+        Documented documented = testAnnotation.annotationType().getAnnotation(Documented.class);
+        System.out.println(Arrays.toString(documented.annotationType().getAnnotations()));
     }
 }
