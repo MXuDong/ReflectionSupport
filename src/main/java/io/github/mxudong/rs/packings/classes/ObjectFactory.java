@@ -1,5 +1,7 @@
 package io.github.mxudong.rs.packings.classes;
 
+import io.github.mxudong.rs.exceptions.ReflectionException;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -56,9 +58,6 @@ public class ObjectFactory {
     }
 
     /**
-     * get the ClassObject, if it is annotation will
-     * return null
-     * <p>
      * if {@code classObjectMap} has loaded the class' info, will return
      * without new instance, else will get new instance and add to
      * {@code classObjectMap} and return it.
@@ -72,7 +71,7 @@ public class ObjectFactory {
         }
 
         if (c.isAnnotation()) {
-            return null;
+            return getAnnotationClass(c);
         }
 
         if (!classObjectMap.containsKey(c.getName())) {
@@ -87,10 +86,39 @@ public class ObjectFactory {
     }
 
     /**
+     * get the ClassObject, if it is not annotation will throw exception
+     *
+     * @param targetClass target annotation class
+     * @return the annotation class
+     */
+    public AnnotationClass getAnnotationClass(Class targetClass) {
+        if (targetClass.isAnnotation()) {
+            if (!classObjectMap.containsKey(targetClass.getName())) {
+                synchronized (ObjectFactory.class) {
+                    if (!classObjectMap.containsKey(targetClass.getName())) {
+                        AnnotationClass annotationClass = new AnnotationClass(targetClass);
+                        classObjectMap.put(targetClass.getName(), annotationClass);
+                    }
+                }
+            }
+        } else {
+            try {
+                throw new ReflectionException("ObjectFactory", "getAnnotationClass",
+                        "the target class is not an annotation class, please use getClassObject(Class<?> c)");
+            } catch (ReflectionException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return (AnnotationClass) classObjectMap.get(targetClass.getName());
+    }
+
+    /**
      * get the all class object
+     *
      * @return all class object
      */
-    public ArrayList<ClassObject<?>> getClassObject(){
+    public ArrayList<ClassObject<?>> getClassObject() {
         return new ArrayList<>(this.classObjectMap.values());
     }
 
