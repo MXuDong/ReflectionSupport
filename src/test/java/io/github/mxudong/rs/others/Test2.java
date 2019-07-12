@@ -4,6 +4,8 @@ import io.github.mxudong.rs.annotations.TestAnnotation;
 import io.github.mxudong.rs.bean.BoyStudent;
 import org.junit.Test;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 /**
@@ -14,13 +16,23 @@ import java.util.Arrays;
 public class Test2 {
 
     @Test
-    public void Test1(){
+    public void Test1() {
         Class<BoyStudent> boyStudentClass = BoyStudent.class;
 
         TestAnnotation testAnnotation = boyStudentClass.getDeclaredAnnotation(TestAnnotation.class);
         Class testAnnotationClass = testAnnotation.getClass();
         System.out.println(Arrays.toString(testAnnotationClass.getDeclaredMethods()));
+        Method[] methods = testAnnotationClass.getDeclaredMethods();
+        for(Method m : methods){
+            System.out.println(m.getName());
+        }
         String test = testAnnotation.annotationName();
         System.out.println(test);
+        try {
+            System.out.println(Arrays.toString(testAnnotationClass.getFields()));
+            System.out.println(testAnnotationClass.getMethod("annotationName").invoke(testAnnotation));
+        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 }
