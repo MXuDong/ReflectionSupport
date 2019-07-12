@@ -122,7 +122,7 @@ public class ClassUtil {
      * @see Retention
      * @see Target
      */
-    public boolean isMetaAnnotation(Class annotationClass) {
+    public static boolean isMetaAnnotation(Class annotationClass) {
         return Documented.class.equals(annotationClass) ||
                 Retention.class.equals(annotationClass) ||
                 Target.class.equals(annotationClass);
