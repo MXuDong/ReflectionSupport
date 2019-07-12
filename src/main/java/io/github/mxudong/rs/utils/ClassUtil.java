@@ -1,5 +1,9 @@
 package io.github.mxudong.rs.utils;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
 /**
  * this class support some classes' operation method
  *
@@ -100,10 +104,27 @@ public class ClassUtil {
         if (packingBaseType.equals(Boolean.class)) {
             return boolean.class;
         }
-        if(packingBaseType.equals(Character.class)){
+        if (packingBaseType.equals(Character.class)) {
             return char.class;
         }
 
         return null;
+    }
+
+    /**
+     * is the annotation meta annotation
+     * <p>
+     * the meta annotation is Document, Retention and Target
+     *
+     * @param annotationClass target annotation class
+     * @return true or false
+     * @see Documented
+     * @see Retention
+     * @see Target
+     */
+    public boolean isMetaAnnotation(Class annotationClass) {
+        return Documented.class.equals(annotationClass) ||
+                Retention.class.equals(annotationClass) ||
+                Target.class.equals(annotationClass);
     }
 }
