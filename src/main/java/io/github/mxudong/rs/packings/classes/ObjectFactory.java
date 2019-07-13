@@ -79,6 +79,7 @@ public class ObjectFactory {
                 if (!classObjectMap.containsKey(c.getName())) {
                     ClassObject<?> classObject = new ClassObject<>(c);
                     classObjectMap.put(c.getName(), classObject);
+                    classObject.build();
                 }
             }
         }

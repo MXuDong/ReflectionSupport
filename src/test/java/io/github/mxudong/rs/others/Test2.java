@@ -3,6 +3,7 @@ package io.github.mxudong.rs.others;
 import io.github.mxudong.rs.Reflector;
 import io.github.mxudong.rs.annotations.TestAnnotation;
 import io.github.mxudong.rs.bean.BoyStudent;
+import io.github.mxudong.rs.packings.classes.AnnotationClass;
 import io.github.mxudong.rs.packings.classes.AnnotationObject;
 import io.github.mxudong.rs.packings.classes.ObjectFactory;
 import org.junit.Test;
@@ -44,17 +45,22 @@ public class Test2 {
         System.out.println(annotationObject.turnToMap());
         System.out.println(annotationObject.getInfo("annotationName"));
         BoyStudent boyStudent = new BoyStudent();
-        Reflector<BoyStudent> studentReflector = new Reflector<BoyStudent>(boyStudentClass);
+        Reflector<BoyStudent> studentReflector = new Reflector<>(boyStudentClass);
         System.out.println(studentReflector.getClassObject().getAnnotationCount());
 
         System.out.println(ObjectFactory.getInstance().getClassObject());
     }
 
     @Test
-    public void Test2(){
+    public void test2(){
         Class<BoyStudent> boyStudentClass = BoyStudent.class;
         Annotation testAnnotation = boyStudentClass.getDeclaredAnnotation(TestAnnotation.class);
         Documented documented = testAnnotation.annotationType().getAnnotation(Documented.class);
         System.out.println(Arrays.toString(documented.annotationType().getAnnotations()));
+        AnnotationClass annotationClass = ObjectFactory.getInstance().getAnnotationClass(Documented.class);
+        System.out.println(annotationClass.getAnnotationCount());
+        System.out.println(annotationClass.getAnnotation(Documented.class));
+        System.out.println(annotationClass.getAllAnnotation());
+
     }
 }
