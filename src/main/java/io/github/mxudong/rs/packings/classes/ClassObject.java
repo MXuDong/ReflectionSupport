@@ -193,8 +193,8 @@ public class ClassObject<T> implements AnnotationAble {
 
     @Override
     public AnnotationObject getAnnotation(Class annotationClass) {
-        for(AnnotationObject annotationObject : this.annotationObjects){
-            if(annotationObject.getAnnotationClass().getPackingClass().equals(annotationClass)){
+        for (AnnotationObject annotationObject : this.annotationObjects) {
+            if (annotationObject.getAnnotationClass().getPackingClass().equals(annotationClass)) {
                 return annotationObject;
             }
         }
