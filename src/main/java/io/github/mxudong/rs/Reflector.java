@@ -3,6 +3,7 @@ package io.github.mxudong.rs;
 import io.github.mxudong.rs.packings.classes.ClassObject;
 import io.github.mxudong.rs.packings.classes.ObjectFactory;
 import io.github.mxudong.rs.packings.fields.CommonField;
+import io.github.mxudong.rs.packings.methods.Invoker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -183,6 +184,22 @@ public class Reflector<T> {
      */
     public Object getFieldValue(String fieldName) {
         return this.classObject.getFieldValue(fieldName, this.packingObject);
+    }
+
+    /**
+     * invoke method
+     *
+     * @param methodName method name
+     * @param args       method required params
+     * @return result of invoke
+     */
+    public Object invokeMethod(String methodName, Object... args) {
+        Invoker invoker = this.classObject.getMethodInvoker(methodName, args);
+        if (invoker == null) {
+            return null;
+        }
+
+        return invoker.invoke(this, packingObject, args);
     }
 
     @Override
