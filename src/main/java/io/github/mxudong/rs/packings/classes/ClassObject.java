@@ -21,6 +21,8 @@ import java.util.*;
 
 public class ClassObject<T> implements AnnotationAble {
 
+    private final static int DEFAULT_MAP_SIZE = 10;
+
     /**
      * the method truly info
      */
@@ -132,10 +134,10 @@ public class ClassObject<T> implements AnnotationAble {
      * build the method of this packing class
      */
     private void buildMethod() {
-        this.staticMethods = new HashMap<>();
-        this.getterMethods = new HashMap<>();
-        this.setterMethods = new HashMap<>();
-        this.commonMethods = new HashMap<>();
+        this.staticMethods = new HashMap<>(DEFAULT_MAP_SIZE);
+        this.getterMethods = new HashMap<>(DEFAULT_MAP_SIZE);
+        this.setterMethods = new HashMap<>(DEFAULT_MAP_SIZE);
+        this.commonMethods = new HashMap<>(DEFAULT_MAP_SIZE);
 
         Method[] methods = this.packingClass.getDeclaredMethods();
         this.invokers = new Invoker[methods.length];
