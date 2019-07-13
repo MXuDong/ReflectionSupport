@@ -98,6 +98,7 @@ public class ObjectFactory {
                     if (!classObjectMap.containsKey(targetClass.getName())) {
                         AnnotationClass annotationClass = new AnnotationClass(targetClass);
                         classObjectMap.put(targetClass.getName(), annotationClass);
+                        annotationClass.build();
                     }
                 }
             }
