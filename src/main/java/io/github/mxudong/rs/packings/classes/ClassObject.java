@@ -102,22 +102,37 @@ public class ClassObject<T> implements AnnotationAble {
     protected ClassObject(@NotNull Class<T> c) {
         this.packingClass = c;
         superClassObject = ObjectFactory.getInstance().getClassObject(c.getSuperclass());
-        if (c.isInterface()) {
+    }
+
+    /**
+     * build ClassObject
+     */
+    public void build() {
+    }
+
+    /**
+     * build class object type
+     */
+    private void buildObjectType() {
+        if (this.packingClass.isInterface()) {
             objectType = ObjectType.INTERFACE;
-        } else if (c.isEnum()) {
+        } else if (this.packingClass.isEnum()) {
             objectType = ObjectType.ENUM;
         } else {
             objectType = ObjectType.CLASS;
         }
+    }
 
-        // init some properties
+    /**
+     * build the method of this packing class
+     */
+    private void buildMethod() {
         this.staticMethods = new HashMap<>();
         this.getterMethods = new HashMap<>();
         this.setterMethods = new HashMap<>();
         this.commonMethods = new HashMap<>();
 
-        // get the methods for this class =========================================================
-        Method[] methods = c.getDeclaredMethods();
+        Method[] methods = this.packingClass.getDeclaredMethods();
         this.invokers = new Invoker[methods.length];
 
         for (int i = 0; i < methods.length; i++) {
@@ -152,9 +167,13 @@ public class ClassObject<T> implements AnnotationAble {
 
             this.invokers[i] = invoker;
         }
+    }
 
-        // get the construction of this class =====================================================
-        Constructor<T>[] constructors = (Constructor<T>[]) c.getConstructors();
+    /**
+     * build the construction of this class
+     */
+    private void buildConstructionMethod() {
+        Constructor<T>[] constructors = (Constructor<T>[]) this.packingClass.getConstructors();
         this.constructMethods = new ConstructMethod[constructors.length];
 
         for (int i = 0; i < constructors.length; i++) {
@@ -164,30 +183,38 @@ public class ClassObject<T> implements AnnotationAble {
             }
             this.constructMethods[i] = constructMethod;
         }
+    }
 
-        // get the all field of this class ========================================================
-        Field[] fields = c.getDeclaredFields();
+    /**
+     * build the field of this packing class
+     */
+    private void buildField() {
+        Field[] fields = this.packingClass.getDeclaredFields();
         this.allFields = new CommonField[fields.length];
         for (int i = 0; i < fields.length; i++) {
             this.allFields[i] = new CommonField(fields[i], this);
         }
+    }
 
-        // get the all interfaces of this class ===================================================
-        Class<?>[] interfaces = c.getInterfaces();
+    /**
+     * build the interface of this packing class
+     */
+    private void buildInterface() {
+        Class<?>[] interfaces = this.packingClass.getInterfaces();
         this.interfaces = new ClassObject[interfaces.length];
         for (int i = 0; i < interfaces.length; i++) {
             this.interfaces[i] = ObjectFactory.getInstance().getClassObject(interfaces[i]);
         }
+    }
 
-        // get the all annotations of this class ==================================================
-        if (!ClassUtil.isMetaAnnotation(this.packingClass)) {
-            Annotation[] annotations = this.packingClass.getDeclaredAnnotations();
-            this.annotationObjects = new AnnotationObject[annotations.length];
-            for (int i = 0; i < annotations.length; i++) {
-                this.annotationObjects[i] = new AnnotationObject(annotations[i]);
-            }
-        } else {
-            this.annotationObjects = new AnnotationObject[0];
+    /**
+     * build the annotation of this packing class
+     */
+    private void buildAnnotation() {
+        Annotation[] annotations = this.packingClass.getDeclaredAnnotations();
+        this.annotationObjects = new AnnotationObject[annotations.length];
+        for (int i = 0; i < annotations.length; i++) {
+            this.annotationObjects[i] = new AnnotationObject(annotations[i]);
         }
     }
 
