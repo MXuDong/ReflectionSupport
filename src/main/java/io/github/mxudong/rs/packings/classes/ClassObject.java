@@ -4,7 +4,6 @@ import io.github.mxudong.rs.exceptions.ReflectionException;
 import io.github.mxudong.rs.packings.AnnotationAble;
 import io.github.mxudong.rs.packings.fields.CommonField;
 import io.github.mxudong.rs.packings.methods.*;
-import io.github.mxudong.rs.utils.ClassUtil;
 import io.github.mxudong.rs.utils.MethodUtil;
 import org.jetbrains.annotations.NotNull;
 
@@ -108,6 +107,12 @@ public class ClassObject<T> implements AnnotationAble {
      * build ClassObject
      */
     public void build() {
+        buildObjectType();
+        buildMethod();
+        buildConstructionMethod();
+        buildField();
+        buildInterface();
+        buildAnnotation();
     }
 
     /**
