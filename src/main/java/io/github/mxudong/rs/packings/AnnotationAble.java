@@ -1,4 +1,6 @@
-package io.github.mxudong.rs.packings.classes;
+package io.github.mxudong.rs.packings;
+
+import io.github.mxudong.rs.packings.classes.AnnotationObject;
 
 import java.util.List;
 
