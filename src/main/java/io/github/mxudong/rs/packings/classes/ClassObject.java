@@ -1,6 +1,7 @@
 package io.github.mxudong.rs.packings.classes;
 
 import io.github.mxudong.rs.exceptions.ReflectionException;
+import io.github.mxudong.rs.packings.AnnotationAble;
 import io.github.mxudong.rs.packings.fields.CommonField;
 import io.github.mxudong.rs.packings.methods.*;
 import io.github.mxudong.rs.utils.ClassUtil;
@@ -19,7 +20,7 @@ import java.util.*;
  * @since 3.0
  */
 
-public class ClassObject<T> {
+public class ClassObject<T> implements AnnotationAble {
 
     /**
      * the method truly info
@@ -190,11 +191,22 @@ public class ClassObject<T> {
         }
     }
 
-    /**
-     * get the annotation count
-     *
-     * @return annotation count
-     */
+    @Override
+    public AnnotationObject getAnnotation(Class annotationClass) {
+        for(AnnotationObject annotationObject : this.annotationObjects){
+            if(annotationObject.getAnnotationClass().getPackingClass().equals(annotationClass)){
+                return annotationObject;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<AnnotationObject> getAllAnnotation() {
+        return new ArrayList<>(Arrays.asList(this.annotationObjects));
+    }
+
+    @Override
     public int getAnnotationCount() {
         return this.annotationObjects.length;
     }
