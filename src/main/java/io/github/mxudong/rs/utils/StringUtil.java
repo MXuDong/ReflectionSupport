@@ -19,6 +19,12 @@ public class StringUtil {
     public static final char POINT_CHAR = '.';
 
     /**
+     * limit random string length
+     */
+    private static final int DEFAULT_MIN_STRING_LEGNTH = 10;
+    private static final int DEFAULT_MAX_STRING_LENGTH = 15;
+
+    /**
      * Get all characters
      *
      * @return a string of all characters
