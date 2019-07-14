@@ -1,10 +1,13 @@
 package io.github.mxudong.rs.packings.methods;
 
+import io.github.mxudong.rs.packings.AnnotationAble;
+import io.github.mxudong.rs.packings.classes.AnnotationObject;
 import io.github.mxudong.rs.packings.classes.ClassObject;
 import io.github.mxudong.rs.utils.MethodUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * this class is packing the common method.
@@ -16,7 +19,7 @@ import java.lang.reflect.Method;
  * @since 3.0
  */
 
-public class CommonMethod implements Invoker {
+public class CommonMethod implements Invoker, AnnotationAble {
 
     /**
      * all the common method type is MethodType.CommonMethod
@@ -107,5 +110,20 @@ public class CommonMethod implements Invoker {
     @Override
     public String toString() {
         return METHOD_TYPE.getType() + " - " + getMethodName() + " : " + getBelongClass().getName();
+    }
+
+    @Override
+    public int getAnnotationCount() {
+        return 0;
+    }
+
+    @Override
+    public AnnotationObject getAnnotation(Class annotationClass) {
+        return null;
+    }
+
+    @Override
+    public List<AnnotationObject> getAllAnnotation() {
+        return null;
     }
 }
