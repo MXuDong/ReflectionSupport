@@ -35,6 +35,15 @@ public class StringUtil {
     }
 
     /**
+     * get all symbols, not include word or number
+     *
+     * @return string
+     */
+    public static String getAllSymbols() {
+        return OTHER_TYPE_LETTERS + DOLLAR_CHAR + POINT_CHAR + SPACE_CHAR + UNDER_LINE_CHAR;
+    }
+
+    /**
      * Obtain symbols supported by naming conventions
      *
      * @return string
