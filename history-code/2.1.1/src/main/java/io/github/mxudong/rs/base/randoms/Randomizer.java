@@ -16,7 +16,7 @@ import java.util.List;
  * Create Date : 2019/6/19
  * Project : ReflectionSupport
  * <p>
- * Class randomizer, used to randomly generate objects
+ * Class randoms, used to randomly generate objects
  *
  * @author Dong
  * @since 2.1
@@ -144,7 +144,7 @@ public class Randomizer<T extends Object> {
     /**
      * construction method
      *
-     * @param tClass for input class of randomizer
+     * @param tClass for input class of randoms
      */
     public Randomizer(Class<T> tClass) {
         randomFilters = new ArrayList<>();
