@@ -30,9 +30,8 @@ public class Randomizer<T> {
     private int defaultIntMinValue = Integer.MIN_VALUE;
     private long defaultLongMaxValue = Long.MAX_VALUE;
     private long defaultLongMinValue = Long.MIN_VALUE;
-    private double defaultDoubleMaxValue = 15;
-    private float defaultFloatMaxValue = 15;
-    private Boolean defaultBooleanValue = null;
+    private double defaultDoubleIndex = 15;
+    private float defaultFloatIndex = 15;
     private String defaultChars = StringUtil.getClassSupportLetters();
     private String defaultStringFormat = "[_]n3l3u3s3";
 
@@ -61,9 +60,20 @@ public class Randomizer<T> {
      */
     private void checkAnnotation() {
         AnnotationObject annotationObject = this.packingObjectReflector.getClassObject().getAnnotation(RandomLimit.class);
-        System.out.println(this.packingObjectReflector.getClassObject().getAnnotationCount());
-        System.out.println(this.packingObjectReflector.getClassObject().getAllAnnotation());
-        System.out.println(annotationObject.turnToMap());
+        if(annotationObject != null){
+            this.defaultChars = (String) annotationObject.getInfo("defaultChars");
+            this.defaultStringFormat = (String) annotationObject.getInfo("defaultFormat");
+            this.defaultByteMaxValue = (byte) annotationObject.getInfo("maxByteValue");
+            this.defaultByteMinValue = (byte) annotationObject.getInfo("minByteValue");
+            this.defaultShortMaxValue = (short) annotationObject.getInfo("maxShortValue");
+            this.defaultShortMinValue = (short) annotationObject.getInfo("minShortValue");
+            this.defaultIntMaxValue = (int) annotationObject.getInfo("maxIntegerValue");
+            this.defaultIntMinValue = (int) annotationObject.getInfo("minIntegerValue");
+            this.defaultLongMaxValue = (long) annotationObject.getInfo("maxLongValue");
+            this.defaultLongMinValue = (long) annotationObject.getInfo("minLongValue");
+            this.defaultDoubleIndex = (double) annotationObject.getInfo("doubleIndex");
+            this.defaultFloatIndex = (float) annotationObject.getInfo("floatIndex");
+        }
     }
 
 }
