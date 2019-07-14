@@ -1,12 +1,16 @@
 package io.github.mxudong.rs.packings.fields;
 
 import io.github.mxudong.rs.exceptions.ReflectionException;
+import io.github.mxudong.rs.packings.AnnotationAble;
+import io.github.mxudong.rs.packings.classes.AnnotationObject;
 import io.github.mxudong.rs.packings.classes.ClassObject;
 import io.github.mxudong.rs.packings.methods.GetterMethod;
 import io.github.mxudong.rs.packings.methods.SetterMethod;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.List;
 
 /**
  * the CommonField packing the Field in class, and
@@ -20,7 +24,7 @@ import java.lang.reflect.Modifier;
  * @since 3.0
  */
 
-public class CommonField {
+public class CommonField implements AnnotationAble {
 
     /**
      * the packing field
@@ -54,6 +58,11 @@ public class CommonField {
      */
     private SetterMethod[] fieldSetterMethod;
 
+    /**
+     * the field annotations
+     */
+    private AnnotationObject [] annotationObjects;
+
 
     /**
      * construction method, in this method, filed info will be save
@@ -74,6 +83,12 @@ public class CommonField {
             this.fieldType = FieldType.STATIC_FIELD;
         } else {
             this.fieldType = FieldType.COMMON_FIELD;
+        }
+
+        Annotation [] annotations = this.packingField.getDeclaredAnnotations();
+        annotationObjects = new AnnotationObject[annotations.length];
+        for(int i = 0; i < annotations.length; i++){
+            annotationObjects[i] = new AnnotationObject(annotations[i]);
         }
     }
 
@@ -311,5 +326,20 @@ public class CommonField {
     @Override
     public String toString() {
         return this.fieldType.getValue() + " - " + packingFieldName + " - " + classObject.toString();
+    }
+
+    @Override
+    public int getAnnotationCount() {
+        return 0;
+    }
+
+    @Override
+    public AnnotationObject getAnnotation(Class annotationClass) {
+        return null;
+    }
+
+    @Override
+    public List<AnnotationObject> getAllAnnotation() {
+        return null;
     }
 }
