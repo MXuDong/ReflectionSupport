@@ -53,7 +53,7 @@ public class ClassObjectTest {
     @Test
     public void test5() {
         ClassObject<?> classObject = ObjectFactory.getInstance().getClassObject(People.class);
-        Invoker invoker = classObject.getMethodInvoker("toString");
+        Invoker invoker = classObject.getMethod("toString");
         People people = new People();
         System.out.println(invoker);
         System.out.println(invoker.invoke(people));

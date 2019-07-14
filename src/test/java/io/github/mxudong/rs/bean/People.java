@@ -1,5 +1,7 @@
 package io.github.mxudong.rs.bean;
 
+import io.github.mxudong.rs.annotations.TestAnnotation;
+
 /**
  * @author Dong
  * @since 3.0
@@ -33,6 +35,7 @@ public class People {
         this.name = name;
     }
 
+    @TestAnnotation
     public String getNumber() {
         return number;
     }

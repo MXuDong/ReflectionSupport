@@ -194,7 +194,7 @@ public class Reflector<T> {
      * @return result of invoke
      */
     public Object invokeMethod(String methodName, Object... args) {
-        Invoker invoker = this.classObject.getMethodInvoker(methodName, args);
+        Invoker invoker = this.classObject.getMethod(methodName, args);
         if (invoker == null) {
             return null;
         }

@@ -304,7 +304,7 @@ public class ClassObject<T> implements AnnotationAble {
      * @return if exits return it, else not in this packing,
      * will find from superClassObject, until null, if not exits, return null
      */
-    public Invoker getMethodInvoker(String methodName, Object... params) {
+    public Invoker getMethod(String methodName, Object... params) {
         for (Invoker invoker : this.invokers) {
             if (invoker.getMethodName().equals(methodName)) {
                 if (invoker.isParamsIsThisMethod(params)) {
@@ -317,7 +317,7 @@ public class ClassObject<T> implements AnnotationAble {
             return null;
         }
 
-        return superClassObject.getMethodInvoker(methodName, params);
+        return superClassObject.getMethod(methodName, params);
     }
 
     /**
@@ -337,6 +337,10 @@ public class ClassObject<T> implements AnnotationAble {
             return getterMethods;
         }
 
+        if(this.superClassObject != null){
+            return superClassObject.getGetterMethod(getterName);
+        }
+
         return null;
     }
 
@@ -354,6 +358,10 @@ public class ClassObject<T> implements AnnotationAble {
                 setterMethods[i] = (SetterMethod) invokers[indexes.get(i)];
             }
             return setterMethods;
+        }
+
+        if(this.superClassObject != null){
+            return superClassObject.getSetterMethod(setterName);
         }
 
         return null;
@@ -377,7 +385,7 @@ public class ClassObject<T> implements AnnotationAble {
      * @return invoke result
      */
     public Object invokeMethod(String methodName, Object target, Object... args) {
-        Invoker invoker = this.getMethodInvoker(methodName, args);
+        Invoker invoker = this.getMethod(methodName, args);
         if (invoker == null) {
 
             if (superClassObject != null) {
