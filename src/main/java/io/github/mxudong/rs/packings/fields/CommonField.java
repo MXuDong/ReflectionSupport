@@ -277,7 +277,7 @@ public class CommonField implements AnnotationAble {
      * @return true or false
      */
     public boolean canSet() {
-        return this.fieldSetterMethod != null;
+        return this.fieldSetterMethod != null && fieldGetterMethod.length != 0;
     }
 
     /**
@@ -286,7 +286,7 @@ public class CommonField implements AnnotationAble {
      * @return true of false
      */
     public boolean canGet() {
-        return this.fieldGetterMethod != null;
+        return this.fieldGetterMethod != null && fieldSetterMethod.length != 0;
     }
 
     /**
