@@ -1,5 +1,7 @@
 package io.github.mxudong.rs.utils;
 
+import io.github.mxudong.rs.randoms.BaseRandom;
+
 /**
  * provide some operation about string
  *
@@ -60,6 +62,24 @@ public class StringUtil {
                 NUMBER_LETTERS +
                 UNDER_LINE_CHAR +
                 DOLLAR_CHAR;
+    }
+
+    /**
+     * Create a random string with characters from chars.
+     *
+     * @param chars  string's characters from it.
+     * @param length the string's length
+     * @return a random string
+     */
+    public static String createRandomString(String chars, int length) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (chars.length() == 0) {
+            return "";
+        }
+        for (int i = 0; i < length; i++) {
+            stringBuilder.append(BaseRandom.getRandomChar(chars));
+        }
+        return stringBuilder.toString();
     }
 
 }
