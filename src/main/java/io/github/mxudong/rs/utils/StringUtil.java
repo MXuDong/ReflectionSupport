@@ -34,4 +34,17 @@ public class StringUtil {
                 POINT_CHAR;
     }
 
+    /**
+     * Obtain symbols supported by naming conventions
+     *
+     * @return string
+     */
+    public static String getClassSupportLetters() {
+        return UPPER_CASE_LETTERS +
+                LOWER_CASE_LETTERS +
+                NUMBER_LETTERS +
+                UNDER_LINE_CHAR +
+                DOLLAR_CHAR;
+    }
+
 }
