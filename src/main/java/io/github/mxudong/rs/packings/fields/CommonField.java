@@ -330,7 +330,7 @@ public class CommonField implements AnnotationAble {
 
     @Override
     public int getAnnotationCount() {
-        return 0;
+        return this.annotationObjects.length;
     }
 
     @Override
