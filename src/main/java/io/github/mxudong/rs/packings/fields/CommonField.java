@@ -41,7 +41,7 @@ public class CommonField implements AnnotationAble {
      */
     private String packingFieldName;
     /**
-     * the packing field type
+     * the packing field mark type: static, final
      */
     private FieldType fieldType;
 
