@@ -121,30 +121,30 @@ public class Randomizer<T> {
         switch (paramType) {
             case "java.lang.Byte":
             case "byte":
-                return BaseRandom.getRandomByte((byte) (values == null ? defaultByteMinValue : values[0]), (byte) (values == null ? defaultByteMaxValue : values[1]));
+                return BaseRandom.getRandomByte((byte) (values == null || values.length == 0 ? defaultByteMinValue : values[0]), (byte) (values == null || values.length == 0 ? defaultByteMaxValue : values[1]));
             case "java.lang.Short":
             case "short":
-                return BaseRandom.getRandomShort((short) (values == null ? defaultShortMinValue : values[0]), (short) (values == null ? defaultShortMinValue : values[1]));
+                return BaseRandom.getRandomShort((short) (values == null || values.length == 0 ? defaultShortMinValue : values[0]), (short) (values == null || values.length == 0 ? defaultShortMinValue : values[1]));
             case "java.lang.Integer":
             case "int":
-                return BaseRandom.getRandomInt((int) (values == null ? defaultIntMinValue : values[0]), (int) (values == null ? defaultIntMaxValue : values[1]));
+                return BaseRandom.getRandomInt((int) (values == null || values.length == 0 ? defaultIntMinValue : values[0]), (int) (values == null || values.length == 0 ? defaultIntMaxValue : values[1]));
             case "java.lang.Long":
             case "long":
-                return BaseRandom.getRandomLong((long) (values == null ? defaultLongMinValue : values[0]), (long) (values == null ? defaultLongMaxValue : values[1]));
+                return BaseRandom.getRandomLong((long) (values == null || values.length == 0 ? defaultLongMinValue : values[0]), (long) (values == null || values.length == 0 ? defaultLongMaxValue : values[1]));
             case "java.lang.Character":
             case "char":
-                return BaseRandom.getRandomChar((String) (values == null ? defaultChars : values[0]));
+                return BaseRandom.getRandomChar((String) (values == null || values.length == 0 ? defaultChars : values[0]));
             case "java.lang.Double":
             case "double":
-                return BaseRandom.getRandomDouble((double) (values == null ? defaultDoubleIndex : values[0]));
+                return BaseRandom.getRandomDouble((double) (values == null || values.length == 0 ? defaultDoubleIndex : values[0]));
             case "java.lang.Float":
             case "float":
-                return BaseRandom.getRandomFloat((float) (values == null ? defaultFloatIndex : values[0]));
+                return BaseRandom.getRandomFloat((float) (values == null || values.length == 0 ? defaultFloatIndex : values[0]));
             case "java.lang.Boolean":
             case "boolean":
                 return BaseRandom.getRandomBoolean();
             case "java.lang.String":
-                return RandomFormatString.createRandomStringBase((String) (values == null ? defaultStringFormat : values[0]));
+                return RandomFormatString.createRandomStringBase((String) (values == null || values.length == 0 ? defaultStringFormat : values[0]));
             default:
                 return null;
         }

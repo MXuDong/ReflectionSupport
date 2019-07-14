@@ -9,15 +9,26 @@ import io.github.mxudong.rs.randoms.annotations.RandomLimit;
  */
 
 @TestAnnotation()
-@RandomLimit(defaultChars = "aaaaaa", defaultFormat = "c3c3c3")
+@RandomLimit(defaultChars = "aaaaaa", defaultFormat = "c3c3c3", maxIntegerValue = 10, minIntegerValue = 5)
 public class BoyStudent extends Man implements SpeakAble {
 
     private String grade;
+
+    private int height;
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
 
     @Override
     public String toString() {
         return "BoyStudent{" +
                 "grade='" + grade + '\'' +
+                ", height=" + height +
                 ", number='" + number + '\'' +
                 '}';
     }

@@ -10,4 +10,12 @@ public class RandomizerTest {
         Randomizer<BoyStudent> randomizer = new Randomizer<>(BoyStudent.class);
     }
 
+    @Test
+    public void test02(){
+        Randomizer<BoyStudent> randomizer = new Randomizer<>(BoyStudent.class);
+        System.out.println(randomizer.getInnerObject());
+        randomizer.doRandom(false);
+        System.out.println(randomizer.getInnerObject());
+    }
+
 }
