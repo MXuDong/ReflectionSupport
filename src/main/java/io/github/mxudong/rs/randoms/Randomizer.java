@@ -2,8 +2,11 @@ package io.github.mxudong.rs.randoms;
 
 import io.github.mxudong.rs.Reflector;
 import io.github.mxudong.rs.packings.classes.AnnotationObject;
+import io.github.mxudong.rs.packings.fields.CommonField;
 import io.github.mxudong.rs.randoms.annotations.RandomLimit;
 import io.github.mxudong.rs.utils.StringUtil;
+
+import java.util.ArrayList;
 
 /**
  * the randomizer is for random any object,
@@ -55,12 +58,43 @@ public class Randomizer<T> {
         checkAnnotation();
     }
 
+    public T getInnerObject() {
+        return this.packingObjectReflector.getInnerObject();
+    }
+
+    /**
+     * random inner object
+     *
+     * @param doDeep can the super class field be random
+     */
+    public void doRandom(boolean doDeep) {
+        doRandom(this.packingObjectReflector.getInnerObject(), doDeep);
+    }
+
+    /**
+     * random the object
+     *
+     * @param object target object
+     * @param doDeep can the super class field be random
+     */
+    private void doRandom(T object, boolean doDeep) {
+        ArrayList<CommonField> commonFields = this.packingObjectReflector.getClassObject().getAllFields();
+
+        //===============should check annotation, will be writing
+        for (CommonField commonField : commonFields) {
+            if (commonField.canSet()) {
+                this.packingObjectReflector.setFieldValue(commonField.getFieldName(),
+                        createRandomObject(commonField.getFieldType().getName()));
+            }
+        }
+    }
+
     /**
      * check the annotation of packing object
      */
     private void checkAnnotation() {
         AnnotationObject annotationObject = this.packingObjectReflector.getClassObject().getAnnotation(RandomLimit.class);
-        if(annotationObject != null){
+        if (annotationObject != null) {
             this.defaultChars = (String) annotationObject.getInfo("defaultChars");
             this.defaultStringFormat = (String) annotationObject.getInfo("defaultFormat");
             this.defaultByteMaxValue = (byte) annotationObject.getInfo("maxByteValue");
@@ -79,7 +113,7 @@ public class Randomizer<T> {
     /**
      * create simple object of base type
      *
-     * @param values random limit
+     * @param values    random limit
      * @param paramType class name
      * @return random type
      */
@@ -87,30 +121,30 @@ public class Randomizer<T> {
         switch (paramType) {
             case "java.lang.Byte":
             case "byte":
-                return BaseRandom.getRandomByte((byte) values[0], (byte) values[1]);
+                return BaseRandom.getRandomByte((byte) (values == null ? defaultByteMinValue : values[0]), (byte) (values == null ? defaultByteMaxValue : values[1]));
             case "java.lang.Short":
             case "short":
-                return BaseRandom.getRandomShort((short) values[0], (short) values[1]);
+                return BaseRandom.getRandomShort((short) (values == null ? defaultShortMinValue : values[0]), (short) (values == null ? defaultShortMinValue : values[1]));
             case "java.lang.Integer":
             case "int":
-                return BaseRandom.getRandomInt((int) values[0], (int) values[1]);
+                return BaseRandom.getRandomInt((int) (values == null ? defaultIntMinValue : values[0]), (int) (values == null ? defaultIntMaxValue : values[1]));
             case "java.lang.Long":
             case "long":
-                return BaseRandom.getRandomLong((long) values[0], (long) values[1]);
+                return BaseRandom.getRandomLong((long) (values == null ? defaultLongMinValue : values[0]), (long) (values == null ? defaultLongMaxValue : values[1]));
             case "java.lang.Character":
             case "char":
-                return BaseRandom.getRandomChar((String) values[0]);
+                return BaseRandom.getRandomChar((String) (values == null ? defaultChars : values[0]));
             case "java.lang.Double":
             case "double":
-                return BaseRandom.getRandomDouble((double) values[0]);
+                return BaseRandom.getRandomDouble((double) (values == null ? defaultDoubleIndex : values[0]));
             case "java.lang.Float":
             case "float":
-                return BaseRandom.getRandomFloat((float) values[0]);
+                return BaseRandom.getRandomFloat((float) (values == null ? defaultFloatIndex : values[0]));
             case "java.lang.Boolean":
             case "boolean":
                 return BaseRandom.getRandomBoolean();
             case "java.lang.String":
-                return RandomFormatString.createRandomStringBase((String) values[0]);
+                return RandomFormatString.createRandomStringBase((String) (values == null ? defaultStringFormat : values[0]));
             default:
                 return null;
         }
