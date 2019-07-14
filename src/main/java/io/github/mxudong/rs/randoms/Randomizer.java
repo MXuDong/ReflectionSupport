@@ -3,10 +3,13 @@ package io.github.mxudong.rs.randoms;
 import io.github.mxudong.rs.Reflector;
 import io.github.mxudong.rs.packings.classes.AnnotationObject;
 import io.github.mxudong.rs.packings.fields.CommonField;
+import io.github.mxudong.rs.packings.methods.GetterMethod;
+import io.github.mxudong.rs.packings.methods.SetterMethod;
 import io.github.mxudong.rs.randoms.annotations.RandomLimit;
 import io.github.mxudong.rs.utils.StringUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * the randomizer is for random any object,
@@ -83,8 +86,18 @@ public class Randomizer<T> {
         //===============should check annotation, will be writing
         for (CommonField commonField : commonFields) {
             if (commonField.canSet()) {
-                this.packingObjectReflector.setFieldValue(commonField.getFieldName(),
-                        createRandomObject(commonField.getFieldType().getName()));
+                SetterMethod setterMethod = this.packingObjectReflector.getClassObject().getSetterMethod(commonField.getSetterMethodName())[0];
+                Class [] classes = setterMethod.getMethodParamsType();
+                Object[] params = new Object[classes.length];
+                for(int i =0; i < classes.length; i++){
+                    params[i] = createRandomObject(classes[i].getName());
+                    if(params[i] == null && doDeep){
+                        Randomizer r = new Randomizer(classes[i]);
+                        r.doRandom(true);
+                        params[i] = r.getInnerObject();
+                    }
+                }
+                setterMethod.invoke(this.packingObjectReflector.getInnerObject(), params);
             }
         }
     }
