@@ -84,7 +84,7 @@ public class ReflectorTest {
     @Test
     public void test5(){
         BoyStudent boyStudent = new BoyStudent();
-        Reflector<BoyStudent> boyStudentReflector = new Reflector<BoyStudent>(BoyStudent.class);
+        Reflector<BoyStudent> boyStudentReflector = new Reflector<>(BoyStudent.class);
         System.out.println("==================");
         System.out.println(boyStudentReflector);
         System.out.println("==================");
