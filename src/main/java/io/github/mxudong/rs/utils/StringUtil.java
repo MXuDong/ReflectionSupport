@@ -23,8 +23,8 @@ public class StringUtil {
     /**
      * limit random string length
      */
-    private static final int DEFAULT_MIN_STRING_LEGNTH = 10;
-    private static final int DEFAULT_MAX_STRING_LENGTH = 15;
+    public static final int DEFAULT_MIN_STRING_LEGNTH = 10;
+    public static final int DEFAULT_MAX_STRING_LENGTH = 15;
 
     /**
      * Get all characters
