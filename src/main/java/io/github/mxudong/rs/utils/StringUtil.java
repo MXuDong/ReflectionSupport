@@ -17,4 +17,21 @@ public class StringUtil {
     public static final char DOLLAR_CHAR = '$';
     public static final char UNDER_LINE_CHAR = '_';
     public static final char POINT_CHAR = '.';
+
+    /**
+     * Get all characters
+     *
+     * @return a string of all characters
+     */
+    public static String getAllCharacter() {
+        return UPPER_CASE_LETTERS +
+                LOWER_CASE_LETTERS +
+                NUMBER_LETTERS +
+                OTHER_TYPE_LETTERS +
+                SPACE_CHAR +
+                DOLLAR_CHAR +
+                UNDER_LINE_CHAR +
+                POINT_CHAR;
+    }
+
 }
