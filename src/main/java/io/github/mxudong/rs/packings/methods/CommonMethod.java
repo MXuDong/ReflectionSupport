@@ -8,6 +8,8 @@ import io.github.mxudong.rs.utils.MethodUtil;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -73,7 +75,7 @@ public class CommonMethod implements Invoker, AnnotationAble {
 
         Annotation[] annotations = this.packingMethod.getDeclaredAnnotations();
         this.annotationObjects = new AnnotationObject[annotations.length];
-        for(int i = 0; i < annotations.length; i++){
+        for (int i = 0; i < annotations.length; i++) {
             this.annotationObjects[i] = new AnnotationObject(annotations[i]);
         }
     }
@@ -126,16 +128,22 @@ public class CommonMethod implements Invoker, AnnotationAble {
 
     @Override
     public int getAnnotationCount() {
-        return 0;
+        return this.annotationObjects.length;
     }
 
     @Override
     public AnnotationObject getAnnotation(Class annotationClass) {
+        for (AnnotationObject annotationObject : this.annotationObjects) {
+            if (annotationObject.getAnnotationClass().getPackingClass().equals(annotationClass)) {
+                return annotationObject;
+            }
+        }
+
         return null;
     }
 
     @Override
     public List<AnnotationObject> getAllAnnotation() {
-        return null;
+        return new ArrayList<>(Arrays.asList(this.annotationObjects));
     }
 }
