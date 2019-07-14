@@ -10,6 +10,8 @@ import io.github.mxudong.rs.packings.methods.SetterMethod;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -61,7 +63,7 @@ public class CommonField implements AnnotationAble {
     /**
      * the field annotations
      */
-    private AnnotationObject [] annotationObjects;
+    private AnnotationObject[] annotationObjects;
 
 
     /**
@@ -85,9 +87,9 @@ public class CommonField implements AnnotationAble {
             this.fieldType = FieldType.COMMON_FIELD;
         }
 
-        Annotation [] annotations = this.packingField.getDeclaredAnnotations();
+        Annotation[] annotations = this.packingField.getDeclaredAnnotations();
         annotationObjects = new AnnotationObject[annotations.length];
-        for(int i = 0; i < annotations.length; i++){
+        for (int i = 0; i < annotations.length; i++) {
             annotationObjects[i] = new AnnotationObject(annotations[i]);
         }
     }
@@ -335,8 +337,8 @@ public class CommonField implements AnnotationAble {
 
     @Override
     public AnnotationObject getAnnotation(Class annotationClass) {
-        for(AnnotationObject annotationObject : this.annotationObjects){
-            if(annotationObject.getAnnotationClass().getPackingClass().equals(annotationClass)){
+        for (AnnotationObject annotationObject : this.annotationObjects) {
+            if (annotationObject.getAnnotationClass().getPackingClass().equals(annotationClass)) {
                 return annotationObject;
             }
         }
@@ -346,6 +348,6 @@ public class CommonField implements AnnotationAble {
 
     @Override
     public List<AnnotationObject> getAllAnnotation() {
-        return null;
+        return new ArrayList<>(Arrays.asList(this.annotationObjects));
     }
 }
