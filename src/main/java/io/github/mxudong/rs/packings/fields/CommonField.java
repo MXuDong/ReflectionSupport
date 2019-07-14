@@ -117,8 +117,17 @@ public class CommonField implements AnnotationAble {
      *
      * @return belong class object
      */
-    public ClassObject getFieldBelgonClass() {
+    public ClassObject getFieldBelongClassObject() {
         return this.classObject;
+    }
+
+    /**
+     * get the field type
+     *
+     * @return field type
+     */
+    public Class getFieldType() {
+        return this.packingFieldType;
     }
 
     /**
