@@ -9,7 +9,7 @@ import static io.github.mxudong.rs.utils.StringUtil.*;
  * @since 3.0
  */
 
-public class FormatString {
+public class RandomFormatString {
 
     /**
      * Generate according to format requirements
