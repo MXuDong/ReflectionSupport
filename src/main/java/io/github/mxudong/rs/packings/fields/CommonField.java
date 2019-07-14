@@ -263,6 +263,24 @@ public class CommonField implements AnnotationAble {
     }
 
     /**
+     * can field set
+     *
+     * @return true or false
+     */
+    public boolean canSet() {
+        return this.fieldSetterMethod != null;
+    }
+
+    /**
+     * can field get
+     *
+     * @return true of false
+     */
+    public boolean canGet() {
+        return this.fieldGetterMethod != null;
+    }
+
+    /**
      * set field value, but set direct, if you want to invoke
      * setter method, please use {@code setValue(Object target, Object value)}
      * <p>
