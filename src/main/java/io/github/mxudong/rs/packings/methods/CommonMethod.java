@@ -5,6 +5,7 @@ import io.github.mxudong.rs.packings.classes.AnnotationObject;
 import io.github.mxudong.rs.packings.classes.ClassObject;
 import io.github.mxudong.rs.utils.MethodUtil;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -51,6 +52,11 @@ public class CommonMethod implements Invoker, AnnotationAble {
     private ClassObject<?> belongClass;
 
     /**
+     * the field annotations
+     */
+    private AnnotationObject[] annotationObjects;
+
+    /**
      * method of {@code CommonMethod}, in this part,
      * the method will be append for packingMethod.
      * <p>
@@ -64,6 +70,12 @@ public class CommonMethod implements Invoker, AnnotationAble {
         this.belongClass = classObject;
         this.returnType = packingMethod.getReturnType();
         this.paramClasses = packingMethod.getParameterTypes();
+
+        Annotation[] annotations = this.packingMethod.getDeclaredAnnotations();
+        this.annotationObjects = new AnnotationObject[annotations.length];
+        for(int i = 0; i < annotations.length; i++){
+            this.annotationObjects[i] = new AnnotationObject(annotations[i]);
+        }
     }
 
     @Override
