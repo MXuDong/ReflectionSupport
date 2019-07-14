@@ -76,4 +76,43 @@ public class Randomizer<T> {
         }
     }
 
+    /**
+     * create simple object of base type
+     *
+     * @param values random limit
+     * @param paramType class name
+     * @return random type
+     */
+    private Object createRandomObject(String paramType, Object... values) {
+        switch (paramType) {
+            case "java.lang.Byte":
+            case "byte":
+                return BaseRandom.getRandomByte((byte) values[0], (byte) values[1]);
+            case "java.lang.Short":
+            case "short":
+                return BaseRandom.getRandomShort((short) values[0], (short) values[1]);
+            case "java.lang.Integer":
+            case "int":
+                return BaseRandom.getRandomInt((int) values[0], (int) values[1]);
+            case "java.lang.Long":
+            case "long":
+                return BaseRandom.getRandomLong((long) values[0], (long) values[1]);
+            case "java.lang.Character":
+            case "char":
+                return BaseRandom.getRandomChar((String) values[0]);
+            case "java.lang.Double":
+            case "double":
+                return BaseRandom.getRandomDouble((double) values[0]);
+            case "java.lang.Float":
+            case "float":
+                return BaseRandom.getRandomFloat((float) values[0]);
+            case "java.lang.Boolean":
+            case "boolean":
+                return BaseRandom.getRandomBoolean();
+            case "java.lang.String":
+                return RandomFormatString.createRandomStringBase((String) values[0]);
+            default:
+                return null;
+        }
+    }
 }
