@@ -82,4 +82,22 @@ public class StringUtil {
         return stringBuilder.toString();
     }
 
+    /**
+     * Create a random String with characters from
+     *
+     * @param chars string's characters from it
+     * @return a random string and it length is random too.
+     */
+    public static String createRandomString(String chars) {
+        return createRandomString(chars, BaseRandom.getRandomInt(DEFAULT_MIN_STRING_LEGNTH, DEFAULT_MAX_STRING_LENGTH));
+    }
+
+    /**
+     * create a random String
+     *
+     * @return a random string
+     */
+    public static String createRandomString() {
+        return createRandomString(getAllCharacter());
+    }
 }
