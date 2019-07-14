@@ -335,6 +335,12 @@ public class CommonField implements AnnotationAble {
 
     @Override
     public AnnotationObject getAnnotation(Class annotationClass) {
+        for(AnnotationObject annotationObject : this.annotationObjects){
+            if(annotationObject.getAnnotationClass().getPackingClass().equals(annotationClass)){
+                return annotationObject;
+            }
+        }
+
         return null;
     }
 
