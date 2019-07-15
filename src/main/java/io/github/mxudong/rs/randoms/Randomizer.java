@@ -4,6 +4,8 @@ import io.github.mxudong.rs.Reflector;
 import io.github.mxudong.rs.packings.classes.AnnotationObject;
 import io.github.mxudong.rs.packings.fields.CommonField;
 import io.github.mxudong.rs.packings.methods.SetterMethod;
+import io.github.mxudong.rs.randoms.annotations.IntegerLimit;
+import io.github.mxudong.rs.randoms.annotations.IntegerValue;
 import io.github.mxudong.rs.randoms.annotations.RandomLimit;
 import io.github.mxudong.rs.utils.StringUtil;
 
@@ -81,27 +83,17 @@ public class Randomizer<T> {
     private void doRandom(T object, boolean doDeep) {
         ArrayList<CommonField> commonFields = this.packingObjectReflector.getClassObject().getAllFields();
 
-        //===============should check annotation, will be writing
         for (CommonField commonField : commonFields) {
             if (commonField.canSet()) {
-                SetterMethod setterMethod = this.packingObjectReflector.getClassObject().getSetterMethod(commonField.getSetterMethodName())[0];
-                Class[] classes = setterMethod.getMethodParamsType();
-                Object[] params = new Object[classes.length];
-                for (int i = 0; i < classes.length; i++) {
-                    params[i] = createRandomObject(classes[i].getName());
-                    if (params[i] == null && doDeep) {
-                        Randomizer r = new Randomizer(classes[i]);
-                        r.doRandom(true);
-                        params[i] = r.getInnerObject();
-                    }
-                }
-                setterMethod.invoke(this.packingObjectReflector.getInnerObject(), params);
+                commonField.setValue(this.getInnerObject(), createRandomObject(commonField));
             }
         }
     }
 
     /**
-     * check the annotation of packing object
+     * check the annotation of packing object, main from RandomLimit annotations
+     *
+     * @see RandomLimit
      */
     private void checkAnnotation() {
         AnnotationObject annotationObject = this.packingObjectReflector.getClassObject().getAnnotation(RandomLimit.class);
@@ -124,11 +116,11 @@ public class Randomizer<T> {
     /**
      * create simple object of base type
      *
-     * @param values    random limit
-     * @param paramType class name
+     * @param field target field name
      * @return random type
      */
-    private Object createRandomObject(String paramType, Object... values) {
+    private Object createRandomObject(CommonField field) {
+        String paramType = field.getFieldType().getName();
         switch (paramType) {
             case "java.lang.Byte":
             case "byte":
@@ -138,7 +130,7 @@ public class Randomizer<T> {
                 return BaseRandom.getRandomShort((short) (values == null || values.length == 0 ? defaultShortMinValue : values[0]), (short) (values == null || values.length == 0 ? defaultShortMaxValue : values[1]));
             case "java.lang.Integer":
             case "int":
-                return BaseRandom.getRandomInt((int) (values == null || values.length == 0 ? defaultIntMinValue : values[0]), (int) (values == null || values.length == 0 ? defaultIntMaxValue : values[1]));
+                return createRandomInt(field);
             case "java.lang.Long":
             case "long":
                 return BaseRandom.getRandomLong((long) (values == null || values.length == 0 ? defaultLongMinValue : values[0]), (long) (values == null || values.length == 0 ? defaultLongMaxValue : values[1]));
@@ -159,5 +151,36 @@ public class Randomizer<T> {
             default:
                 return null;
         }
+    }
+
+    /**
+     * this methdo will check annotation of target field, and
+     * if it use annotation will check IntegerValue first, if not
+     * exits, will check IntegerValue.
+     * <p>
+     * if both of IntegerLimit and IntegerValue are not exits, it will create from class
+     * annotation : RandomLimit, if it not exits, it will use default values.
+     * <p>
+     * the default value create by RandomLimit, and it is equals
+     *
+     * @param field target field
+     * @return int of random
+     * @see IntegerLimit
+     * @see IntegerValue
+     * @see RandomLimit
+     */
+    private int createRandomInt(CommonField field) {
+        AnnotationObject annotationObject = field.getAnnotation(IntegerValue.class);
+        if (annotationObject != null) {
+            return (int) annotationObject.getInfo("value");
+        }
+
+        annotationObject = field.getAnnotation(IntegerLimit.class);
+        if (annotationObject != null) {
+            return BaseRandom.getRandomInt((int) annotationObject.getInfo("minValue"),
+                    (int) annotationObject.getInfo("maxValue"));
+        }
+
+        return BaseRandom.getRandomInt(this.defaultIntMinValue, this.defaultIntMaxValue);
     }
 }
