@@ -133,7 +133,7 @@ public class Randomizer<T> {
                 return createRandomLong(field);
             case "java.lang.Character":
             case "char":
-                return BaseRandom.getRandomChar((String) (values == null || values.length == 0 ? defaultChars : values[0]));
+                return createRandomChar(field);
             case "java.lang.Double":
             case "double":
                 return BaseRandom.getRandomDouble((double) (values == null || values.length == 0 ? defaultDoubleIndex : values[0]));
@@ -270,5 +270,32 @@ public class Randomizer<T> {
         }
 
         return BaseRandom.getRandomLong(this.defaultLongMinValue, this.defaultLongMaxValue);
+    }
+
+    /**
+     * create random char, if the target field declared CharValue, will return CharValue.value,
+     * if not and the target field declared CharLimit, will create from CharLimit.
+     * <p>
+     * if not, it will create from default chars
+     *
+     * @param field target field
+     * @return char of random
+     * @see RandomLimit
+     * @see CharLimit
+     * @see CharValue
+     */
+    private char createRandomChar(CommonField field) {
+        AnnotationObject annotationObject = field.getAnnotation(CharValue.class);
+        if (annotationObject != null) {
+            return (char) annotationObject.getInfo("value");
+        }
+
+        annotationObject = field.getAnnotation(CharLimit.class);
+        String createFrom = this.defaultChars;
+        if (annotationObject != null) {
+            createFrom = (String) annotationObject.getInfo("chars");
+        }
+
+        return BaseRandom.getRandomChar(createFrom);
     }
 }
