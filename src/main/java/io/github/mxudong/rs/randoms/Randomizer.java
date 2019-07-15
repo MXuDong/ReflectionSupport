@@ -136,7 +136,7 @@ public class Randomizer<T> {
                 return createRandomChar(field);
             case "java.lang.Double":
             case "double":
-                return BaseRandom.getRandomDouble((double) (values == null || values.length == 0 ? defaultDoubleIndex : values[0]));
+                return createRandomDouble(field);
             case "java.lang.Float":
             case "float":
                 return BaseRandom.getRandomFloat((float) (values == null || values.length == 0 ? defaultFloatIndex : values[0]));
@@ -297,5 +297,28 @@ public class Randomizer<T> {
         }
 
         return BaseRandom.getRandomChar(createFrom);
+    }
+
+    /**
+     * create the random double, and check the annotation of DoubleValue and DoubleIndexValue
+     *
+     * @param field target field
+     * @return double of random
+     * @see DoubleIndexValue
+     * @see DoubleValue
+     * @see RandomLimit
+     */
+    private double createRandomDouble(CommonField field) {
+        AnnotationObject annotationObject = field.getAnnotation(DoubleValue.class);
+        if (annotationObject != null) {
+            return (double) annotationObject.getInfo("value");
+        }
+
+        annotationObject = field.getAnnotation(DoubleIndexValue.class);
+        double index = this.defaultDoubleIndex;
+        if (annotationObject != null) {
+            index = (double) annotationObject.getInfo("indexValue");
+        }
+        return BaseRandom.getRandomDouble(index);
     }
 }
