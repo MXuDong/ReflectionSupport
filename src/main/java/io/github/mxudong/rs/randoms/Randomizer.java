@@ -139,7 +139,7 @@ public class Randomizer<T> {
                 return createRandomDouble(field);
             case "java.lang.Float":
             case "float":
-                return BaseRandom.getRandomFloat((float) (values == null || values.length == 0 ? defaultFloatIndex : values[0]));
+                return createRandomFloat(field);
             case "java.lang.Boolean":
             case "boolean":
                 return createRandomBoolean(field);
@@ -320,5 +320,28 @@ public class Randomizer<T> {
             index = (double) annotationObject.getInfo("indexValue");
         }
         return BaseRandom.getRandomDouble(index);
+    }
+
+    /**
+     * create the random float, and check the annotation of floatValue and floatIndexValue
+     *
+     * @param field target field
+     * @return float of random
+     * @see FloatIndexValue
+     * @see FloatValue
+     * @see RandomLimit
+     */
+    private double createRandomFloat(CommonField field) {
+        AnnotationObject annotationObject = field.getAnnotation(FloatValue.class);
+        if (annotationObject != null) {
+            return (float) annotationObject.getInfo("value");
+        }
+
+        annotationObject = field.getAnnotation(FloatIndexValue.class);
+        float index = this.defaultFloatIndex;
+        if (annotationObject != null) {
+            index = (float) annotationObject.getInfo("indexValue");
+        }
+        return BaseRandom.getRandomFloat(index);
     }
 }
