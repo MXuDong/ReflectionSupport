@@ -3,15 +3,15 @@ package io.github.mxudong.rs.randoms.annotations;
 import java.lang.annotation.*;
 
 /**
- * limit the double range, it set the index of random double
+ * specify the generated double data value
  *
  * @author Dong
+ * @see DoubleIndexValue
  * @see RandomLimit
- * @see DoubleValue
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface DoubleIndexValue {
-    double indexValue();
+public @interface DoubleValue {
+    double value();
 }
