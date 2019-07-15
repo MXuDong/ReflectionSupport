@@ -130,7 +130,7 @@ public class Randomizer<T> {
                 return createRandomInt(field);
             case "java.lang.Long":
             case "long":
-                return BaseRandom.getRandomLong((long) (values == null || values.length == 0 ? defaultLongMinValue : values[0]), (long) (values == null || values.length == 0 ? defaultLongMaxValue : values[1]));
+                return createRandomLong(field);
             case "java.lang.Character":
             case "char":
                 return BaseRandom.getRandomChar((String) (values == null || values.length == 0 ? defaultChars : values[0]));
@@ -245,5 +245,30 @@ public class Randomizer<T> {
         }
 
         return BaseRandom.getRandomInt(this.defaultIntMinValue, this.defaultIntMaxValue);
+    }
+
+    /**
+     * like {@link Randomizer#createRandomInt(CommonField)}, the method is same as that,
+     * only the type change from {@code int} to {@code long}
+     *
+     * @param field target field
+     * @return long of random
+     * @see LongLimit
+     * @see LongValue
+     * @see RandomLimit
+     */
+    private long createRandomLong(CommonField field) {
+        AnnotationObject annotationObject = field.getAnnotation(LongValue.class);
+        if (annotationObject != null) {
+            return (long) annotationObject.getInfo("value");
+        }
+
+        annotationObject = field.getAnnotation(LongLimit.class);
+        if (annotationObject != null) {
+            return BaseRandom.getRandomLong((long) annotationObject.getInfo("minValue"),
+                    (long) annotationObject.getInfo("maxValue"));
+        }
+
+        return BaseRandom.getRandomLong(this.defaultLongMinValue, this.defaultLongMaxValue);
     }
 }
