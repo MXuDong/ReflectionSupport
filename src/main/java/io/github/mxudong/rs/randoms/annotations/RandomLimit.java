@@ -3,6 +3,8 @@ package io.github.mxudong.rs.randoms.annotations;
 import java.lang.annotation.*;
 
 /**
+ * set default create data's range of base type value
+ *
  * @author Dong
  */
 @Target(ElementType.TYPE)
