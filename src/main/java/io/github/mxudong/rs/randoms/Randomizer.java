@@ -3,7 +3,6 @@ package io.github.mxudong.rs.randoms;
 import io.github.mxudong.rs.Reflector;
 import io.github.mxudong.rs.packings.classes.AnnotationObject;
 import io.github.mxudong.rs.packings.fields.CommonField;
-import io.github.mxudong.rs.packings.methods.SetterMethod;
 import io.github.mxudong.rs.randoms.annotations.*;
 import io.github.mxudong.rs.utils.StringUtil;
 
@@ -125,7 +124,7 @@ public class Randomizer<T> {
                 return createRandomByte(field);
             case "java.lang.Short":
             case "short":
-                return BaseRandom.getRandomShort((short) (values == null || values.length == 0 ? defaultShortMinValue : values[0]), (short) (values == null || values.length == 0 ? defaultShortMaxValue : values[1]));
+                return createRandomShort(field);
             case "java.lang.Integer":
             case "int":
                 return createRandomInt(field);
@@ -154,25 +153,51 @@ public class Randomizer<T> {
     /**
      * like {@link Randomizer#createRandomInt(CommonField)}, the method is same as that,
      * only the type change from {@code int} to {@code byte}
+     *
      * @param field target field
      * @return byte of random
      * @see ByteLimit
      * @see ByteValue
      * @see RandomLimit
      */
-    private byte createRandomByte(CommonField field){
+    private byte createRandomByte(CommonField field) {
         AnnotationObject annotationObject = field.getAnnotation(ByteValue.class);
-        if(annotationObject != null){
+        if (annotationObject != null) {
             return (byte) annotationObject.getInfo("value");
         }
 
         annotationObject = field.getAnnotation(ByteLimit.class);
-        if(annotationObject != null){
-            return BaseRandom.getRandomByte((byte)annotationObject.getInfo("minValue"),
+        if (annotationObject != null) {
+            return BaseRandom.getRandomByte((byte) annotationObject.getInfo("minValue"),
                     (Byte) annotationObject.getInfo("maxValue"));
         }
 
         return BaseRandom.getRandomByte(this.defaultByteMinValue, this.defaultByteMaxValue);
+    }
+
+    /**
+     * like {@link Randomizer#createRandomInt(CommonField)}, the method is same as that,
+     * only the type change from {@code int} to {@code short}
+     *
+     * @param field target field
+     * @return short of random
+     * @see ShortLimit
+     * @see ShortValue
+     * @see RandomLimit
+     */
+    private short createRandomShort(CommonField field) {
+        AnnotationObject annotationObject = field.getAnnotation(ShortValue.class);
+        if (annotationObject != null) {
+            return (short) annotationObject.getInfo("value");
+        }
+
+        annotationObject = field.getAnnotation(ShortLimit.class);
+        if (annotationObject != null) {
+            return BaseRandom.getRandomShort((short) annotationObject.getInfo("minValue"),
+                    (short) annotationObject.getInfo("maxValue"));
+        }
+
+        return BaseRandom.getRandomShort(this.defaultShortMinValue, this.defaultShortMaxValue);
     }
 
     /**
