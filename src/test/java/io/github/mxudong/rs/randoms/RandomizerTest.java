@@ -1,6 +1,7 @@
 package io.github.mxudong.rs.randoms;
 
 import io.github.mxudong.rs.bean.BoyStudent;
+import io.github.mxudong.rs.bean.TestRandomBean;
 import org.junit.Test;
 
 public class RandomizerTest {
@@ -16,6 +17,15 @@ public class RandomizerTest {
         System.out.println(randomizer.getInnerObject());
         randomizer.doRandom(false);
         System.out.println(randomizer.getInnerObject());
+    }
+
+    @Test
+    public void test03(){
+        TestRandomBean randomBean = new TestRandomBean();
+        Randomizer<TestRandomBean> testRandomBeanRandomizer = new Randomizer(randomBean);
+        System.out.println(testRandomBeanRandomizer.getInnerObject());
+        testRandomBeanRandomizer.doRandom(true);
+        System.out.println(testRandomBeanRandomizer.getInnerObject());
     }
 
 }

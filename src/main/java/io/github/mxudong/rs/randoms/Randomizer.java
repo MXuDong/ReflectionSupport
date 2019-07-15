@@ -85,7 +85,7 @@ public class Randomizer<T> {
                 Object params = createRandomObject(commonField);
                 if (params == null && doDeep) {
                     Randomizer randomizer = new Randomizer(commonField.getFieldType());
-                    randomizer.doRandom(true);
+                    randomizer.doRandom(false);
                     params = randomizer.getInnerObject();
                 }
                 commonField.setValue(this.getInnerObject(), params);
@@ -337,7 +337,7 @@ public class Randomizer<T> {
      * @see FloatValue
      * @see RandomLimit
      */
-    private double createRandomFloat(CommonField field) {
+    private float createRandomFloat(CommonField field) {
         AnnotationObject annotationObject = field.getAnnotation(FloatValue.class);
         if (annotationObject != null) {
             return (float) annotationObject.getInfo("value");

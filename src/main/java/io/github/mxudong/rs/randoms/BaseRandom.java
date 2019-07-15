@@ -176,7 +176,8 @@ public class BaseRandom {
      * @return a random value of float type
      */
     public static float getRandomFloat(float flags) {
-        return (float) getRandomDouble(flags);
+        float temp = Math.abs(new Random().nextFloat());
+        return temp + flags;
     }
 
     /**
