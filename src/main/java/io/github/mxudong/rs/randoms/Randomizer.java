@@ -4,9 +4,7 @@ import io.github.mxudong.rs.Reflector;
 import io.github.mxudong.rs.packings.classes.AnnotationObject;
 import io.github.mxudong.rs.packings.fields.CommonField;
 import io.github.mxudong.rs.packings.methods.SetterMethod;
-import io.github.mxudong.rs.randoms.annotations.IntegerLimit;
-import io.github.mxudong.rs.randoms.annotations.IntegerValue;
-import io.github.mxudong.rs.randoms.annotations.RandomLimit;
+import io.github.mxudong.rs.randoms.annotations.*;
 import io.github.mxudong.rs.utils.StringUtil;
 
 import java.util.ArrayList;
@@ -124,7 +122,7 @@ public class Randomizer<T> {
         switch (paramType) {
             case "java.lang.Byte":
             case "byte":
-                return BaseRandom.getRandomByte((byte) (values == null || values.length == 0 ? defaultByteMinValue : values[0]), (byte) (values == null || values.length == 0 ? defaultByteMaxValue : values[1]));
+                return createRandomByte(field);
             case "java.lang.Short":
             case "short":
                 return BaseRandom.getRandomShort((short) (values == null || values.length == 0 ? defaultShortMinValue : values[0]), (short) (values == null || values.length == 0 ? defaultShortMaxValue : values[1]));
@@ -151,6 +149,30 @@ public class Randomizer<T> {
             default:
                 return null;
         }
+    }
+
+    /**
+     * like {@link Randomizer#createRandomInt(CommonField)}, the method is same as that,
+     * only the type change from {@code int} to {@code byte}
+     * @param field target field
+     * @return byte of random
+     * @see ByteLimit
+     * @see ByteValue
+     * @see RandomLimit
+     */
+    private byte createRandomByte(CommonField field){
+        AnnotationObject annotationObject = field.getAnnotation(ByteValue.class);
+        if(annotationObject != null){
+            return (byte) annotationObject.getInfo("value");
+        }
+
+        annotationObject = field.getAnnotation(ByteLimit.class);
+        if(annotationObject != null){
+            return BaseRandom.getRandomByte((byte)annotationObject.getInfo("minValue"),
+                    (Byte) annotationObject.getInfo("maxValue"));
+        }
+
+        return BaseRandom.getRandomByte(this.defaultByteMinValue, this.defaultByteMaxValue);
     }
 
     /**
