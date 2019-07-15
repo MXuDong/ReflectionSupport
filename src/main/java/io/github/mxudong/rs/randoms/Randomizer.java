@@ -144,7 +144,7 @@ public class Randomizer<T> {
             case "boolean":
                 return createRandomBoolean(field);
             case "java.lang.String":
-                return RandomFormatString.createRandomStringBase((String) (values == null || values.length == 0 ? defaultStringFormat : values[0]));
+                return createRandomString(field);
             default:
                 return null;
         }
@@ -343,5 +343,28 @@ public class Randomizer<T> {
             index = (float) annotationObject.getInfo("indexValue");
         }
         return BaseRandom.getRandomFloat(index);
+    }
+
+    /**
+     * create the random String, and check the annotation of:StringValue, StringFormatValue
+     *
+     * @param field target field
+     * @return String
+     * @see StringFormatValue
+     * @see StringValue
+     * @see RandomLimit
+     */
+    private String createRandomString(CommonField field) {
+        AnnotationObject annotationObject = field.getAnnotation(StringValue.class);
+        if (annotationObject != null) {
+            return (String) annotationObject.getInfo("value");
+        }
+
+        annotationObject = field.getAnnotation(StringFormatValue.class);
+        String format = this.defaultStringFormat;
+        if (annotationObject != null) {
+            format = (String) annotationObject.getInfo("value");
+        }
+        return RandomFormatString.createRandomStringBase(format);
     }
 }
