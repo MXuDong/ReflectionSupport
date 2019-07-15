@@ -1,5 +1,7 @@
 package io.github.mxudong.rs.randoms.annotations;
 
+import java.lang.annotation.*;
+
 /**
  * Restricting Byte's Generation Interval
  * <p>
@@ -11,6 +13,9 @@ package io.github.mxudong.rs.randoms.annotations;
  * @see RandomLimit
  * @see ByteValue
  */
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
 public @interface ByteLimit {
 
     byte minValue() default Byte.MIN_VALUE;
