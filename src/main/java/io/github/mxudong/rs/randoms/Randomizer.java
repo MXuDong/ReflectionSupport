@@ -3,13 +3,11 @@ package io.github.mxudong.rs.randoms;
 import io.github.mxudong.rs.Reflector;
 import io.github.mxudong.rs.packings.classes.AnnotationObject;
 import io.github.mxudong.rs.packings.fields.CommonField;
-import io.github.mxudong.rs.packings.methods.GetterMethod;
 import io.github.mxudong.rs.packings.methods.SetterMethod;
 import io.github.mxudong.rs.randoms.annotations.RandomLimit;
 import io.github.mxudong.rs.utils.StringUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * the randomizer is for random any object,
@@ -87,11 +85,11 @@ public class Randomizer<T> {
         for (CommonField commonField : commonFields) {
             if (commonField.canSet()) {
                 SetterMethod setterMethod = this.packingObjectReflector.getClassObject().getSetterMethod(commonField.getSetterMethodName())[0];
-                Class [] classes = setterMethod.getMethodParamsType();
+                Class[] classes = setterMethod.getMethodParamsType();
                 Object[] params = new Object[classes.length];
-                for(int i =0; i < classes.length; i++){
+                for (int i = 0; i < classes.length; i++) {
                     params[i] = createRandomObject(classes[i].getName());
-                    if(params[i] == null && doDeep){
+                    if (params[i] == null && doDeep) {
                         Randomizer r = new Randomizer(classes[i]);
                         r.doRandom(true);
                         params[i] = r.getInnerObject();
@@ -137,7 +135,7 @@ public class Randomizer<T> {
                 return BaseRandom.getRandomByte((byte) (values == null || values.length == 0 ? defaultByteMinValue : values[0]), (byte) (values == null || values.length == 0 ? defaultByteMaxValue : values[1]));
             case "java.lang.Short":
             case "short":
-                return BaseRandom.getRandomShort((short) (values == null || values.length == 0 ? defaultShortMinValue : values[0]), (short) (values == null || values.length == 0 ? defaultShortMinValue : values[1]));
+                return BaseRandom.getRandomShort((short) (values == null || values.length == 0 ? defaultShortMinValue : values[0]), (short) (values == null || values.length == 0 ? defaultShortMaxValue : values[1]));
             case "java.lang.Integer":
             case "int":
                 return BaseRandom.getRandomInt((int) (values == null || values.length == 0 ? defaultIntMinValue : values[0]), (int) (values == null || values.length == 0 ? defaultIntMaxValue : values[1]));
