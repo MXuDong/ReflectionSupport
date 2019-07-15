@@ -82,7 +82,13 @@ public class Randomizer<T> {
 
         for (CommonField commonField : commonFields) {
             if (commonField.canSet()) {
-                commonField.setValue(this.getInnerObject(), createRandomObject(commonField));
+                Object params = createRandomObject(commonField);
+                if (params == null && doDeep) {
+                    Randomizer randomizer = new Randomizer(commonField.getFieldType());
+                    randomizer.doRandom(true);
+                    params = randomizer.getInnerObject();
+                }
+                commonField.setValue(this.getInnerObject(), params);
             }
         }
     }
