@@ -142,12 +142,28 @@ public class Randomizer<T> {
                 return BaseRandom.getRandomFloat((float) (values == null || values.length == 0 ? defaultFloatIndex : values[0]));
             case "java.lang.Boolean":
             case "boolean":
-                return BaseRandom.getRandomBoolean();
+                return createRandomBoolean(field);
             case "java.lang.String":
                 return RandomFormatString.createRandomStringBase((String) (values == null || values.length == 0 ? defaultStringFormat : values[0]));
             default:
                 return null;
         }
+    }
+
+    /**
+     * get the boolean value, if the field declared BooleanValue, it will use value
+     * of BooleanValue
+     *
+     * @param field target field
+     * @return boolean of random
+     */
+    private boolean createRandomBoolean(CommonField field) {
+        AnnotationObject annotationObject = field.getAnnotation(BooleanValue.class);
+        if (annotationObject != null) {
+            return (boolean) annotationObject.getInfo("value");
+        }
+
+        return BaseRandom.getRandomBoolean();
     }
 
     /**
