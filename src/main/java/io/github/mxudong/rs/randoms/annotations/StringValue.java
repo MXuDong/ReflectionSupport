@@ -3,16 +3,15 @@ package io.github.mxudong.rs.randoms.annotations;
 import java.lang.annotation.*;
 
 /**
- * set the string format
+ * specify the generated string data value
  *
  * @author Dong
  * @see RandomLimit
- * @see StringValue
+ * @see StringFormatValue
  */
-
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface StringFormatValue {
+public @interface StringValue {
     String value();
 }
