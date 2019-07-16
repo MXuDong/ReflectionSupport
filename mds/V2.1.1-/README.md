@@ -9,7 +9,7 @@
     同时对Field、Method、Class进行全面挂钩，重构链接关系与方法
 
 # 2.1 已经发布
-## [2.1说明文档](V2.1.1-/Instructions.md)
+## [2.1说明文档](Instructions.md)
 支持最小的JDK版本:JDK 1.8
 
 整合了[类随机化项目](https://gitee.com/MXuDong/RandomDataForClass)
@@ -26,7 +26,7 @@
 ```
 
 # 安装说明：
-[请参考：ReflectionSupport安装说明](V2.1.1-/Install.md)
+[请参考：ReflectionSupport安装说明](Install.md)
 
 # 目前以支持功能： 对任意对象完全反射支持
     
