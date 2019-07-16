@@ -1,7 +1,26 @@
 # ReflectionSupport V 3.0 使用说明
-请注意，该版本处于重构过程中。历史版本2.1.1已经提供了较为完整的操作。
+请注意，该版本和之前的版本并不兼容，如果想要
+了解之前的版本，请阅读：[V 2.1.1 使用说明](V2.1.1-/README.md)
 
-# 进度
+### ReflectionSupport的引用方式
+请查看 [Install.md](Install.md) 进行了解
 
-反射基本草最已经完成，缺少注解支持
-注解分析完成，准备向已有信息添加注解解析
+# 模块目录
+1. 反射模块
+    1. Reflector
+    2. ClassObjectPacking
+    3. AnnotationPacking
+    4. MethodPacking
+    5. FieldPacking
+2. 随机化模块
+    1. BaseRandom
+    2. RandomFormatString
+    3. Randomizer
+    4. Annotations
+        1. @RandomLimit
+        2. @(Type)Limit
+        3. @(Type)Value
+
+# 模块详细介绍
+1. [反射模块](ReflectionModle.md)
+2. [随机化模块](RandomModle.md)
