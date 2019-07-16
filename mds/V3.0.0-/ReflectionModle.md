@@ -1,5 +1,6 @@
 # ReflectionSupport 反射模块
 
+# 模块详细介绍
 1. 类对象反射解析``Object.Class``对象
     使用反射解析对象可以对任意类进行反射解析
     1. 获取全部字段信息 
@@ -43,3 +44,39 @@
     2. 将注解信息转为``Map<String, Object>``对象
  
     具体请查阅[AnnotationInfos.md](AnnotationInfos.md)
+6. 对象解析类``Object``
+    1. 对对象的包装，包括所有有关对象的操作
+    2. 封装ClassObject对象
+
+# 使用过程
+
+##### 定义
+    所有代码中对象Human的结构
+```java
+class Human{
+    private int age;
+    private String name;
+    public String number;
+}
+```
+    以上三个属性均包含Setter方法和Getter方法
+    包含默认构造器并重写 toString() 方法
+
+声明一个Reflector对象即可操作如下
+```java
+class Test{
+    public static void main(String[] args) {
+        Reflector<Human> humanReflector = new Reflector(Human.class );
+    }
+} 
+```
+接下来使用Reflector进行操作即可
+这里给出了Reflector的常用方法列表，其他具体方法请查看JavaDoc文档
+
+|方法声明|说明|备注|
+|:---|:---|---|
+|``public Reflector(T object)``|构造方法||
+|``public Map<String, Object> turnToMap(boolean canBeNull)``|将对象转为Map对象|参数``canBeNull``表示被转换对象属性如果为空是否添加|
+|``public void setFromMap(Map<String, Object> infos)``|按照``infos``进行设置字段信息||
+|``public Object invokeMethod(String methodName, Object... args)``|调用方法||
+|``public ClassObject<T> getClassObject()``|获取``ClassObject<T>``对象|此方法最常用，通常通过ClassObject对象获取很多对象信息|
