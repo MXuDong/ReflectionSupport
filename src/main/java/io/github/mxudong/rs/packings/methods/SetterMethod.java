@@ -33,7 +33,6 @@ public class SetterMethod extends CommonMethod {
      *
      * @param target aim object
      * @param value  aim value
-     * @return the result of invoke
      */
     public void invoke(Object target, Object value) {
         super.invoke(target, value);

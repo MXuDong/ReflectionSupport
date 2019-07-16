@@ -243,6 +243,7 @@ public class CommonField implements AnnotationAble {
      *
      * @param target aim object which you want to invoke
      * @param value  you expect value
+     * @return set result
      * @see SetterMethod
      */
     public Object setValue(Object target, Object... value) {
