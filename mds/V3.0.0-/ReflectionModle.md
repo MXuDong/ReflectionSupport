@@ -62,6 +62,7 @@ class Human{
     以上三个属性均包含Setter方法和Getter方法
     包含默认构造器并重写 toString() 方法
 
+### 1. 声明一个Reflector对象
 声明一个Reflector对象即可操作如下
 ```java
 class Test{
@@ -74,9 +75,37 @@ class Test{
 这里给出了Reflector的常用方法列表，其他具体方法请查看JavaDoc文档
 
 |方法声明|说明|备注|
-|:---|:---|---|
+|:---|:---|---:|
 |``public Reflector(T object)``|构造方法||
 |``public Map<String, Object> turnToMap(boolean canBeNull)``|将对象转为Map对象|参数``canBeNull``表示被转换对象属性如果为空是否添加|
 |``public void setFromMap(Map<String, Object> infos)``|按照``infos``进行设置字段信息||
 |``public Object invokeMethod(String methodName, Object... args)``|调用方法||
 |``public ClassObject<T> getClassObject()``|获取``ClassObject<T>``对象|此方法最常用，通常通过ClassObject对象获取很多对象信息|
+
+### 2. 通过Reflector获取一个ClassObject对象
+```java
+public class Test{
+    public static void main(String[] args) {
+        Reflector<Human> humanReflector = new Reflector(Human.class);
+        ClassObject<Human> humanClassObject = humanReflector.getClassObject(); 
+    }
+}
+```
+或者通过工厂直接创建
+```java
+public class Test{
+    public static void main(String[] args) {
+        ClassObject<Human> humanClassObject = ObjectFactory.getInstance().getClassObject(Human.class);
+    }
+}
+```
+拿到了ClassObject对象后，我们可以拿到相关的信息
+
+这里给出了一些常用的方法，具体的方法请参考Java文档
+
+|方法声明|说明|备注|
+|:---|:---|---:|
+|``public List<AnnotationObject> getAllAnnotation()``|获取全部的注解信息||
+|``public ArrayList<CommonField> getAllFields()``|获取全部的字段信息||
+|``public ArrayList<Invoker> getAllMethods()``|获取全部方法|在父类中声明的方法也会被获取|
+|``public Invoker[] getMethods()``|获取本类声明的方法||
