@@ -9,3 +9,5 @@ Maven 仓库引用
     <version>3.0.0</version>
 </dependency>
 ```
+
+其他工具请查询Maven中央仓库
