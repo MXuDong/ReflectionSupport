@@ -20,6 +20,8 @@
         1. @RandomLimit
         2. @(Type)Limit
         3. @(Type)Value
+        
+值得注意的是，3.0.0版本内的所有方法（ObjectFactory类除外）都没有支持线程同步
 
 # 模块详细介绍
 1. [反射模块](ReflectionModle.md)
