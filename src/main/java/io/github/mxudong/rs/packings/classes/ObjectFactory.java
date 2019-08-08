@@ -16,6 +16,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * <p>
  * if you want to load a class, all the super class from this will be load too. Until object or
  * head, if the super class is loaded, it will stop.
+ * <p>
+ * And it is not Sync!
  *
  * @author Dong
  * @since 3.0
@@ -75,14 +77,11 @@ public class ObjectFactory {
         }
 
         if (!classObjectMap.containsKey(c.getName())) {
-            synchronized (ObjectFactory.class) {
-                if (!classObjectMap.containsKey(c.getName())) {
-                    ClassObject<?> classObject = new ClassObject<>(c);
-                    classObjectMap.put(c.getName(), classObject);
-                    classObject.build();
-                }
-            }
+            ClassObject<?> classObject = new ClassObject<>(c);
+            classObjectMap.put(c.getName(), classObject);
+            classObject.build();
         }
+
         return classObjectMap.get(c.getName());
     }
 
@@ -95,14 +94,12 @@ public class ObjectFactory {
     public AnnotationClass getAnnotationClass(Class targetClass) {
         if (targetClass.isAnnotation()) {
             if (!classObjectMap.containsKey(targetClass.getName())) {
-                synchronized (ObjectFactory.class) {
-                    if (!classObjectMap.containsKey(targetClass.getName())) {
-                        AnnotationClass annotationClass = new AnnotationClass(targetClass);
-                        classObjectMap.put(targetClass.getName(), annotationClass);
-                        annotationClass.build();
-                    }
-                }
+                AnnotationClass annotationClass = new AnnotationClass(targetClass);
+                classObjectMap.put(targetClass.getName(), annotationClass);
+                annotationClass.build();
             }
+
+
         } else {
             try {
                 throw new ReflectionException("ObjectFactory", "getAnnotationClass",
